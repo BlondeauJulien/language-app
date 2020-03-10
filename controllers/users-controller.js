@@ -1,9 +1,9 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
+const { createJWT } = require('../utils/createJWT');
 
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
@@ -12,7 +12,7 @@ const signup = async (req, res, next) => {
   }
 
   const { username, email, password } = req.body;
-  
+
   let existingUser;
   try {
     existingUser = await User.findOne({ $or: [{username}, {email}] }, '-password');
@@ -64,7 +64,14 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({message: 'user created!'});
+  let token = createJWT(newUser._id, newUser.email);
+
+  if(!token) {
+    const error = new HttpError('signin failed, please try again', 500);
+    return next(error);
+  }
+
+  res.status(201).json({userId: newUser._id, username, email, token: token});
 }
 
 exports.signup = signup;
