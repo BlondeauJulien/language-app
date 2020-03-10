@@ -17,7 +17,6 @@ mongoose.connect(
     useUnifiedTopology: true
   }
 ).then(() => {
-  const PORT = 5000;
 
   app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   }
