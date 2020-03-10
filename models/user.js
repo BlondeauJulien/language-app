@@ -22,15 +22,16 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    required: true,
     default: 'user',
     enum: ['user', 'moderator', 'admin']
   },
+  status: {
+    type: String,
+    default: 'active',
+    enum: ['active', 'banned']
+  },
   imageToReview: {
     type: Array,
-    required: function() {
-      return this.role !== user ? true : false;
-    },
     default: []
   },
   courseCreated: [{
