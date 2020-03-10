@@ -10,6 +10,8 @@ const usersRoutes = require('./routes/users-routes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(express.json());
+
 app.use('/api/users', usersRoutes);
 
 app.use((req, res, next) => {
