@@ -3,11 +3,16 @@ require('dotenv').config();
 
 const app = require('./server');
 
+let dbUrl = process.env.MONGO_URI;
+
+if (process.env.NODE_ENV === 'test') {
+  dbUrl = process.env.MONGO_URI_TEST;
+}
 
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(
-  process.env.MONGO_URI,
+  dbUrl,
   {
     useNewUrlParser: true,
     useCreateIndex: true,
