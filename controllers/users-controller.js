@@ -45,7 +45,7 @@ const signup = async (req, res, next) => {
     hashedPassword = await bcrypt.hash(password, 12);
   } catch (err) {
     const error = new HttpError(
-      'Could not create user, please try again.', 
+      'Signup failed, please try again.', 
       500
     );
     return next(error);
@@ -60,14 +60,14 @@ const signup = async (req, res, next) => {
   try {
     await newUser.save();
   } catch (err) {
-    const error = new HttpError('signup failed, please try again', 500);
+    const error = new HttpError('Signup failed, please try again.', 500);
     return next(error);
   }
 
   let token = createJWT(newUser._id, newUser.email);
 
   if(!token) {
-    const error = new HttpError('signin failed, please try again', 500);
+    const error = new HttpError('Signup failed, please try again.', 500);
     return next(error);
   }
 
