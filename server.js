@@ -9,6 +9,12 @@ const app = express();
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to the server!',
+  });
+});
+
 app.use('/api/users', usersRoutes);
 
 app.use((req, res, next) => {
