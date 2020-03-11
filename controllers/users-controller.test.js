@@ -1,14 +1,14 @@
 const app = require('../server');
-const mongoose = require('mongoose');
 
 const supertest = require('supertest');
 const request = supertest(app);
 
+const { setupDB } = require('../test-setup');
 const User = require('../models/user');
 
-const databaseName = 'languageDBTest';
+setupDB('languageDBTest');
 
-beforeAll(async () => {
+/* beforeAll(async () => {
   const url = `mongodb://localhost:27017/${databaseName}`;
   await mongoose.connect(url, {
     useNewUrlParser: true,
@@ -28,7 +28,7 @@ async function removeAllCollections () {
 
 afterEach(async () => {
   await removeAllCollections()
-});
+}); */
 
 describe('POST - /api/users/signup ', () => {
   it('Should save user to database - password hashed - get back token', async done => {

@@ -1,7 +1,7 @@
 const app = require('./server');
 
 const supertest = require('supertest');
-const request = supertest(app);
+const request = supertest(app); 
 
 describe('App environment ', () => {
   it('should use "test" as NODE_ENV value', async () => {
