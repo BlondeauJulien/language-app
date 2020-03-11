@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "test": "$env:NODE_ENV='test' & jest",
+    "test": "jest",
     "test:watch": "jest --watch"
   },
   "keywords": [],
@@ -25,5 +25,8 @@
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
