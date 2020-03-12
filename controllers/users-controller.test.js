@@ -108,10 +108,12 @@ describe('POST - /api/users/signup ', () => {
 });
 
 describe('GET - /api/users/login ', () => {
-  it('Should get existing user from DB and return username, email and token', async done => {
+  beforeEach(async () => {
     await request.post('/api/users/signup')
     .send(createUserObj('Julien', 'julien@gmail.com', '123456'));
+  });
 
+  it('Should get existing user from DB and return username, email and token', async done => {
     const user = await User.findOne({ email: 'julien@gmail.com' });
     expect(user.username).toBe('Julien');
 
@@ -127,9 +129,6 @@ describe('GET - /api/users/login ', () => {
   });
 
   it('should not login with unknown email address', async done => {
-    await request.post('/api/users/signup')
-    .send(createUserObj('Julien', 'julien@gmail.com', '123456'));
-
     const user = await User.findOne({ email: 'julien@gmail.com' });
     expect(user.email).toBe('julien@gmail.com');
 
@@ -143,9 +142,6 @@ describe('GET - /api/users/login ', () => {
   });
 
   it('should not login with wrong password', async done => {
-    await request.post('/api/users/signup')
-    .send(createUserObj('Julien', 'julien@gmail.com', '123456'));
-
     const user = await User.findOne({ email: 'julien@gmail.com' });
     expect(user.email).toBe('julien@gmail.com');
 
