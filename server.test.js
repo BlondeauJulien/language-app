@@ -1,16 +1,10 @@
 const app = require('./server');
 
 const supertest = require('supertest');
-const request = supertest(app); 
-
-describe('App environment ', () => {
-  it('should use "test" as NODE_ENV value', async () => {
-    expect(process.env.NODE_ENV).toBe('test');
-  });
-});
+const request = supertest(app);
 
 describe('App - GET / ', () => {
-  it('should use "test" as NODE_ENV value', async done => {
+  it('home route should works & return Welcome message', async done => {
     const response = await request.get('/');
 
     expect(response.status).toBe(200);

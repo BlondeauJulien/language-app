@@ -8,36 +8,14 @@ const User = require('../models/user');
 
 setupDB('languageDBTest');
 
-/* beforeAll(async () => {
-  const url = `mongodb://localhost:27017/${databaseName}`;
-  await mongoose.connect(url, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  });
-});
-
-async function removeAllCollections () {
-  const collections = Object.keys(mongoose.connection.collections)
-  for (const collectionName of collections) {
-    const collection = mongoose.connection.collections[collectionName]
-    await collection.deleteMany()
-  }
+function createUserObj(username, email, password) {
+  return {username, email, password};
 }
-
-afterEach(async () => {
-  await removeAllCollections()
-}); */
 
 describe('POST - /api/users/signup ', () => {
   it('Should save user to database - password hashed - get back token', async done => {
     const res = await request.post('/api/users/signup')
-    .send({
-      username: 'Julien',
-      email: 'julien@gmail.com',
-      password: '123456'
-    });
+    .send(createUserObj('Julien', 'julien@gmail.com', '123456'));
 
     const user = await User.findOne({ email: 'julien@gmail.com' });
     expect(user.username).toBe('Julien');
@@ -49,6 +27,45 @@ describe('POST - /api/users/signup ', () => {
     expect(res.body.email).toBe('julien@gmail.com');
     expect(res.body.password).toBeFalsy();
     expect(res.body.token).toBeTruthy();
+
+    done();
+  });
+
+  it('Should not save a user missing username or with username.length < 4', async done => {
+    const res = await request.post('/api/users/signup')
+    .send(createUserObj('Jul', 'julien@gmail.com', '123456'));
+    
+    const user = await User.findOne({ email: 'julien@gmail.com' });
+    expect(user).toBeFalsy();
+    
+    expect(res.status).toBe(422);
+    expect(res.body.message).toBe('Username should contain 4 to 16 characters');
+
+    done();
+  });
+
+  it('Should not save a user with invalid email', async done => {
+    const res = await request.post('/api/users/signup')
+    .send(createUserObj('Julien', 'juliengmail.com', '123456'));
+    
+    const user = await User.findOne({ username: 'Julien' });
+    expect(user).toBeFalsy();
+    
+    expect(res.status).toBe(422);
+    expect(res.body.message).toBe('Please use a valid email');
+
+    done();
+  });
+
+  it('Should not save a user with password shorter than 6 characters', async done => {
+    const res = await request.post('/api/users/signup')
+    .send(createUserObj('Julien', 'julien@gmail.com', '12345'));
+    
+    const user = await User.findOne({ email: 'julien@gmail.com' });
+    expect(user).toBeFalsy();
+    
+    expect(res.status).toBe(422);
+    expect(res.body.message).toBe('Password must contain at least 6 characters');
 
     done();
   });

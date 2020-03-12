@@ -8,7 +8,7 @@ const { createJWT } = require('../utils/createJWT');
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if(!errors.isEmpty()) {
-    return next(new HttpError('Invalid inputs passed, please check all fields and try again ', 422));
+    return next(new HttpError(errors.errors[0].msg, 422));
   }
 
   const { username, email, password } = req.body;
