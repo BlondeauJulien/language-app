@@ -12,6 +12,10 @@ function createUserObj(username, email, password) {
   return {username, email, password};
 }
 
+function createSignInUserObj(email, password) {
+  return {email, password};
+}
+
 describe('POST - /api/users/signup ', () => {
   it('Should save user to database - password hashed - get back token', async done => {
     const res = await request.post('/api/users/signup')
@@ -98,6 +102,58 @@ describe('POST - /api/users/signup ', () => {
     
     expect(res.status).toBe(409);
     expect(res.body.message).toMatch(/This email is already used/i);
+
+    done();
+  });
+});
+
+describe('GET - /api/users/login ', () => {
+  it('Should get existing user from DB and return username, email and token', async done => {
+    await request.post('/api/users/signup')
+    .send(createUserObj('Julien', 'julien@gmail.com', '123456'));
+
+    const user = await User.findOne({ email: 'julien@gmail.com' });
+    expect(user.username).toBe('Julien');
+
+    const res = await request.post('/api/users/login')
+    .send(createSignInUserObj('julien@gmail.com', '123456'));
+
+    expect(res.body.username).toBe('Julien');
+    expect(res.body.email).toBe('julien@gmail.com');
+    expect(res.body.password).toBeFalsy();
+    expect(res.body.token).toBeTruthy();
+
+    done();
+  });
+
+  it('should not login with unknown email address', async done => {
+    await request.post('/api/users/signup')
+    .send(createUserObj('Julien', 'julien@gmail.com', '123456'));
+
+    const user = await User.findOne({ email: 'julien@gmail.com' });
+    expect(user.email).toBe('julien@gmail.com');
+
+    const res = await request.post('/api/users/signin')
+    .send(createSignInUserObj('julien123@gmail.com', '123456'));
+
+    expect(res.status).toBe(401);
+    expect(res.body.message).toMatch(/We didn't find an user for/i);
+
+    done();
+  });
+
+  it('should not login with wrong password', async done => {
+    await request.post('/api/users/signup')
+    .send(createUserObj('Julien', 'julien@gmail.com', '123456'));
+
+    const user = await User.findOne({ email: 'julien@gmail.com' });
+    expect(user.email).toBe('julien@gmail.com');
+
+    const res = await request.post('/api/users/signin')
+    .send(createSignInUserObj('julien123@gmail.com', 'abcdef'));
+
+    expect(res.status).toBe(401);
+    expect(res.body.message).toMatch(/Wrong password/i);
 
     done();
   });
