@@ -14,4 +14,6 @@ router.post('/signup', [
   .withMessage('Password must contain at least 6 characters')
 ], usersControllers.signup);
 
+router.post('/login', usersControllers.login);
+
 module.exports = router;

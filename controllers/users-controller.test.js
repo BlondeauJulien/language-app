@@ -132,7 +132,7 @@ describe('GET - /api/users/login ', () => {
     const user = await User.findOne({ email: 'julien@gmail.com' });
     expect(user.email).toBe('julien@gmail.com');
 
-    const res = await request.post('/api/users/signin')
+    const res = await request.post('/api/users/login')
     .send(createSignInUserObj('julien123@gmail.com', '123456'));
 
     expect(res.status).toBe(401);
@@ -145,8 +145,8 @@ describe('GET - /api/users/login ', () => {
     const user = await User.findOne({ email: 'julien@gmail.com' });
     expect(user.email).toBe('julien@gmail.com');
 
-    const res = await request.post('/api/users/signin')
-    .send(createSignInUserObj('julien123@gmail.com', 'abcdef'));
+    const res = await request.post('/api/users/login')
+    .send(createSignInUserObj('julien@gmail.com', 'abcdef'));
 
     expect(res.status).toBe(401);
     expect(res.body.message).toMatch(/Wrong password/i);

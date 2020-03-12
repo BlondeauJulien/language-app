@@ -71,7 +71,47 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({userId: newUser._id, username, email, token: token});
+  res.status(201).json({userId: newUser._id, username, email, token});
+}
+
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  let user;
+  try {
+    user = await User.findOne({ email });
+  } catch (err) {
+    const error = new HttpError('Login failed, please try again.', 500);
+    return next(error);
+  }
+
+  if(!user) {
+    const error = new HttpError(`We didn't find an user for ${email}`, 401);
+    return next(error);
+  }
+
+  let passwordMatch;
+  try {
+    passwordMatch = await bcrypt.compare(password, user.password)
+  } catch (err) {
+    const error = new HttpError('Login failed, please try again.', 500);
+    return next(error);
+  }
+
+  if(!passwordMatch) {
+    const error = new HttpError(`Wrong password, check it and try again`, 401);
+    return next(error);
+  }
+
+  const token = createJWT(user._id, user.email);
+
+  if(!token) {
+    const error = new HttpError('Login failed, please try again.', 500);
+    return next(error);
+  }
+
+  res.status(201).json({userId: user._id, username : user.username, email, token});
 }
 
 exports.signup = signup;
+exports.login = login;
