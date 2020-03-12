@@ -69,4 +69,36 @@ describe('POST - /api/users/signup ', () => {
 
     done();
   });
+
+  it('Should not save duplicate username and send back clear response message', async done => {
+    await request.post('/api/users/signup')
+    .send(createUserObj('Julien', 'julien@gmail.com', '123456'));
+
+    const user = await User.findOne({ email: 'julien@gmail.com' });
+    expect(user).toBeTruthy();
+
+    const res = await request.post('/api/users/signup')
+    .send(createUserObj('Julien', 'julien123@gmail.com', '123456'));
+    
+    expect(res.status).toBe(409);
+    expect(res.body.message).toMatch('This username is already used');
+
+    done();
+  });
+
+  it('Should not save duplicate email and send back clear response message', async done => {
+    await request.post('/api/users/signup')
+    .send(createUserObj('Julien', 'julien@gmail.com', '123456'));
+
+    const user = await User.findOne({ email: 'julien@gmail.com' });
+    expect(user).toBeTruthy();
+
+    const res = await request.post('/api/users/signup')
+    .send(createUserObj('Julien123', 'julien@gmail.com', '123456'));
+    
+    expect(res.status).toBe(409);
+    expect(res.body.message).toMatch(/This email is already used/i);
+
+    done();
+  });
 });
