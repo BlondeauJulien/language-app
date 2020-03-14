@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const User = require('./models/user');
 
-const createdDefaultAdmin = async () => {
+const createDefaultAdmin = async () => {
   try {
     const user = await User.findOne({role: 'admin'}, '-password');
 
@@ -20,7 +20,9 @@ const createdDefaultAdmin = async () => {
       try {
         await adminUser.save();
       } catch (err) {
-        console.log(err);
+        if(process.env.NODE_ENV !== "test") {
+          console.log(err);
+        }
       }
 
 
@@ -32,4 +34,4 @@ const createdDefaultAdmin = async () => {
   }
 }
 
-createdDefaultAdmin();
+exports.createDefaultAdmin = createDefaultAdmin;

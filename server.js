@@ -1,9 +1,10 @@
 const express = require('express');
 
-require('./createDefaultAdminUser');
+const {createDefaultAdmin} = require('./createDefaultAdminUser');
 const HttpError = require('./models/http-error');
 const usersRoutes = require('./routes/users-routes');
 
+createDefaultAdmin();
 
 const app = express();
 

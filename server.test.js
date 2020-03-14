@@ -1,5 +1,10 @@
 const app = require('./server');
 
+const { setupDB } = require('./test-setup');
+const User = require('./models/user');
+
+setupDB('languageDBTest');
+
 const supertest = require('supertest');
 const request = supertest(app);
 
@@ -12,4 +17,11 @@ describe('App - GET / ', () => {
 
     done();
   });
+
+  it('should have at least 1 admin in DB', async done => {
+    const admin = await User.findOne({role: 'admin'});
+    expect(admin).toBeTruthy();
+
+    done();
+  })
 });

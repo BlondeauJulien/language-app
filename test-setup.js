@@ -1,3 +1,5 @@
+const {createDefaultAdmin} = require('./createDefaultAdminUser');
+
 const mongoose = require('mongoose');
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
@@ -40,18 +42,22 @@ module.exports = {
         useCreateIndex: true,
         useFindAndModify: false,
         useUnifiedTopology: true
-      })
-    })
+      });
+    });
+
+    beforeEach(async() => {
+      await createDefaultAdmin()
+    });
 
     // Cleans up database between each test
     afterEach(async () => {
       await removeAllCollections()
-    })
+    });
 
     // Disconnect Mongoose
     afterAll(async () => {
       await dropAllCollections()
       await mongoose.connection.close()
-    })
+    });
   }
 }
