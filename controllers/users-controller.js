@@ -103,6 +103,11 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
+  if(user.status === 'banned') {
+    const error = new HttpError(`You are banned from the website & can't access your account`, 403);
+    return next(error);
+  }
+
   const token = createJWT(user._id, user.email);
 
   if(!token) {
@@ -110,7 +115,7 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({userId: user._id, username : user.username, email, token});
+  res.json({userId: user._id, username : user.username, email, token});
 }
 
 exports.signup = signup;
