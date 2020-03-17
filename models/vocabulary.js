@@ -1,23 +1,50 @@
-class Vocabulary {
-  constructor(
-    word, 
-    translation, 
-    type, 
-    phrases, 
-    conjugationLink, 
-    personalNote, 
-    group, 
-    level
-  ) {
-    this.word = word, 
-    this.translation = translation, 
-    this.type = type, 
-    this.phrases = phrases, 
-    this.conjugationLink = conjugationLink, 
-    this.personalNote = personalNote, 
-    this.group = group, 
-    this.level = level
-  }
-}
+const mongoose = require('mongoose');
 
-module.exports = Vocabulary;
+const Schema = mongoose.Schema;
+
+const vocabularySchema = new Schema({
+  word: {
+    type: String,
+    required: true,
+    minlength: 1,
+    maxlength: 30
+  },
+  translation: [{
+    type: String,
+    required: true,
+    minlength: 1,
+    maxlength: 30
+  }],
+  phrases: [{
+    origin: {
+      type: String,
+      required: true,
+      minlength: 1,
+      maxlength: 200
+    },
+    translation: {
+      type: String,
+      required: true,
+      minlength: 1,
+      maxlength: 200
+    }
+  }],
+  conjugationLink: {
+    type: String,
+    default: null
+  },
+  personalNote: {
+    type: String,
+    default: null,
+    minlength: 1,
+    maxlength: 400
+  },
+  difficultyLevel: {
+    type: Number,
+    required: true
+  },
+  tags: Array
+
+});
+
+module.exports = mongoose.model('Vocabulary', vocabularySchema);

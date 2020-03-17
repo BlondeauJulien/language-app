@@ -32,8 +32,8 @@ const courseSchema = new Schema({
     minlength: 2,
     maxlength: 24
   },
-  vocabulary: Array,
-  quizzes: Array
+  vocabulary: [{ type: Schema.Types.ObjectId, ref: 'Vocabulary' }],
+  quizzes: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }]
 
 });
 

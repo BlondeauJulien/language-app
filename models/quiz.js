@@ -1,18 +1,36 @@
-class Quiz {
-  constructor(
-    imageLink,
-    answers,
-    tags,
-    level
-  ) {
-    this.imageLink = {
-      imageLink,
-      approuved: false,
-    }, 
-    this.answers = answers, 
-    this.tags = tags,
-    this.level = level
-  }
-}
+const mongoose = require('mongoose');
 
-module.exports = Quiz;
+const Schema = mongoose.Schema;
+
+const quizSchema = new Schema({
+  answers: [{
+    answer: {
+      type: String,
+      required: true
+    },
+    isCorrect: {
+      type: Boolean,
+      required: true
+    },
+    translatation: {
+      type: String,
+      required: true
+    },
+  }],
+  image: {
+    type: String, 
+    required: true,
+  },
+  imageIsApprouved: {
+    type: Boolean, 
+    default: false
+  },
+  difficultyLevel: {
+    type: Number,
+    required: true
+  },
+  tags: Array
+
+});
+
+module.exports = mongoose.model('Quiz', quizSchema);

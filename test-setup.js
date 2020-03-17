@@ -35,29 +35,33 @@ async function dropAllCollections () {
 module.exports = {
   setupDB (databaseName) {
     // Connect to Mongoose
-    beforeAll(async () => {
-      const url = `mongodb://localhost:27017/${databaseName}`
+    beforeAll(async done => {
+      const url = `mongodb://localhost:27017/${databaseName}`;
       await mongoose.connect(url, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false,
         useUnifiedTopology: true
       });
+      done();
     });
 
-    beforeEach(async() => {
-      await createDefaultAdmin()
+    beforeEach(async done => {
+      await createDefaultAdmin();
+      done();
     });
 
     // Cleans up database between each test
-    afterEach(async () => {
+    afterEach(async done => {
       await removeAllCollections()
+      done()
     });
 
     // Disconnect Mongoose
-    afterAll(async () => {
-      await dropAllCollections()
-      await mongoose.connection.close()
+    afterAll(async done => {
+      await dropAllCollections();
+      await mongoose.connection.close();
+      done();
     });
   }
 }

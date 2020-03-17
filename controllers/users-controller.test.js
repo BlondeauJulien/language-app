@@ -108,9 +108,10 @@ describe('POST - /api/users/signup ', () => {
 });
 
 describe('GET - /api/users/login ', () => {
-  beforeEach(async () => {
+  beforeEach(async done => {
     await request.post('/api/users/signup')
     .send(createUserObj('Julien', 'julien@gmail.com', '123456'));
+    done();
   });
 
   it('Should get existing user from DB and return username, email and token', async done => {
