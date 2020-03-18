@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const vocabularySchema = new Schema({
+  course: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Course'
+  },
   word: {
     type: String,
     required: true,

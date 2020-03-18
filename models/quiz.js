@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const quizSchema = new Schema({
+  course: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Course'
+  },
   answers: [{
     answer: {
       type: String,
@@ -12,7 +16,7 @@ const quizSchema = new Schema({
       type: Boolean,
       required: true
     },
-    translatation: {
+    translation: {
       type: String,
       required: true
     },

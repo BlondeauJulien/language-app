@@ -1,4 +1,5 @@
-const {createDefaultAdmin} = require('./createDefaultAdminUser');
+const {createDefaultAdmin} = require('../../createDefaultAdminUser');
+const User = require('../../models/user');
 
 const mongoose = require('mongoose');
 mongoose.set('useNewUrlParser', true);

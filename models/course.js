@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const courseSchema = new Schema({
   creator: {
     type: mongoose.Types.ObjectId,
-    required: true,
     ref: 'User'
   },
   name: {

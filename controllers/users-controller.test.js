@@ -3,7 +3,7 @@ const app = require('../server');
 const supertest = require('supertest');
 const request = supertest(app);
 
-const { setupDB } = require('../test-setup');
+const { setupDB } = require('../test/utils/test-setup');
 const User = require('../models/user');
 
 setupDB('languageDBTest');
