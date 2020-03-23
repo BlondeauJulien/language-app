@@ -3,7 +3,7 @@ const app = require('../../server');
 const supertest = require('supertest');
 const request = supertest(app);
 require('dotenv').config();
-var ObjectID = require('mongodb').ObjectID;  
+const ObjectID = require('mongodb').ObjectID;  
 
 const { setupDB } = require('../../test/utils/test-setup');
 const User = require('../../models/user');
@@ -11,11 +11,7 @@ const { seedUsers } = require('../../test/utils/seed');
 
 setupDB('languageDBTestUserControllerPatchUserIdRole');
 
-function createUserObj(username, email, password) {
-  return {username, email, password};
-}
-
-describe('PATCH - /api/users/:id', () => { 
+describe('PATCH - /api/users/:id/role', () => { 
   beforeEach(async done => {
     await seedUsers();
     done();
