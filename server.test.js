@@ -2,7 +2,6 @@ const app = require('./server');
 
 const { setupDB } = require('./test/utils/test-setup');
 const User = require('./models/user');
-const { seedUsers, seedCourses } = require('./test/utils/seed');
 
 setupDB('languageDBTestServer');
 

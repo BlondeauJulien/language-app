@@ -1,18 +1,12 @@
-const app = require('../../server');
-
 const { setupDB } = require('./test-setup');
 const User = require('../../models/user');
 const Course = require('../../models/course');
 const Vocabulary = require('../../models/vocabulary');
 const Quiz = require('../../models/quiz');
 
-
 const { seedUsers, seedCourses, seedVocabulary, seedQuizzes } = require('./seed');
 
 setupDB('languageDBTestSeed');
-
-const supertest = require('supertest');
-const request = supertest(app);
 
 describe('Seeding dummy users working', () => {
   beforeEach(async done => {
