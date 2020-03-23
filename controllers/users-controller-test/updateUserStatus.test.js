@@ -103,13 +103,9 @@ describe('PATCH - /api/users/:id/status', () => {
     const admin = await request.post('/api/users/login')
     .send({email: process.env.DEFAULT_ADMIN_EMAIL, password: process.env.DEFAULT_ADMIN_PASSWORD});
 
-    const moderator = await request.post('/api/users/login')
-    .send({email: 'testing4@gmail.com', password: '123456'});
-
     const user = await User.findOne({email: 'testing1@gmail.com'});
 
     expect(admin.body.email).toBe(process.env.DEFAULT_ADMIN_EMAIL);
-    expect(admin.body.username).toBe('moderator1');
     expect(user.username).toBe('user1');
     expect(user.status).toBe('active');
 
@@ -120,7 +116,7 @@ describe('PATCH - /api/users/:id/status', () => {
     }).set('Authorization', `Bearer ${admin.body.token}`);
 
     expect(updatedUserResponse.status).toBe(200);
-    expect(updatedUserResponse.body.message).toMatch(/Successfully updatared status for/i);
+    expect(updatedUserResponse.body.message).toMatch(/Successfully updated status for/i);
     expect(updatedUserResponse.body.message).toMatch(/user1/i);
     expect(updatedUserResponse.body.message).toMatch(/banned/i);
 
@@ -128,15 +124,30 @@ describe('PATCH - /api/users/:id/status', () => {
 
     expect(updatedUserToBanned.status).toBe('banned');
 
-    updatedUserResponse = await request.patch(`/api/users/${user._id}/status`)
+    done();
+  }); 
+
+  it('should let an admin change an user status', async done => {
+    const moderator = await request.post('/api/users/login')
+    .send({email: 'testing4@gmail.com', password: '123456'});
+
+    const user = await User.findOne({email: 'testing3@gmail.com'});
+
+    expect(moderator.body.username).toBe('moderator1');
+    expect(user.username).toBe('user3');
+    expect(user.status).toBe('banned');
+
+    const updatedUserResponse = await request.patch(`/api/users/${user._id}/status`)
     .send({
       status: 'active',
-      password: 123456
+      password: '123456'
     }).set('Authorization', `Bearer ${moderator.body.token}`);
+    
+    //console.log(updatedUserResponse);
 
     expect(updatedUserResponse.status).toBe(200);
-    expect(updatedUserResponse.body.message).toMatch(/Successfully updatared status for/i);
-    expect(updatedUserResponse.body.message).toMatch(/user1/i);
+    expect(updatedUserResponse.body.message).toMatch(/Successfully updated status for/i);
+    expect(updatedUserResponse.body.message).toMatch(/user3/i);
     expect(updatedUserResponse.body.message).toMatch(/active/i);
 
     const updatedUserToActive = await User.findOne({email: 'testing1@gmail.com'});
@@ -145,4 +156,7 @@ describe('PATCH - /api/users/:id/status', () => {
 
     done();
   }); 
-})
+  
+
+  
+});

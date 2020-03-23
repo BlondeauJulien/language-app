@@ -23,7 +23,7 @@ const updateUserRole = async (req, res, next) => {
     return next(error);
   }
 
-  if(requestor.role !== 'admin') {
+  if(requestor.role !== 'admin' && requestor.role !== 'moderator') {
     const error = new HttpError('You are not authorized to realize this action.', 401);
     return next(error);
   }
@@ -54,18 +54,18 @@ const updateUserRole = async (req, res, next) => {
     return next(error);
   }
 
-  userToUpdate.set({role: req.body.role});
+  userToUpdate.set({status: req.body.status});
 
   let updatedUser;
   try {
     updatedUser = await userToUpdate.save();
 
   } catch (err) {
-    const error = new HttpError('Failed to update role, please try again.', 500);
+    const error = new HttpError('Failed to update status, please try again.', 500);
     return next(error);
   }
 
-  res.status(200).json({message: `Successfully updated role for ${userToUpdate.username} to: ${updatedUser.role}`});
+  res.status(200).json({message: `Successfully updated status for ${userToUpdate.username} to: ${updatedUser.status}`});
 
 }
 

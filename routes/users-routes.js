@@ -37,4 +37,12 @@ router.patch('/:id/role', [
   ]
 ], usersControllers.updateUserRole);
 
+router.patch('/:id/status', [
+  authentication,
+  [  
+    check('status').isIn(['active', 'banned'])
+    .withMessage('Invalid status passed, should be moderator or user')
+  ]
+], usersControllers.updateUserStatus);
+
 module.exports = router;

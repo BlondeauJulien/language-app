@@ -114,7 +114,7 @@ describe('PATCH - /api/users/:id/role', () => {
     }).set('Authorization', `Bearer ${admin.body.token}`);
 
     expect(updatedUserResponse.status).toBe(200);
-    expect(updatedUserResponse.body.message).toMatch(/Successfully updatared role for/i);
+    expect(updatedUserResponse.body.message).toMatch(/Successfully updated role for/i);
     expect(updatedUserResponse.body.message).toMatch(/user1/i);
     expect(updatedUserResponse.body.message).toMatch(/moderator/i);
 
