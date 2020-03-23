@@ -138,7 +138,7 @@ const updateUserInfos = async (req, res, next) => {
   try {
     userToUpdate = await User.findById(req.userData.userIdFromToken);
   } catch (err) {
-    const error = new HttpError('Login failed, please try again.', 500);
+    const error = new HttpError('An error occured, please try again.', 500);
     return next(error);
   }
 
@@ -185,7 +185,6 @@ const updateUserInfos = async (req, res, next) => {
     updatedUser = await userToUpdate.save();
 
   } catch (err) {
-    console.log(updatedUser)
     const error = new HttpError('Update failed, please try again.', 500);
     return next(error);
   }
@@ -193,6 +192,72 @@ const updateUserInfos = async (req, res, next) => {
   res.status(200).json({userId: updatedUser._id, username : updatedUser.username, email: updatedUser.email});
 }
 
+const updateUserRole = async (req, res, next) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return next(new HttpError(errors.errors[0].msg, 422));
+  }
+
+  let requestor;
+  try {
+    requestor = await User.findById(req.userData.userIdFromToken);
+  } catch (err) {
+    const error = new HttpError('An error occured, please try again.', 500);
+    return next(error);
+  }
+
+  if(!requestor) {
+    const error = new HttpError('We did not find requestor account.', 404);
+    return next(error);
+  }
+
+  if(requestor.role !== 'admin') {
+    const error = new HttpError('You are not authorized to realize this action.', 401);
+    return next(error);
+  }
+
+  let passwordMatch;
+  try {
+    passwordMatch = await bcrypt.compare(req.body.password, requestor.password)
+  } catch (err) {
+    const error = new HttpError('An error occured, please try again', 500);
+    return next(error);
+  }
+
+  if(!passwordMatch) {
+    const error = new HttpError(`Wrong password passed.`, 401);
+    return next(error);
+  }
+
+  let userToUpdate;
+  try {
+    userToUpdate = await User.findById(req.params.id);
+  } catch (err) {
+    const error = new HttpError('An error occured, please try again.', 500);
+    return next(error);
+  }
+
+  if(!userToUpdate) {
+    const error = new HttpError('The user you try to update does not exist.', 404);
+    return next(error);
+  }
+
+  userToUpdate.set({role: req.body.role});
+
+  let updatedUser;
+  try {
+    updatedUser = await userToUpdate.save();
+
+  } catch (err) {
+    const error = new HttpError('Failed to update role, please try again.', 500);
+    return next(error);
+  }
+
+  res.status(200).json({message: `Successfully updatared role for ${userToUpdate.username} to: ${updatedUser.role}`});
+
+}
+
 exports.signup = signup;
 exports.login = login;
 exports.updateUserInfos = updateUserInfos;
+exports.updateUserRole = updateUserRole;

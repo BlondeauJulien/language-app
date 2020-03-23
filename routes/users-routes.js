@@ -29,4 +29,12 @@ router.patch('/:id', [
   ]
 ], usersControllers.updateUserInfos);
 
+router.patch('/:id/role', [
+  authentication,
+  [  
+    check('role').isIn(['user', 'moderator'])
+    .withMessage('Invalid role passed, should be moderator or user')
+  ]
+], usersControllers.updateUserRole);
+
 module.exports = router;

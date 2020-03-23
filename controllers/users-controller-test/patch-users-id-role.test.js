@@ -3,12 +3,13 @@ const app = require('../../server');
 const supertest = require('supertest');
 const request = supertest(app);
 require('dotenv').config();
+var ObjectID = require('mongodb').ObjectID;  
 
 const { setupDB } = require('../../test/utils/test-setup');
 const User = require('../../models/user');
 const { seedUsers } = require('../../test/utils/seed');
 
-setupDB('languageDBTestUserControllerPatchUserId');
+setupDB('languageDBTestUserControllerPatchUserIdRole');
 
 function createUserObj(username, email, password) {
   return {username, email, password};
@@ -86,7 +87,9 @@ describe('PATCH - /api/users/:id', () => {
 
     expect(admin.body.email).toBe(process.env.DEFAULT_ADMIN_EMAIL);
 
-    const updatedUserResponse = await request.patch(`/api/users/123456789/role`)
+    const falseId = new ObjectID('55153a8014829a865bbf700d')
+
+    const updatedUserResponse = await request.patch(`/api/users/${falseId}/role`)
     .send({
       role: 'moderator',
       password: process.env.DEFAULT_ADMIN_PASSWORD
