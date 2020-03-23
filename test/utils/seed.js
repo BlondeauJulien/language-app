@@ -1,15 +1,30 @@
+const bcrypt = require('bcryptjs');
+
 const User = require('../../models/user');
 const Course = require('../../models/course');
 const Vocabulary = require('../../models/vocabulary');
 const Quiz = require('../../models/quiz');
 
-const user = require('../dummyData/users');
+const users = require('../dummyData/users');
 const { adminCoursesSet1, modCoursesSet2, coursesSet3, coursesSet4, coursesSet5} = require('../dummyData/courses');
 const vocabularySet = require('../dummyData/vocabulary');
 const quizSet = require('../dummyData/quizzes');
 
 const seedUsers = async () => {
-  await User.insertMany(user);
+  let usersSecure = [];
+
+  for(let user of users) {
+    let hashedPassword;
+    try {
+      hashedPassword = await bcrypt.hash(user.password, 12);
+    } catch (err) {
+      console.log('error while hashing password in seed user')
+    }
+    let secureUser = {...user, password: hashedPassword}
+    usersSecure.push(secureUser);
+  }
+
+  await User.insertMany(usersSecure);
 
   let user2 = await User.findOne({username: 'user2'});
   user2.username = 'changed';

@@ -4,7 +4,7 @@ const { setupDB } = require('./test/utils/test-setup');
 const User = require('./models/user');
 const { seedUsers, seedCourses } = require('./test/utils/seed');
 
-setupDB('languageDBTest');
+setupDB('languageDBTestServer');
 
 const supertest = require('supertest');
 const request = supertest(app);
