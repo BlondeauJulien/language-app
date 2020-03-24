@@ -38,22 +38,26 @@ const seedCourses = async () => {
   let user2 = await User.findOne({email: 'testing2@gmail.com'});
   let user3 = await User.findOne({email: 'testing3@gmail.com'});
 
-  let courses = [];
-
-  const addCreatorId = (coursesArr, creatorId) => {
-    let creatorCourses = [...coursesArr].map(course => {
-      course.creator = creatorId;
+  const addCreatorId = async (coursesArr, creator) => {
+    let creatorCourses = coursesArr.map(course => {
+      course.creator = creator._id;
       return course;
     });
-    courses = courses.concat(creatorCourses);
-  }
-  addCreatorId(adminCoursesSet1, admin._id);
-  addCreatorId(modCoursesSet2, mod._id);
-  addCreatorId(coursesSet3, user1._id);
-  addCreatorId(coursesSet4, user2._id);
-  addCreatorId(coursesSet5, user3._id);
 
-  await Course.insertMany(courses);
+    const createdCourses = await Course.create(creatorCourses);
+
+    for(const course of createdCourses) {
+      creator.courseCreated.push(course._id);
+    }
+
+    await creator.save();
+  }
+
+  await addCreatorId([...adminCoursesSet1], admin);
+  await addCreatorId([...coursesSet3], user1);
+  await addCreatorId([...modCoursesSet2], mod);
+  await addCreatorId([...coursesSet4], user2);
+  await addCreatorId([...coursesSet5], user3);
 }
 
 const seedVocabulary = async () => {

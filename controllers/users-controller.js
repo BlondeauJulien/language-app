@@ -4,6 +4,7 @@ const updateUserInfos = require('./users-controller/updateUserInfos');
 const updateUserRole = require('./users-controller/updateUserRole');
 const updateUserStatus = require('./users-controller/updateUserStatus');
 const getAllUsers = require('./users-controller/getAllUsers');
+const getAllCoursesFromUser = require('./users-controller/getAllCoursesFromUser');
 
 
 
@@ -13,5 +14,6 @@ module.exports = {
   updateUserInfos,
   updateUserRole,
   updateUserStatus,
-  getAllUsers
+  getAllUsers,
+  getAllCoursesFromUser
 }

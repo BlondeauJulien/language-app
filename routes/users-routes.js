@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get('/', authentication, usersControllers.getAllUsers);
 
+router.get('/:id/courses', usersControllers.getAllCoursesFromUser);
+
 router.post('/signup', [
   check('username').isLength({min : 4, max: 16})
   .withMessage('Username should contain 4 to 16 characters'),
