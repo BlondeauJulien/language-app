@@ -5,7 +5,6 @@ const request = supertest(app);
 require('dotenv').config();
 
 const { setupDB } = require('../../test/utils/test-setup');
-const User = require('../../models/user');
 const { seedUsers } = require('../../test/utils/seed');
 
 setupDB('languageDBTestUserControllerGetAllUsers');
@@ -27,9 +26,9 @@ describe('GET - /api/users', () => {
 
   it('should return an error if requestor is not admin or moderator', async done => {
     const randomUser = await request.post('/api/users/login')
-    .send({email: 'testing1@gmail.com', password: 123456});
+    .send({email: 'testing1@gmail.com', password: '123456'});
 
-    expect(response.body.username).toBe('user1');
+    expect(randomUser.body.username).toBe('user1');
 
     const response = await request.get('/api/users').set('Authorization', `Bearer ${randomUser.body.token}`);
     expect(response.status).toBe(401);
@@ -46,10 +45,11 @@ describe('GET - /api/users', () => {
 
     const response = await request.get('/api/users').set('Authorization', `Bearer ${admin.body.token}`);
 
-    const usersRole = response.body.users.reduce((roleArr, user) => roleArr.push(user.role) ,[]);
+    const usersRole = response.body.users.reduce((roleArr, user) => roleArr = [...roleArr, user.role] ,[]);
 
-    expect(response.body.users).toHaveLength(4);
-    expect(usersRole).arrayContaining(['user', 'moderator']);
+    expect(response.status).toBe(200);
+    expect(response.body.users).toHaveLength(5);
+    expect(usersRole).toEqual(expect.arrayContaining(['user', 'moderator', 'admin']));
     expect(response.body.users[0].username).toBeTruthy();
     expect(response.body.users[0].email).toBeTruthy();
     expect(response.body.users[0].role).toBeTruthy();
@@ -63,15 +63,16 @@ describe('GET - /api/users', () => {
     const moderator = await request.post('/api/users/login')
     .send({email: 'testing4@gmail.com', password: '123456'});
 
-    expect(admin.body.username).toBe(moderator1);
+    expect(moderator.body.username).toBe('moderator1');
 
     const response = await request.get('/api/users').set('Authorization', `Bearer ${moderator.body.token}`);
 
-    const usersRole = response.body.users.reduce((roleArr, user) => roleArr.push(user.role) ,[]);
+    const usersRole = response.body.users.reduce((roleArr, user) => roleArr = [...roleArr, user.role] ,[]);
 
+    expect(response.status).toBe(200);
     expect(response.body.users).toHaveLength(3);
-    expect(usersRole).arrayContaining(['user']);
-    expect(usersRole).not.arrayContaining(['moderator', 'admin']);
+    expect(usersRole).toEqual(expect.arrayContaining(['user']));
+    expect(usersRole).toEqual(expect.not.arrayContaining(['moderator', 'admin']));
     expect(response.body.users[0].username).toBeTruthy();
     expect(response.body.users[0].email).toBeTruthy();
     expect(response.body.users[0].role).toBeTruthy();
