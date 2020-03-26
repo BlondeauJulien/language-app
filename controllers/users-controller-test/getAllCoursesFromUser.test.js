@@ -51,8 +51,6 @@ describe('GET - /api/users/:id/courses', () => {
 
     const response = await request.get(`/api/users/${user._id}/courses`);
 
-    console.log(response.body.user.courseCreated);
-
     expect(response.status).toBe(200);
     expect(response.body.user.courseCreated).toHaveLength(3);
     expect(response.body.user.courseCreated[0].name).toBeTruthy();

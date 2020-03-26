@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 
+const Course = require('./course');
+const HttpError = require('./http-error');
+
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -45,6 +48,17 @@ const userSchema = new Schema({
     ref: 'Course'
   }]
 
+});
+
+userSchema.pre('remove', async function(next) {
+  try {
+    for(const courseId of this.courseCreated) {
+      const course = await Course.findById(courseId);
+      await course.remove();
+    }
+  } catch (err) {
+    return next(new HttpError('An error occured, please try again.', 500));
+  }
 });
 
 module.exports = mongoose.model('User', userSchema);

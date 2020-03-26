@@ -49,4 +49,6 @@ router.patch('/:id/status', [
   ]
 ], usersControllers.updateUserStatus);
 
+router.delete('/:id', authentication, usersControllers.deleteUser);
+
 module.exports = router;

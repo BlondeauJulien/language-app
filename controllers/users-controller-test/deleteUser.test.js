@@ -10,7 +10,7 @@ const Quiz = require('../../models/quiz');
 const Vocabulary = require('../../models/vocabulary');
 const { seedUsers, seedCourses, seedQuizzes, seedVocabulary } = require('../../test/utils/seed');
 
-setupDB('languageDBTestUserControllerPatchUserId');
+setupDB('languageDBTestUserControllerDeleteUser');
 
 describe('DELETE (user + all his courses + all courses data) - /api/users/:id', () => { 
   beforeEach(async done => {
@@ -32,7 +32,7 @@ describe('DELETE (user + all his courses + all courses data) - /api/users/:id', 
     .set('Authorization', `Bearer wrongtoken6424641735`);
 
     expect(deletedUserResponse.status).toBe(401);
-    expect(deletedUserResponse.body.message).toMatch(/You are not authorized/i);
+    expect(deletedUserResponse.body.message).toMatch(/Authentication failed/i);
     
     done();
   });
@@ -80,7 +80,7 @@ describe('DELETE (user + all his courses + all courses data) - /api/users/:id', 
     const user1Course1 = await Course.findOne({name: 'user1Course1'});
 
     expect(userToDelete.body.username).toBe('user1');
-    expect(user1Course1.body.name).toBe('user1Course1');
+    expect(user1Course1.name).toBe('user1Course1');
 
     const deletedUserResponse = await request.delete(`/api/users/${userToDelete.body.userId}`)
     .send({ password: '123456' })
@@ -99,6 +99,33 @@ describe('DELETE (user + all his courses + all courses data) - /api/users/:id', 
     expect(deletedQuiz).toBeFalsy();
     expect(deletedVocabulary).toBeFalsy();
     
+    done();
+  });
+
+  it('should delete references of deleted user courses in others users followed courses', async done => {
+    const userToDelete = await request.post('/api/users/login')
+    .send({email: 'testing1@gmail.com', password: '123456'});
+
+    const user1Course1 = await Course.findOne({name: 'user1Course1'});
+
+    const user2 = await User.findOne({email: 'testing2@gmail.com'});
+    user2.courseFollowed.push(user1Course1._id);
+    const updatedUser2 = await user2.save();
+
+    expect(userToDelete.body.username).toBe('user1');
+    expect(user1Course1.name).toBe('user1Course1');
+    expect(updatedUser2.courseFollowed).toHaveLength(1);
+
+    const deletedUserResponse = await request.delete(`/api/users/${userToDelete.body.userId}`)
+    .send({ password: '123456' })
+    .set('Authorization', `Bearer ${userToDelete.body.token}`);
+
+    expect(deletedUserResponse.status).toBe(200);
+
+    const user2NoFollowedCourse = await User.findOne({email: 'testing2@gmail.com'});
+
+    expect(user2NoFollowedCourse.courseFollowed).toHaveLength(0);
+
     done();
   });
 });

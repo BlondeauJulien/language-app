@@ -5,6 +5,8 @@ const updateUserRole = require('./users-controller/updateUserRole');
 const updateUserStatus = require('./users-controller/updateUserStatus');
 const getAllUsers = require('./users-controller/getAllUsers');
 const getAllCoursesFromUser = require('./users-controller/getAllCoursesFromUser');
+const deleteUser = require('./users-controller/deleteUser');
+
 
 
 
@@ -15,5 +17,6 @@ module.exports = {
   updateUserRole,
   updateUserStatus,
   getAllUsers,
-  getAllCoursesFromUser
+  getAllCoursesFromUser,
+  deleteUser
 }

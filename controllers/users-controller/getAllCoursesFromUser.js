@@ -21,13 +21,7 @@ const getAllCoursesFromUser = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({user})
-
-/*   const userCourses = user.courses.map(course => {
-    return {...course, creatorUsername: user.username}
-  })
-
-  res.json({courses: userCourses}); */
+  res.status(200).json({user});
 }
 
 module.exports = getAllCoursesFromUser;
