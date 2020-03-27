@@ -42,7 +42,7 @@ describe('GET - /api/courses/:id', () => {
     expect(course.body.course.language).toBe(user1Course1.language);
     expect(course.body.course.countryFlag).toBe(user1Course1.countryFlag);
     expect(course.body.course.learningFrom).toBe(user1Course1.learningFrom);
-    expect(course.body.course.creator._id).toBe(user1Course1.creator._id);
+    expect(course.body.course.creator._id.toString()).toBe(user1Course1.creator._id.toString());
     expect(course.body.course.creator.username).toBe(user1Course1.creator.username);
 
     expect(course.body.course.vocabulary).toBeFalsy();

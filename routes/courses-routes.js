@@ -8,4 +8,6 @@ const router = express.Router();
 
 router.get('/', coursesControllers.getAllCourses);
 
+router.get('/:id', coursesControllers.getSingleCourse);
+
 module.exports = router;
