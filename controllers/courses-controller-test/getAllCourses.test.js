@@ -17,27 +17,26 @@ describe('GET - /api/courses', () => {
   it('should return an empty array if there is no courses found', async done => {
     const courses = await request.get(`/api/courses`);
 
-    expect(Array.isArray(courses)).toBe(true);
-    expect(courses).toHaveLength(0);
+    expect(Array.isArray(courses.body.courses)).toBe(true);
+    expect(courses.body.courses).toHaveLength(0);
 
     done();
   });
 
   it('should return courses', async done => {
     await seedCourses();
-
+ 
     const courses = await request.get(`/api/courses`);
 
-    expect(Array.isArray(courses)).toBe(true);
-    expect(courses.length).not.toHaveLength(0);
+    expect(Array.isArray(courses.body.courses)).toBe(true);
+    expect(courses.body.courses).not.toHaveLength(0);
 
-    expect(courses[0].creatorId).toBeTruthy();
-    expect(courses[0].creatorName).toBeTruthy();
-    expect(courses[0].language).toBeTruthy();
-    expect(courses[0].countryFlag).toBeTruthy();
-    expect(courses[0].learningFrom).toBeTruthy();
+    expect(courses.body.courses[0].creator._id).toBeTruthy();
+    expect(courses.body.courses[0].creator.username).toBeTruthy();
+    expect(courses.body.courses[0].language).toBeTruthy();
+    expect(courses.body.courses[0].countryFlag).toBeTruthy();
+    expect(courses.body.courses[0].learningFrom).toBeTruthy();
 
     done();
   });
-
 });
