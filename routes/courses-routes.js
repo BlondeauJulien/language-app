@@ -10,4 +10,19 @@ router.get('/', coursesControllers.getAllCourses);
 
 router.get('/:id', coursesControllers.getSingleCourse);
 
+router.post('/', [
+  authentication, 
+  [  
+    check('name').isLength({min : 4, max: 40})
+    .withMessage('Invalid course name, it should contain 4 to 40 characters'),
+    check('language').isLength({min : 2, max: 24})
+    .withMessage('Invalid language name, it should contain 2 to 24 characters'),
+    check('learningFrom').isLength({min : 2, max: 24})
+    .withMessage('Invalid language (learning from) name, it should contain 2 to 24 characters'),
+    check('countryFlag').isLength({min : 2, max: 2})
+    .withMessage('Invalid country flag input')
+  ]
+], coursesControllers.createCourse);
+
+
 module.exports = router;

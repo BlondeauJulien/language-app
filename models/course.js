@@ -54,7 +54,7 @@ courseSchema.pre('remove', async function(next) {
       await quiz.remove();
     }
 
-    await course.model('User').update(
+    await course.model('User').updateMany(
       { courseFollowed: {$in: [course._id]}}, 
       { $pull: {courseFollowed: course._id} }, 
       { multi: true }, 
