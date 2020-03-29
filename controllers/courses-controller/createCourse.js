@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 require('dotenv').config();
+const mongoose = require('mongoose');
 
 const HttpError = require('../../models/http-error');
 const User = require('../../models/user');
@@ -36,15 +37,15 @@ const createCourse = async (req, res, next) => {
     if(process.env.NODE_ENV === 'test') {
       // As session doesn't work on our local test DB
       createdCourse = await newCourse.save();
-      creator.courseCreated.push(createdCourse._id);
+      creator.courseCreated.push(createdCourse);
       await creator.save();
     } else {
       const session = await mongoose.startSession();
       session.startTransaction();
       createdCourse = await newCourse.save({ session: session });
-      creator.courseCreated.push(createdCourse._id);
+      creator.courseCreated.push(createdCourse);
       await creator.save({ session: session });
-      await sess.commitTransaction(); 
+      await session.commitTransaction(); 
     }
   } catch (err) {
       const error = new HttpError('Could not create the course, please try again', 500);
