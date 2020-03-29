@@ -25,4 +25,18 @@ router.post('/', [
 ], coursesControllers.createCourse);
 
 
+router.patch('/:id', [
+  authentication, 
+  [  
+    check('name').optional().isLength({min : 4, max: 40})
+    .withMessage('Invalid course name, it should contain 4 to 40 characters'),
+    check('language').optional().isLength({min : 2, max: 24})
+    .withMessage('Invalid language name, it should contain 2 to 24 characters'),
+    check('learningFrom').optional().isLength({min : 2, max: 24})
+    .withMessage('Invalid language (learning from) name, it should contain 2 to 24 characters'),
+    check('countryFlag').optional().isLength({min : 2, max: 2})
+    .withMessage('Invalid country flag input')
+  ]
+], coursesControllers.updateCourse);
+
 module.exports = router;

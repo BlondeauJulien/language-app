@@ -19,7 +19,7 @@ const createCourse = async (req, res, next) => {
   try {
     creator = await User.findById(requestorId);
   } catch (err) {
-    const error = new HttpError('Signing up failed, try again.', 500);
+    const error = new HttpError('An error occured, please try again.', 500);
     return next(error);
   }
 
