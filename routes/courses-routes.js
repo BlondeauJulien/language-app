@@ -39,4 +39,6 @@ router.patch('/:id', [
   ]
 ], coursesControllers.updateCourse);
 
+router.delete('/:id', authentication, coursesControllers.deleteCourse);
+
 module.exports = router;

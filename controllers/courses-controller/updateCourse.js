@@ -1,6 +1,5 @@
 const { validationResult } = require('express-validator');
 require('dotenv').config();
-const mongoose = require('mongoose');
 
 const HttpError = require('../../models/http-error');
 const User = require('../../models/user');

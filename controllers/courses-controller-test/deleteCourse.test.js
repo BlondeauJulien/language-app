@@ -8,7 +8,6 @@ const { setupDB } = require('../../test/utils/test-setup');
 const { seedUsers, seedCourses } = require('../../test/utils/seed');
 
 const Course = require('../../models/course');
-const User = requre('../../models/user');
 
 setupDB('languageDBTestUserControllerDeleteCourse');
 
