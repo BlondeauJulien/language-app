@@ -4,6 +4,7 @@ const {createDefaultAdmin} = require('./createDefaultAdminUser');
 const HttpError = require('./models/http-error');
 const usersRoutes = require('./routes/users-routes');
 const coursesRoutes = require('./routes/courses-routes');
+const vocabularyRoutes = require('./routes/vocabulary-routes');
 
 createDefaultAdmin();
 

@@ -4,10 +4,14 @@ const createCourse = require('./courses-controller/createCourse');
 const updateCourse = require('./courses-controller/updateCourse');
 const deleteCourse = require('./courses-controller/deleteCourse');
 
+
+
 module.exports = {
   getAllCourses,
   getSingleCourse,
   createCourse,
   updateCourse,
-  deleteCourse
+  deleteCourse,
+  //vacabulary controllers
+
 }
