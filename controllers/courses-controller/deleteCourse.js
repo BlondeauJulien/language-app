@@ -33,7 +33,7 @@ const deleteCourse = async (req, res, next) => {
     return next(error);
   }
 
-  requestor.courseCreated.filter(id => id.toString() !== courseToDelete._id.toString);
+  requestor.courseCreated = requestor.courseCreated.filter(id => id.toString() !== courseToDelete._id.toString());
 
   try {
     if(process.env.NODE_ENV === 'test') {

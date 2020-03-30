@@ -8,6 +8,7 @@ const { setupDB } = require('../../test/utils/test-setup');
 const { seedUsers, seedCourses } = require('../../test/utils/seed');
 
 const Course = require('../../models/course');
+const User = require('../../models/user');
 
 setupDB('languageDBTestUserControllerDeleteCourse');
 
@@ -67,6 +68,8 @@ describe('DELETE - /api/courses/:id', () => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
 
+    const updatedUser2 = await User.findOne({username: 'user1'});
+
     const courseToDelete = await Course.findOne({name: 'user1Course1'});
 
     expect(user.body.username).toBe('user1');
@@ -78,6 +81,9 @@ describe('DELETE - /api/courses/:id', () => {
     expect(deletedCourseRes.status).toBe(200);
     expect(deletedCourseRes.body.message).toMatch(/Course deleted successfully/i);
 
+    const updatedUser = await User.findOne({username: 'user1'});
+
+    expect(updatedUser.createdCourse).toEqual(expect.not.arrayContaining([courseToDelete._id]));
     done();
   });
 });
