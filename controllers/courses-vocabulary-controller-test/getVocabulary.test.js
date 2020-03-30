@@ -8,7 +8,7 @@ const { setupDB } = require('../../test/utils/test-setup');
 const { seedUsers, seedCourses, seedVocabulary } = require('../../test/utils/seed');
 const Course = require('../../models/course');
 
-setupDB('languageDBTestUserControllerGetAllCourses');
+setupDB('languageDBTestUserControllerGetVocabulary');
 
 describe('GET - /api/courses/:id/vocabulary', () => { 
   beforeEach(async done => {
@@ -21,7 +21,7 @@ describe('GET - /api/courses/:id/vocabulary', () => {
   it('should return an error if course is not found', async done => {
     const courseId = new ObjectID('55153a8014829a865bbf700d');
 
-    const vocabularyRes = await request.get(`/api/vocabulary/${courseId}`);
+    const vocabularyRes = await request.get(`/api/courses/${courseId}/vocabulary`);
 
     expect(vocabularyRes.status).toBe(404);
     expect(vocabularyRes.body.message).toMatch(/We did not find a course matching your request/i);
@@ -32,11 +32,11 @@ describe('GET - /api/courses/:id/vocabulary', () => {
   it('should return an empty array there is no vocabulary', async done => {
     const courseWithoutVocab = await Course.findOne({name: "user2Course1"});
 
-    const vocabularyRes = await request.get(`/api/vocabulary/${courseWithoutVocab._id}`);
+    const vocabularyRes = await request.get(`/api/courses/${courseWithoutVocab._id}/vocabulary`);
 
     expect(vocabularyRes.status).toBe(200);
-    expect(Array.isArray(vocabularyRes.body.vocabulary)).toBe(true);
-    expect(vocabularyRes.body.vocabulary).toHaveLength(0);
+    expect(Array.isArray(vocabularyRes.body.course.vocabulary)).toBe(true);
+    expect(vocabularyRes.body.course.vocabulary).toHaveLength(0);
 
     done();
   });
@@ -44,15 +44,15 @@ describe('GET - /api/courses/:id/vocabulary', () => {
   it('should return an array of vocabulary', async done => {
     const course = await Course.findOne({name: "user1Course1"});
 
-    const vocabularyRes = await request.get(`/api/vocabulary/${course._id}`);
+    const vocabularyRes = await request.get(`/api/courses/${course._id}/vocabulary`);
 
     expect(vocabularyRes.status).toBe(200);
-    expect(Array.isArray(vocabularyRes.body.vocabulary)).toBe(true);
-    expect(vocabularyRes.body.vocabulary).not.toHaveLength(0);
+    expect(Array.isArray(vocabularyRes.body.course.vocabulary)).toBe(true);
+    expect(vocabularyRes.body.course.vocabulary).not.toHaveLength(0);
 
-    expect(vocabularyRes.body.vocabulary[0].course._id).toBeTruthy();
+    expect(vocabularyRes.body.course.vocabulary[0].course).toBeTruthy();
 
-    expect(vocabularyRes.body.vocabulary[0]).toEqual(expect.objectContaining({
+    expect(vocabularyRes.body.course.vocabulary[0]).toEqual(expect.objectContaining({
       word: expect.any(String),
       translation: expect.any(Array),
       phrases: expect.any(Array),

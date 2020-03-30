@@ -4,7 +4,7 @@ const createCourse = require('./courses-controller/createCourse');
 const updateCourse = require('./courses-controller/updateCourse');
 const deleteCourse = require('./courses-controller/deleteCourse');
 
-
+const getVocabulary = require('./courses-vocabulary-controller/getVocabulary');
 
 module.exports = {
   getAllCourses,
@@ -13,5 +13,5 @@ module.exports = {
   updateCourse,
   deleteCourse,
   //vacabulary controllers
-
+  getVocabulary
 }

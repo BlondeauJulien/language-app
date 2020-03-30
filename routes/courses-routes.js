@@ -10,7 +10,7 @@ router.get('/', coursesControllers.getAllCourses);
 
 router.get('/:id', coursesControllers.getSingleCourse);
 
-router.get('/:id/vocabulary', coursesControllers.getVocabulary)
+router.get('/:id/vocabulary', coursesControllers.getVocabulary);
 
 router.post('/', [
   authentication, 
