@@ -6,6 +6,6 @@ const authentication = require('../middleware/check-auth');
 
 const router = express.Router();
 
-//router.delete('/:id', authentication, vocabularyControllers.deleteVocabulary);
+router.delete('/:id', authentication, vocabularyControllers.deleteVocabulary);
 
 module.exports = router;

@@ -40,7 +40,7 @@ describe('DELETE - /api/vocabulary/:id', () => {
     expect(user.body.email).toBe('testing2@gmail.com');
     expect(vocabToDelete.word).toBe('word1');
 
-    const deletedVocabRes = await request.delete(`/api/courses/${vocabToDelete._id}`)
+    const deletedVocabRes = await request.delete(`/api/vocabulary/${vocabToDelete._id}`)
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(deletedVocabRes.status).toBe(401);
@@ -56,7 +56,7 @@ describe('DELETE - /api/vocabulary/:id', () => {
     expect(user.body.username).toBe('user1');
     const vocabToDelete = new ObjectID('55153a8014829a865bbf700d');
 
-    const deletedVocabRes = await request.delete(`/api/courses/${vocabToDelete}`)
+    const deletedVocabRes = await request.delete(`/api/vocabulary/${vocabToDelete}`)
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(deletedVocabRes.status).toBe(404);
@@ -77,17 +77,19 @@ describe('DELETE - /api/vocabulary/:id', () => {
     expect(user.body.username).toBe('user1');
     expect(vocabToDelete.word).toBe('word1');
 
-    const deletedVocabRes = await request.delete(`/api/courses/${vocabToDelete._id}`)
+    const deletedVocabRes = await request.delete(`/api/vocabulary/${vocabToDelete._id}`)
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(deletedVocabRes.status).toBe(200);
-    expect(deletedVocabRes.body.message).toMatch(/Vocabulary deleted successfully/i);
+    expect(deletedVocabRes.body.message).toMatch(/Word deleted successfully/i);
 
     const deletedVocab = await Vocabulary.findById(vocabToDelete._id);
 
     expect(deletedVocab).toBeNull();
 
     const updatedCourse = await Course.findById(course._id);
+
+    console.log(updatedCourse)
 
     expect(updatedCourse.vocabulary).toEqual(expect.not.arrayContaining([vocabToDelete._id]));
 
