@@ -40,7 +40,6 @@ const vocabularySchema = new Schema({
   personalNote: {
     type: String,
     default: null,
-    minlength: 1,
     maxlength: 400
   },
   difficultyLevel: {
