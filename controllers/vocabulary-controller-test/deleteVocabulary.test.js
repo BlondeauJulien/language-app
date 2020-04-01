@@ -89,8 +89,6 @@ describe('DELETE - /api/vocabulary/:id', () => {
 
     const updatedCourse = await Course.findById(course._id);
 
-    console.log(updatedCourse)
-
     expect(updatedCourse.vocabulary).toEqual(expect.not.arrayContaining([vocabToDelete._id]));
 
     done();

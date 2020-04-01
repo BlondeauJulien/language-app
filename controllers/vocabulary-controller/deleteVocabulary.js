@@ -8,7 +8,6 @@ const Vocabulary = require('../../models/vocabulary');
 const deleteVocabulary = async (req, res, next) => {
   const requestorId = req.userData.userIdFromToken;
   const vocabularyId = req.params.id;
-  const courseId = req.body.courseId;
 
   let requestor;
   let vocabularyToDelete;

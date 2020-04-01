@@ -43,15 +43,15 @@ describe('POST - /api/vocabulary', () => {
   it('should return error if word input is not valid', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
-    const course = await Course.findOne('user1Course1');
+    const course = await Course.findOne({name: 'user1Course1'});
 
     expect(user.body.username).toBe('user1');
-    expect(course.body.name).toBe('user1Course1');
+    expect(course.name).toBe('user1Course1');
 
     let createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       word: '     '
     })
     .set('Authorization', `Bearer ${user.body.token}`);
@@ -62,7 +62,7 @@ describe('POST - /api/vocabulary', () => {
     createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       word: new Array(31).fill('a').join('')
     })
     .set('Authorization', `Bearer ${user.body.token}`);
@@ -76,15 +76,15 @@ describe('POST - /api/vocabulary', () => {
   it('should return error if translation input is not valid', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
-    const course = await Course.findOne('user1Course1');
+    const course = await Course.findOne({name: 'user1Course1'});
 
     expect(user.body.username).toBe('user1');
-    expect(course.body.name).toBe('user1Course1');
+    expect(course.name).toBe('user1Course1');
 
     let createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       translation: []
     })
     .set('Authorization', `Bearer ${user.body.token}`);
@@ -95,7 +95,7 @@ describe('POST - /api/vocabulary', () => {
     createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       translation: new Array(9).fill('abcd')
     })
     .set('Authorization', `Bearer ${user.body.token}`);
@@ -107,7 +107,7 @@ describe('POST - /api/vocabulary', () => {
     createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       translation: new Array(5).fill('     ')
     })
     .set('Authorization', `Bearer ${user.body.token}`);
@@ -118,7 +118,7 @@ describe('POST - /api/vocabulary', () => {
     createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       translation: new Array(5).fill(new Array(31).fill('a').join(''))
     })
     .set('Authorization', `Bearer ${user.body.token}`);
@@ -132,66 +132,66 @@ describe('POST - /api/vocabulary', () => {
   it('should return error if phrases input is not valid', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
-    const course = await Course.findOne('user1Course1');
+    const course = await Course.findOne({name: 'user1Course1'});
 
     expect(user.body.username).toBe('user1');
-    expect(course.body.name).toBe('user1Course1');
+    expect(course.name).toBe('user1Course1');
 
     let createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       phrases: new Array(9).fill({origin: "abcd", translation: "abcd"})
     })
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(createVocabRes.status).toBe(422);
-    expect(createVocabRes.body.message).toMatch(/Translations are not valid/i);
+    expect(createVocabRes.body.message).toMatch(/Phrases are not valid/i);
 
     
     createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       phrases: new Array(1).fill({origin: new Array(201).fill('a').join(''), translation: "abcd"})
     })
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(createVocabRes.status).toBe(422);
-    expect(createVocabRes.body.message).toMatch(/Translations are not valid/i);
+    expect(createVocabRes.body.message).toMatch(/Phrases are not valid/i);
 
     createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       phrases: new Array(1).fill({origin: "abcd", translation: new Array(201).fill('a').join('')})
     })
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(createVocabRes.status).toBe(422);
-    expect(createVocabRes.body.message).toMatch(/Translations are not valid/i);
+    expect(createVocabRes.body.message).toMatch(/Phrases are not valid/i);
 
     createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       phrases: new Array(1).fill({origin: "", translation: "abcd"})
     })
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(createVocabRes.status).toBe(422);
-    expect(createVocabRes.body.message).toMatch(/Translations are not valid/i);
+    expect(createVocabRes.body.message).toMatch(/Phrases are not valid/i);
 
     createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       phrases: new Array(1).fill({origin: "abcd", translation: ""})
     })
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(createVocabRes.status).toBe(422);
-    expect(createVocabRes.body.message).toMatch(/Translations are not valid/i);
+    expect(createVocabRes.body.message).toMatch(/Phrases are not valid/i);
 
     done();
   });
@@ -199,15 +199,15 @@ describe('POST - /api/vocabulary', () => {
   it('should return error if conjugationlink is not valid', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
-    const course = await Course.findOne('user1Course1');
+    const course = await Course.findOne({name: 'user1Course1'});
 
     expect(user.body.username).toBe('user1');
-    expect(course.body.name).toBe('user1Course1');
+    expect(course.name).toBe('user1Course1');
 
     let createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       conjugationLink: new Array(101).fill('a').join('')
     })
     .set('Authorization', `Bearer ${user.body.token}`);
@@ -221,15 +221,15 @@ describe('POST - /api/vocabulary', () => {
   it('should return error if conjugationlink is empty', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
-    const course = await Course.findOne('user1Course1');
+    const course = await Course.findOne({name: 'user1Course1'});
 
     expect(user.body.username).toBe('user1');
-    expect(course.body.name).toBe('user1Course1');
+    expect(course.name).toBe('user1Course1');
 
     let createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       personalNote: new Array(401).fill('a').join('')
     })
     .set('Authorization', `Bearer ${user.body.token}`);
@@ -243,15 +243,15 @@ describe('POST - /api/vocabulary', () => {
   it('should return error if difficulty is not numeric', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
-    const course = await Course.findOne('user1Course1');
+    const course = await Course.findOne({name: 'user1Course1'});
 
     expect(user.body.username).toBe('user1');
-    expect(course.body.name).toBe('user1Course1');
+    expect(course.name).toBe('user1Course1');
 
     let createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       difficultyLevel: 'a'
     })
     .set('Authorization', `Bearer ${user.body.token}`);
@@ -265,26 +265,26 @@ describe('POST - /api/vocabulary', () => {
   it('should return error if tags are not valid', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
-    const course = await Course.findOne('user1Course1');
+    const course = await Course.findOne({name: 'user1Course1'});
 
     expect(user.body.username).toBe('user1');
-    expect(course.body.name).toBe('user1Course1');
+    expect(course.name).toBe('user1Course1');
 
     let createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       tags: new Array(11).fill('abcd')
     })
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(createVocabRes.status).toBe(422);
-    expect(createVocabRes.body.message).toMatch(/The difficulaty number is not valid/i);
+    expect(createVocabRes.body.message).toMatch(/The tags are not valid/i);
 
     createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id,
+      course: course._id,
       tags: new Array(2).fill('ab')
     })
     .set('Authorization', `Bearer ${user.body.token}`);
@@ -305,7 +305,7 @@ describe('POST - /api/vocabulary', () => {
     let createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course
+      course: course
     })
     .set('Authorization', `Bearer ${user.body.token}`);
 
@@ -318,15 +318,15 @@ describe('POST - /api/vocabulary', () => {
   it('should return error if tags are not valid', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing2@gmail.com', password: '123456'});
-    const course = await Course.findOne('user1Course1');
+    const course = await Course.findOne({name: 'user1Course1'});
 
     expect(user.body.email).toBe('testing2@gmail.com');
-    expect(course.body.name).toBe('user1Course1');
+    expect(course.name).toBe('user1Course1');
 
     let createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id
+      course: course._id
     })
     .set('Authorization', `Bearer ${user.body.token}`);
 
@@ -339,15 +339,15 @@ describe('POST - /api/vocabulary', () => {
   it('should return error if tags are not valid', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
-    const course = await Course.findOne('user1Course1');
+    const course = await Course.findOne({name: 'user1Course1'});
 
     expect(user.body.username).toBe('user1');
-    expect(course.body.name).toBe('user1Course1');
+    expect(course.name).toBe('user1Course1');
 
     let createVocabRes = await request.post(`/api/vocabulary`)
     .send({
       ...defaultVocab, 
-      courseId: course._id
+      course: course._id
     })
     .set('Authorization', `Bearer ${user.body.token}`);
 
@@ -356,7 +356,7 @@ describe('POST - /api/vocabulary', () => {
     expect(createVocabRes.body).toMatchObject(defaultVocab);
 
     const findVocab = await Vocabulary.findOne({word: defaultVocab.word});
-    expect(findVocab.name).toBe(defaultCourse.name);
+    expect(findVocab.word).toBe(findVocab.word);
 
     const courseUpdated = await Course.findOne({name: 'user1Course1'});
     expect(courseUpdated.vocabulary).toEqual(expect.arrayContaining([findVocab._id]));
