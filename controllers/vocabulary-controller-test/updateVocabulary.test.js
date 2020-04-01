@@ -20,11 +20,11 @@ describe('PATCH - /api/vocabulary/:id', () => {
   });
 
   it('should return an error if token is not valid', async done => {
-    const createVocabRes = await request.patch(`/api/vocabulary`)
+    const updatedVocabRes = await request.patch(`/api/vocabulary/:wrongid`)
     .send({word: "random"}).set('Authorization', 'Bearer invalidtoken');
 
-    expect(createVocabRes.status).toBe(401);
-    expect(createVocabRes.body.message).toMatch(/Authentication failed/i);
+    expect(updatedVocabRes.status).toBe(401);
+    expect(updatedVocabRes.body.message).toMatch(/Authentication failed/i);
 
     done();
   });
@@ -238,7 +238,7 @@ describe('PATCH - /api/vocabulary/:id', () => {
     expect(updatedVocabRes.status).toBe(422);
     expect(updatedVocabRes.body.message).toMatch(/The tags are not valid/i);
 
-    updatedVocabRes = await request.post(`/api/vocabulary`)
+    updatedVocabRes = await request.patch(`/api/vocabulary/${vocabToUpdate._id}`)
     .send({tags: new Array(2).fill('ab')})
     .set('Authorization', `Bearer ${user.body.token}`);
 
@@ -261,7 +261,7 @@ describe('PATCH - /api/vocabulary/:id', () => {
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(updatedVocabRes.status).toBe(404);
-    expect(updatedVocabRes.body.message).toMatch(/We did not find the course/i);
+    expect(updatedVocabRes.body.message).toMatch(/We did not find the vocabulary/i);
 
     done();
   });
@@ -290,14 +290,14 @@ describe('PATCH - /api/vocabulary/:id', () => {
 
   it('should return vocabulary object if everything pass', async done => {
     const user = await request.post('/api/users/login')
-    .send({email:'testing2@gmail.com', password: '123456'});
+    .send({email:'testing1@gmail.com', password: '123456'});
 
     const course = await Course.findOne({name: 'user1Course1'});
     expect(course.name).toBe('user1Course1');
 
     const vocabToUpdate = await Vocabulary.findOne({word: 'word1', course: course._id});
 
-    expect(user.body.email).toBe('testing2@gmail.com');
+    expect(user.body.username).toBe('user1');
     expect(vocabToUpdate.word).toBe('word1');
 
     let fieldsToUpdate = {
@@ -319,7 +319,7 @@ describe('PATCH - /api/vocabulary/:id', () => {
     
     expect(updatedVocabRes.body).toMatchObject(fieldsToUpdate);
 
-    const findVocab = await Vocabulary.findOne({word: updatedVocabRes.word});
+    const findVocab = await Vocabulary.findOne({word: updatedVocabRes.body.word});
     expect(findVocab.word).toBe(fieldsToUpdate.word);
 
     done();
@@ -327,14 +327,14 @@ describe('PATCH - /api/vocabulary/:id', () => {
 
   it('should return vocabulary object if everything pass even with only one fiedl passed', async done => {
     const user = await request.post('/api/users/login')
-    .send({email:'testing2@gmail.com', password: '123456'});
+    .send({email:'testing1@gmail.com', password: '123456'});
 
     const course = await Course.findOne({name: 'user1Course1'});
     expect(course.name).toBe('user1Course1');
 
     const vocabToUpdate = await Vocabulary.findOne({word: 'word1', course: course._id});
 
-    expect(user.body.email).toBe('testing2@gmail.com');
+    expect(user.body.username).toBe('user1');
     expect(vocabToUpdate.word).toBe('word1');
 
     let fieldsToUpdate = {
@@ -347,9 +347,9 @@ describe('PATCH - /api/vocabulary/:id', () => {
 
     expect(updatedVocabRes.status).toBe(200);
     
-    expect(updatedVocabRes.body.word).toMatchObject(fieldsToUpdate);
+    expect(updatedVocabRes.body).toMatchObject(fieldsToUpdate);
 
-    const findVocab = await Vocabulary.findOne({word: updatedVocabRes.word});
+    const findVocab = await Vocabulary.findOne({word: updatedVocabRes.body.word});
     expect(findVocab.word).toBe(fieldsToUpdate.word);
 
     done();
