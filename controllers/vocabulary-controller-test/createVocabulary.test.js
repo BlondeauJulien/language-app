@@ -218,7 +218,7 @@ describe('POST - /api/vocabulary', () => {
     done();
   });
 
-  it('should return error if conjugationlink is empty', async done => {
+  it('should return error if personal note not valid', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
     const course = await Course.findOne({name: 'user1Course1'});
@@ -315,7 +315,7 @@ describe('POST - /api/vocabulary', () => {
     done();
   });
 
-  it('should return error if tags are not valid', async done => {
+  it('should return error if requestor is not course creator', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing2@gmail.com', password: '123456'});
     const course = await Course.findOne({name: 'user1Course1'});
@@ -336,7 +336,7 @@ describe('POST - /api/vocabulary', () => {
     done();
   });
 
-  it('should return error if tags are not valid', async done => {
+  it('should return vocabulary object if everything pass', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
     const course = await Course.findOne({name: 'user1Course1'});
@@ -356,7 +356,7 @@ describe('POST - /api/vocabulary', () => {
     expect(createVocabRes.body).toMatchObject(defaultVocab);
 
     const findVocab = await Vocabulary.findOne({word: defaultVocab.word});
-    expect(findVocab.word).toBe(findVocab.word);
+    expect(findVocab.word).toBe(defaultVocab.word);
 
     const courseUpdated = await Course.findOne({name: 'user1Course1'});
     expect(courseUpdated.vocabulary).toEqual(expect.arrayContaining([findVocab._id]));
