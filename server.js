@@ -5,6 +5,8 @@ const HttpError = require('./models/http-error');
 const usersRoutes = require('./routes/users-routes');
 const coursesRoutes = require('./routes/courses-routes');
 const vocabularyRoutes = require('./routes/vocabulary-routes');
+const quizzesRoutes = require('./routes/quizzes-routes');
+
 
 createDefaultAdmin();
 
@@ -21,6 +23,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', usersRoutes);
 app.use('/api/courses', coursesRoutes);
 app.use('/api/vocabulary', vocabularyRoutes);
+app.use('/api/quizzes', quizzesRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError('Could not find this api route.', 404);
