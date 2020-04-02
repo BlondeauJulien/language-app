@@ -5,16 +5,17 @@ const request = supertest(app);
 const ObjectID = require('mongodb').ObjectID; 
 
 const { setupDB } = require('../../test/utils/test-setup');
-const { seedUsers, seedQuizzes } = require('../../test/utils/seed');
+const { seedUsers, seedCourses } = require('../../test/utils/seed');
 const Course = require('../../models/course');
 const Quiz = require('../../models/quiz');
+const User = require('../../models/user');
 
 setupDB('languageDBTestUserControllerCreateQuiz');
 
 describe('POST - /api/quizzes', () => { 
   beforeEach(async done => {
     await seedUsers();
-    await seedQuizzes();
+    await seedCourses();
     done();
   });
 
@@ -28,7 +29,7 @@ describe('POST - /api/quizzes', () => {
 
   it('should return an error if token is not valid', async done => {
 
-    const createQuizRes = await request.post(`/api/quizzes`)
+    let createQuizRes = await request.post(`/api/quizzes`)
     .send(defaultQuiz).set('Authorization', 'Bearer invalidtoken');
 
     expect(createQuizRes.status).toBe(401);
@@ -61,7 +62,7 @@ describe('POST - /api/quizzes', () => {
 
     answersArr = new Array(1).fill({answer: "randomAnswer", isCorrect: true, translation: "randomAnswertranslation"});
 
-    let createQuizRes = await request.post(`/api/quizzes`)
+    createQuizRes = await request.post(`/api/quizzes`)
     .send({
       ...defaultQuiz, 
       course: course._id,
@@ -74,7 +75,7 @@ describe('POST - /api/quizzes', () => {
 
     answersArr = new Array(3).fill({answer: "randomAnswer", isCorrect: false, translation: "randomAnswertranslation"});
 
-    let createQuizRes = await request.post(`/api/quizzes`)
+    createQuizRes = await request.post(`/api/quizzes`)
     .send({
       ...defaultQuiz, 
       course: course._id,
@@ -88,7 +89,7 @@ describe('POST - /api/quizzes', () => {
     answersArr = new Array(3).fill({answer: "a", isCorrect: false, translation: "randomAnswertranslation"});
     answersArr[0].isCorrect = true;
 
-    let createQuizRes = await request.post(`/api/quizzes`)
+    createQuizRes = await request.post(`/api/quizzes`)
     .send({
       ...defaultQuiz, 
       course: course._id,
@@ -102,7 +103,7 @@ describe('POST - /api/quizzes', () => {
     answersArr = new Array(3).fill({answer: new Array(201).fill('a').join(''), isCorrect: false, translation: "randomAnswertranslation"});
     answersArr[0].isCorrect = true;
 
-    let createQuizRes = await request.post(`/api/quizzes`)
+    createQuizRes = await request.post(`/api/quizzes`)
     .send({
       ...defaultQuiz, 
       course: course._id,
@@ -116,7 +117,7 @@ describe('POST - /api/quizzes', () => {
     answersArr = new Array(3).fill({answer: "randomwanswer", isCorrect: false, translation: "a"});
     answersArr[0].isCorrect = true;
 
-    let createQuizRes = await request.post(`/api/quizzes`)
+    createQuizRes = await request.post(`/api/quizzes`)
     .send({
       ...defaultQuiz, 
       course: course._id,
@@ -130,7 +131,7 @@ describe('POST - /api/quizzes', () => {
     answersArr = new Array(3).fill({answer: "randomanswer", isCorrect: false, translation: new Array(201).fill('a').join('')});
     answersArr[0].isCorrect = true;
 
-    let createQuizRes = await request.post(`/api/quizzes`)
+    createQuizRes = await request.post(`/api/quizzes`)
     .send({
       ...defaultQuiz, 
       course: course._id,
