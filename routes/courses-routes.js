@@ -12,6 +12,8 @@ router.get('/:id', coursesControllers.getSingleCourse);
 
 router.get('/:id/vocabulary', coursesControllers.getVocabulary);
 
+router.get('/:id/quizzes', coursesControllers.getQuizzes);
+
 router.post('/', [
   authentication, 
   [  
