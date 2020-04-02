@@ -34,8 +34,10 @@ const userSchema = new Schema({
     enum: ['active', 'banned']
   },
   imageToReview: {
-    type: Array,
-    default: []
+    type: [{
+      type: mongoose.Types.ObjectId,
+      ref: 'Quiz'
+    }]
   },
   courseCreated: [{
     type: mongoose.Types.ObjectId,
