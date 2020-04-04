@@ -12,6 +12,11 @@ const createQuiz = async (req, res, next) => {
     return next(new HttpError(errors.errors[0].msg, 422));
   }
 
+  if(req.body.imageIsApprouved) {
+    const error = new HttpError('You are not authorized to approuve your own image.', 401);
+    return next(error);
+  }
+
   const quizToCreate = {...req.body};
   const requestorId = req.userData.userIdFromToken;
 

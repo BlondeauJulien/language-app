@@ -27,7 +27,7 @@ describe('POST - /api/quizzes', () => {
     tags: ['tag1', 'tag2', 'tag3']
   }
 
-  it('should return an error if token is not valid', async done => {
+ it('should return an error if token is not valid', async done => {
 
     let createQuizRes = await request.post(`/api/quizzes`)
     .send(defaultQuiz).set('Authorization', 'Bearer invalidtoken');
@@ -332,7 +332,7 @@ describe('POST - /api/quizzes', () => {
     .set('Authorization', `Bearer ${user.body.token}`);
 
     expect(createQuizRes.status).toBe(401);
-    expect(createQuizRes.body.message).toMatch(/You are not authorized/i);
+    expect(createQuizRes.body.message).toMatch(/You are not authorized to approuve your own image/i);
 
     done();
   });
