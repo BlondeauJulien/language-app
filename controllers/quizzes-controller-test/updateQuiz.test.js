@@ -8,6 +8,8 @@ const { setupDB } = require('../../test/utils/test-setup');
 const { seedUsers, seedCourses, seedQuizzes } = require('../../test/utils/seed');
 const Course = require('../../models/course');
 const Quiz = require('../../models/quiz');
+const User = require('../../models/user');
+
 
 setupDB('languageDBTestUserControllerUpdateQuiz');
 
@@ -281,7 +283,7 @@ describe('PATCH - /api/quizzes/:id', () => {
     expect(updatedQuizRes.body.message).toMatch(/You are not authorized to approuve your own image/i);
 
     done();
-  });
+  }); 
 
   it('should change imageIsApprouved to false if image is updated', async done => {
     const user = await request.post('/api/users/login')
@@ -296,15 +298,15 @@ describe('PATCH - /api/quizzes/:id', () => {
     expect(quizToUpdate.image).toBe('imagelink');
     expect(quizToUpdate.imageIsApprouved).toBe(true)
 
-    let createQuizRes = await request.patch(`/api/quizzes/${quizToUpdate._id}`)
+    let updatedQuizRes = await request.patch(`/api/quizzes/${quizToUpdate._id}`)
     .send({
       image: 'updatedimage', 
     })
     .set('Authorization', `Bearer ${user.body.token}`);
 
-    expect(createQuizRes.status).toBe(200);
+    expect(updatedQuizRes.status).toBe(200);
     
-    expect(createQuizRes.body).toMatchObject({image: 'updatedimage', imageIsApprouved: false, answers: quizToUpdate.answers});
+    expect(updatedQuizRes.body).toMatchObject({image: 'updatedimage', imageIsApprouved: false});
 
     const findQuiz = await Quiz.findOne({image: 'updatedimage'});
     expect(findQuiz.image).toBe('updatedimage');
@@ -322,7 +324,7 @@ describe('PATCH - /api/quizzes/:id', () => {
     done();
   });
 
-  it('should be able to update all field minus image (and imageIsApprouved keep its state) and get back object', async done => {
+ it('should be able to update all field minus image (and imageIsApprouved keep its state) and get back object', async done => {
     const user = await request.post('/api/users/login')
     .send({email:'testing1@gmail.com', password: '123456'});
 
@@ -343,13 +345,13 @@ describe('PATCH - /api/quizzes/:id', () => {
       tags: ['updatedtag1', 'updatedtag2', 'tag3']
     }
 
-    let createQuizRes = await request.patch(`/api/quizzes/${quizToUpdate._id}`)
+    let updatedQuizRes = await request.patch(`/api/quizzes/${quizToUpdate._id}`)
     .send(fieldsToUpdate)
     .set('Authorization', `Bearer ${user.body.token}`);
 
-    expect(createQuizRes.status).toBe(200);
+    expect(updatedQuizRes.status).toBe(200);
     
-    expect(createQuizRes.body).toMatchObject({...fieldsToUpdate , image: 'imagelink', imageIsApprouved: true});
+    expect(updatedQuizRes.body).toMatchObject({...fieldsToUpdate , image: 'imagelink', imageIsApprouved: true});
 
     const findQuiz = await Quiz.findOne({difficultyLevel: 9});
     expect(findQuiz.difficultyLevel).toBe(9);
