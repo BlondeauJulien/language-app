@@ -314,4 +314,26 @@ describe('POST - /api/quizzes', () => {
 
     done();
   });
+
+  it('should not be able to pass value to imageIsApprouved', async done => {
+    const user = await request.post('/api/users/login')
+    .send({email:'testing1@gmail.com', password: '123456'});
+    const course = await Course.findOne({name: 'user1Course1'});
+
+    expect(user.body.username).toBe('user1');
+    expect(course.name).toBe('user1Course1');
+
+    let createQuizRes = await request.post(`/api/quizzes`)
+    .send({
+      ...defaultQuiz, 
+      imageIsApprouved: true,
+      course: course._id
+    })
+    .set('Authorization', `Bearer ${user.body.token}`);
+
+    expect(createQuizRes.status).toBe(401);
+    expect(createQuizRes.body.message).toMatch(/You are not authorized/i);
+
+    done();
+  });
 });
