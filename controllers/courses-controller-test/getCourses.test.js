@@ -39,7 +39,7 @@ describe('GET - /api/courses', () => {
 
     done();
   });
-
+ 
   it('should return courses filtered by name', async done => {
     await seedCourses();
  
@@ -59,7 +59,7 @@ describe('GET - /api/courses', () => {
     const courses = await request.get(`/api/courses?language=norwegian`);
 
     expect(Array.isArray(courses.body.courses)).toBe(true);
-    expect(courses.body.courses).toHaveLength(1);
+    expect(courses.body.courses).toHaveLength(3);
 
     expect(courses.body.courses[0].language).toMatch(/norwegian/i);
 
@@ -72,7 +72,7 @@ describe('GET - /api/courses', () => {
     const courses = await request.get(`/api/courses?learningFrom=dutch`);
 
     expect(Array.isArray(courses.body.courses)).toBe(true);
-    expect(courses.body.courses).toHaveLength(1);
+    expect(courses.body.courses).toHaveLength(3);
 
     expect(courses.body.courses[0].learningFrom).toMatch(/dutch/i);
 
@@ -85,7 +85,7 @@ describe('GET - /api/courses', () => {
     const courses = await request.get(`/api/courses?name=user1&language=norwegian&learningFrom=dutch`);
 
     expect(Array.isArray(courses.body.courses)).toBe(true);
-    expect(courses.body.courses).toHaveLength(1);
+    expect(courses.body.courses).toHaveLength(3);
 
     expect(courses.body.courses[0].name).toMatch(/user1/i);
     expect(courses.body.courses[0].language).toMatch(/norwegian/i);
