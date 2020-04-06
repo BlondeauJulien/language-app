@@ -1,4 +1,4 @@
-const getAllCourses = require('./courses-controller/getAllCourses');
+const getCourses = require('./courses-controller/getCourses');
 const getSingleCourse = require('./courses-controller/getSingleCourse');
 const createCourse = require('./courses-controller/createCourse');
 const updateCourse = require('./courses-controller/updateCourse');
@@ -8,7 +8,7 @@ const getVocabulary = require('./courses-controller/getVocabulary');
 const getQuizzes = require('./courses-controller/getQuizzes');
 
 module.exports = {
-  getAllCourses,
+  getCourses,
   getSingleCourse,
   createCourse,
   updateCourse,

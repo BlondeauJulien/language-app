@@ -6,7 +6,7 @@ const authentication = require('../middleware/check-auth');
 
 const router = express.Router();
 
-router.get('/', coursesControllers.getAllCourses);
+router.get('/', coursesControllers.getCourses);
 
 router.get('/:id', coursesControllers.getSingleCourse);
 

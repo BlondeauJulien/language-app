@@ -1,7 +1,7 @@
 const HttpError = require('../../models/http-error');
 const Course = require('../../models/course');
 
-const getAllCourses = async (req, res, next) => {
+const getCourses = async (req, res, next) => {
   let courses;
   try {
     courses = await Course.find({}).select('-vocabulary -quizzes').populate('creator', 'username');
@@ -13,4 +13,4 @@ const getAllCourses = async (req, res, next) => {
   res.status(200).json({courses});
 }
 
-module.exports = getAllCourses;
+module.exports = getCourses;
