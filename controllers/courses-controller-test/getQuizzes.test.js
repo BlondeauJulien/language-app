@@ -63,4 +63,18 @@ describe('GET - /api/courses/:id/quizzes', () => {
 
     done();
   });
+
+  it('should return an array of quizzes filtered', async done => {
+    const course = await Course.findOne({name: "user1Course1"});
+
+    const quizzesRes = await request.get(`/api/courses/${course._id}/quizzes?difficultyLevel=5&tags=tag1`);
+
+    expect(quizzesRes.status).toBe(200);
+    expect(Array.isArray(quizzesRes.body.course.quizzes)).toBe(true);
+    expect(quizzesRes.body.course.quizzes).toHaveLength(10);
+
+    expect(quizzesRes.body.course.quizzes[0].difficultyLevel).toBe(5);
+
+    done();
+  });
 });
