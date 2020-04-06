@@ -84,32 +84,13 @@ describe('GET - /api/courses/:id/vocabulary', () => {
   it('should return an array of vocabulary filtered with multiple filter', async done => {
     const course = await Course.findOne({name: "user1Course1"});
 
-    let newVocab = new Vocabulary({
-      word: `tofilter`,
-      translation: [ `filteredTranslation`, `another one` ],
-      phrases: [
-        {
-          origin: `phrase1`,
-          translation: `phrase translation1`
-        },
-        {
-          origin: `phrase2`,
-          translation: `phrase translation1`
-        }
-      ],
-      difficultyLevel: 1,
-      tags: ['vvvv', 'tag2', 'tag3']
-    });
-
-    await newVocab.save();
-
-    const vocabularyRes = await request.get(`/api/courses/${course._id}/vocabulary?word=tofilter&translation=another&difficultyLevel=1&tags=vvvv`);
+    const vocabularyRes = await request.get(`/api/courses/${course._id}/vocabulary?word=11&translation=translation1&difficultyLevel=4&tags=tag1`);
 
     expect(vocabularyRes.status).toBe(200);
     expect(Array.isArray(vocabularyRes.body.course.vocabulary)).toBe(true);
-    expect(vocabularyRes.body.course.vocabulary).toHaveLength(3);
+    expect(vocabularyRes.body.course.vocabulary).toHaveLength(1);
 
-    expect(vocabularyRes.body.course.vocabulary[0].word).toMatch(/tofilter/i)
+    expect(vocabularyRes.body.course.vocabulary[0].word).toMatch(/11/i)
 
     done();
   });
