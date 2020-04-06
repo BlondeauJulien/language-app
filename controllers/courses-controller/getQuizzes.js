@@ -2,9 +2,19 @@ const HttpError = require('../../models/http-error');
 const Course = require('../../models/course');
 
 const getQuizzes = async (req, res, next) => {
+  let filter = {};
+  for(let query in req.query) {
+   if(query !== 'difficultyLevel') {
+     filter[query] = new RegExp(req.query[query], 'i')
+   }
+   if(query === 'difficultyLevel') {
+     filter[query] = req.query[query];
+   }
+ } 
+
   let course;
   try {
-    course = await Course.findById(req.params.id).select('-vocabulary').populate('quizzes');
+    course = await Course.findById(req.params.id).select('-vocabulary').populate('quizzes',  null, filter);
   } catch (err) {
     const error = new HttpError('An error occured, please try again.', 500);
     return next(error);
