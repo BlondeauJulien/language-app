@@ -15,7 +15,7 @@ router.post('/', [
     .withMessage('Translations are not valid. Should contain at least one and at most 8 translation'),
     check('translation').custom(arr => checkLengthOfStringInArr(arr, 1, 30))
     .withMessage('Translations are not valid. A translation should contain 1 to 30 characters'),
-    check('phrases').custom(arr => arr.length >= 0 && arr.length < 9 )
+    check('phrases').optional().custom(arr => arr.length >= 0 && arr.length < 9 )
     .withMessage('Phrases are not valid. Should contain at least one and at most 8 phrase'),
     check('phrases.*.origin').optional().trim().isLength({min : 1, max: 200})
     .withMessage('Phrases are not valid. A Phrase should contain 1 to 200 characters'),

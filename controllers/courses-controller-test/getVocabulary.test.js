@@ -7,6 +7,7 @@ const ObjectID = require('mongodb').ObjectID;
 const { setupDB } = require('../../test/utils/test-setup');
 const { seedUsers, seedCourses, seedVocabulary } = require('../../test/utils/seed');
 const Course = require('../../models/course');
+const Vocabulary = require('../../models/vocabulary');
 
 setupDB('languageDBTestUserControllerGetVocabulary');
 
@@ -62,6 +63,53 @@ describe('GET - /api/courses/:id/vocabulary', () => {
       tags: expect.any(Array),
     }));
 
+
+    done();
+  });
+
+  it('should return an array of vocabulary filtered by name', async done => {
+    const course = await Course.findOne({name: "user1Course1"});
+
+    const vocabularyRes = await request.get(`/api/courses/${course._id}/vocabulary?word=2`);
+
+    expect(vocabularyRes.status).toBe(200);
+    expect(Array.isArray(vocabularyRes.body.course.vocabulary)).toBe(true);
+    expect(vocabularyRes.body.course.vocabulary).toHaveLength(3);
+
+    expect(vocabularyRes.body.course.vocabulary[0].word).toMatch(/2/i)
+
+    done();
+  });
+
+  it('should return an array of vocabulary filtered with multiple filter', async done => {
+    const course = await Course.findOne({name: "user1Course1"});
+
+    let newVocab = new Vocabulary({
+      word: `tofilter`,
+      translation: [ `filteredTranslation`, `another one` ],
+      phrases: [
+        {
+          origin: `phrase1`,
+          translation: `phrase translation1`
+        },
+        {
+          origin: `phrase2`,
+          translation: `phrase translation1`
+        }
+      ],
+      difficultyLevel: 1,
+      tags: ['vvvv', 'tag2', 'tag3']
+    });
+
+    await newVocab.save();
+
+    const vocabularyRes = await request.get(`/api/courses/${course._id}/vocabulary?word=tofilter&translation=another&difficultyLevel=1&tags=vvvv`);
+
+    expect(vocabularyRes.status).toBe(200);
+    expect(Array.isArray(vocabularyRes.body.course.vocabulary)).toBe(true);
+    expect(vocabularyRes.body.course.vocabulary).toHaveLength(3);
+
+    expect(vocabularyRes.body.course.vocabulary[0].word).toMatch(/tofilter/i)
 
     done();
   });
