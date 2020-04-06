@@ -7,7 +7,8 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "preinstall": "npx npm-force-resolutions"
   },
   "keywords": [],
   "author": "",
@@ -23,10 +24,14 @@
   "devDependencies": {
     "concurrently": "^5.1.0",
     "jest": "^25.1.0",
+    "minimist": "^1.2.5",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"
   },
   "jest": {
     "testEnvironment": "node"
+  },
+  "resolutions": {
+    "minimist": "^1.2.5"
   }
 }
