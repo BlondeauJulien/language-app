@@ -1,0 +1,23 @@
+.home-header-cont {
+  background-color: var(--brand-color);
+  padding-top: 25px;
+  padding-bottom: 150px;
+}
+
+.home-header {
+  display: flex;
+  align-items: center;
+  max-width: var(--max-width-main-content);
+  margin: auto;
+}
+
+.home-header--title {
+  font-size: 2.2rem;
+  color: white;
+  font-family: var(--default-font-regular);
+  margin: 0 3.2rem;
+}
+
+._1LLPZ {
+  margin: 0 3.2rem;
+}

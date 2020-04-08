@@ -1,10 +1,17 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+
+import MainHeader from './shared/components/Header/MainHeader';
+import Home from './home/pages/Home';
 
 function App() {
   return (
-    <div className="App">
-     hello
-    </div>
+    <Router>
+      <div className="App">
+        <MainHeader />
+        <Route exact path='/' component={Home} />
+      </div>
+    </Router>
   );
 }
 

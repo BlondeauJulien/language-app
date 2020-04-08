@@ -1,0 +1,23 @@
+@import './cssVariable.css';
+@import './resetcss.css';
+@import url(//db.onlinewebfonts.com/c/5c47a750b2d4cc65134ef9e6ed0cfc2d?family=DINNextRoundedLTPro-Regular);
+@import url(//db.onlinewebfonts.com/c/6f1a075af8afe852f3e3c8a75e49bc31?family=DINNextRoundedLTPro-Bold);
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Open Sans', sans-serif;
+  font-family: DINNextRoundedLTPro-Bold, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f7f7f7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none; /* no underline */
+}
