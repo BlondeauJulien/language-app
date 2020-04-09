@@ -1,7 +1,8 @@
 import React from 'react';
 
 /* SVG copied from the home page of https://tinycards.duolingo.com/ in order to reproduce, 
-in part, the design of tinycard for this non commercial learning/portfolio project */
+in part, the design of tinycard for this non commercial learning/portfolio project. 
+Design and svg images not my own and not advertised as my own */
 
 const LaptopSVGImage = () => {
 	return (

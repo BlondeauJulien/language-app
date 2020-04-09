@@ -5,7 +5,7 @@ import './Button.css';
 const Button = props => {
   return (
     <button
-      className={`button button--${props.design || 'primary-bg'}`}
+      className={`button button--${props.design || 'primary-bg'} ${props.size || ''}`}
       type={props.type}
     >
       {props.children}

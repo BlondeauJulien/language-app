@@ -19,3 +19,7 @@
   background-color: white;
   color: var(--brand-color);
 }
+
+.button-full-length {
+  width: 100%;
+}
