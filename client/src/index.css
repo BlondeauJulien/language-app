@@ -22,3 +22,22 @@ a {
   color: inherit;
   text-decoration: none; /* no underline */
 }
+
+input {
+  font-family: DINNextRoundedLTPro-Bold, sans-serif;
+  font-size: 1rem;
+  padding: 0;
+  border: none;
+  background-color: inherit;
+  color: #777777;
+}
+
+::-webkit-input-placeholder {
+  color: #898989;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #898989;
+}
+::placeholder {
+  color: #898989;
+}

@@ -1,12 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import SearchLogo from '../../SVGImages/SearchLogo';
 import CreateLogo from '../../SVGImages/CreateLogo';
 import Button from '../FormElements/Button';
+import Input from '../FormElements/Input';
 
 import './ActionsContainer.css';
 
 const ActionsContainer = () => {
+  const logo = (<i className="fas fa-search" style={{'color': 'var(--brand-color)', 'marginRight': '8px'}}></i>)
   return (
     <div className="actions-container">
       <div className="action-container">
@@ -14,8 +17,22 @@ const ActionsContainer = () => {
           <SearchLogo />
         </div>
         <div className="action-content">
-          <h3>Search a course</h3>
-          <input></input>
+          <h3>
+            Search a course{` `}
+            <Link to="/search" style={{'font-size': '0.6rem', 'color': 'var(--brand-color)'}}>
+              advanced
+            </Link>
+          </h3>
+          <div >
+            <Input 
+              element={'input'}
+              id={"search-course"}
+              type={'text'}
+              placeholder={'e.g., Norwegian, French...'}
+              logo={logo}
+            />
+          </div>
+
         </div>
       </div>
       <div className="action-container">
