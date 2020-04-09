@@ -20,6 +20,12 @@
   color: var(--brand-color);
 }
 
+.button--plain-text {
+  background-color: inherit;
+  color: var(--brand-color);
+  padding: 0;
+}
+
 .button-full-length {
   width: 100%;
 }
