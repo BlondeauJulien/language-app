@@ -1,7 +1,7 @@
 import React from 'react';
 
 import HomeHeader from '../components/HomeHeader';
-import MainPageContentContainer from '../../shared/components/MainPageContentContainer/MainPageContentContainer'
+import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer'
 
 const Home = () => {
   return (
