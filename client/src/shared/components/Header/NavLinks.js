@@ -1,8 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import Button from '../FormElements/Button';
-
 import './NavLinks.css';
 
 const NavLinks = () => {
