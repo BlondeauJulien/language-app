@@ -1,0 +1,18 @@
+.main-container {
+  background-color: white;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 40px;
+  box-shadow: 0 0 25px 0 rgba(0,0,0,.04); 
+}
+
+.main-container-size-default {
+  width: var(--max-width-main-content);
+}
+
+.main-container-home {
+  position: relative;
+  margin: 0 auto;
+  margin-top: -100px;
+  margin-bottom: 20px;
+}
