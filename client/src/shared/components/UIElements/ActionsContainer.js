@@ -41,7 +41,7 @@ const ActionsContainer = () => {
         </div>
         <div className="action-content">
           <h3>Create your own</h3>
-          <Button type={"button"} size={'button-full-length'}>Create</Button>
+          <Button to={'/courses/new'} size={'button-full-length'}>Create</Button>
         </div>
       </div>
     </div>

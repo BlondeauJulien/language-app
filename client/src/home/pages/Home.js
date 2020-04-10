@@ -13,8 +13,7 @@ const Home = () => {
       <MainPageContentContainer mainHome>
         <ActionsContainer />
         <CardsContainerHeader title={'Trending Courses'}/>
-        <CardsContainer>
-        </CardsContainer>
+        <CardsContainer />
       </MainPageContentContainer>
     </div>
   )

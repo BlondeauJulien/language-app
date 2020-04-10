@@ -8,6 +8,7 @@
   text-decoration: none;
   display: inline-block;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .button--primary-bg {
