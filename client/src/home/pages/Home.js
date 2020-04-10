@@ -12,19 +12,28 @@ const Home = () => {
       name: 'Learn Norwegian colours',
       countryFlag: 'NO',
       language: 'Norwegian',
-      learningFrom: 'French'
+      learningFrom: 'French',
+      creator: {
+        username: 'julien'
+      }
     },
     {
       name: 'Learn Norwegian colours',
       countryFlag: 'NO',
       language: 'Norwegian',
-      learningFrom: 'French'
+      learningFrom: 'French',
+      creator: {
+        username: 'julien123456789'
+      }
     },
     {
-      name: 'Learn Norwegian colours',
+      name: 'Learn Norwegian colours Learn Norwegian colours',
       countryFlag: 'NO',
       language: 'Norwegian',
-      learningFrom: 'French'
+      learningFrom: 'French',
+      creator: {
+        username: 'julien'
+      }
     },
   ]
 

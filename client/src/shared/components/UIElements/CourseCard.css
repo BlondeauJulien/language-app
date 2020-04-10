@@ -1,0 +1,38 @@
+.courseCard {
+  display: flex;
+  flex-direction: column;
+
+  border: solid 1px rgb(236, 236, 236);
+  border-bottom: solid 6px rgb(236, 236, 236);
+  border-left: solid 5px rgb(236, 236, 236);
+  border-radius: 6px;
+  padding: 16px;
+  margin: 0 28px;
+  width: 250px;
+}
+
+.courseCard h3 {
+  text-align: center;
+  color: var(--brand-color);
+  height:100%;
+}
+
+.courseCard__flag-container {
+  margin: auto;
+}
+
+.courseCard__info-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.courseCard__info-container span:last-child {
+  color: rgb(136, 136, 136);
+}
+
+.courseCard__creator {
+  text-align: right;
+  margin-top: 6px;
+  color: rgb(180, 180, 180)
+}
