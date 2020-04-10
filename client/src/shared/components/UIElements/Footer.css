@@ -1,0 +1,12 @@
+footer {
+  display: flex;
+  justify-content: space-evenly;
+  width: var(--max-width-main-content);
+  margin: auto;
+  margin-top: 75px;
+  margin-bottom: 50px;
+}
+
+footer a {
+  color: rgb(180, 180, 180)!important;
+}

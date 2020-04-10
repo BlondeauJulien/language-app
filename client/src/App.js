@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 
 import MainHeader from './shared/components/Header/MainHeader';
 import Home from './home/pages/Home';
+import Footer from './shared/components/UIElements/Footer';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <div className="App">
         <MainHeader />
         <Route exact path='/' component={Home} />
+        <Footer />
       </div>
     </Router>
   );
