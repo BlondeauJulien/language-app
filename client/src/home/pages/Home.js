@@ -7,13 +7,34 @@ import CardsContainer from '../../shared/components/UIElements/CardsContainer';
 import CardsContainerHeader from '../../shared/components/UIElements/CardsContainerHeader';
 
 const Home = () => {
+  let courses = [
+    {
+      name: 'Learn Norwegian colours',
+      countryFlag: 'NO',
+      language: 'Norwegian',
+      learningFrom: 'French'
+    },
+    {
+      name: 'Learn Norwegian colours',
+      countryFlag: 'NO',
+      language: 'Norwegian',
+      learningFrom: 'French'
+    },
+    {
+      name: 'Learn Norwegian colours',
+      countryFlag: 'NO',
+      language: 'Norwegian',
+      learningFrom: 'French'
+    },
+  ]
+
   return (
     <div>
       <HomeHeader />
       <MainPageContentContainer mainHome>
         <ActionsContainer />
         <CardsContainerHeader title={'Trending Courses'}/>
-        <CardsContainer />
+        <CardsContainer courses={courses}/>
       </MainPageContentContainer>
     </div>
   )
