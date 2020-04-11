@@ -1,0 +1,30 @@
+.auth-form {
+  width: 320px;
+}
+
+.auth-form-header {
+  font-family: DINNextRoundedLTPro-Regular;
+  text-align: center;
+}
+
+.auth-form-header * {
+  margin: 12px 0;
+}
+
+.auth-form-header h3 {
+  font-size: 1.5rem;
+}
+
+.auth-form-header div {
+  font-size: 1rem;
+  color: rgb(133, 133, 133);
+}
+
+.auth-form-header div button {
+  font-family: DINNextRoundedLTPro-Bold;
+  font-size: 1rem;
+}
+
+.auth-submit-btn-container {
+  padding: 12px;
+}

@@ -5,6 +5,7 @@ import MainHeader from './shared/components/Header/MainHeader';
 import Home from './home/pages/Home';
 import Footer from './shared/components/UIElements/Footer';
 import Modal from './shared/components/UIElements/Modal';
+import AuthForm from './Auth/components/AuthForm';
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
         <MainHeader />
         <Route exact path='/' component={Home} />
         <Footer />
-        <Modal></Modal>
+        <Modal>
+          <AuthForm />
+        </Modal>
       </div>
     </Router>
   );

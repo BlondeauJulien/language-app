@@ -4,3 +4,14 @@
   padding: 8px;
   border-radius: 6px;
 }
+
+.input-wrapper-auth {
+  margin: 12px;
+  background-color: #ffffff;
+  border-bottom: 2px solid #bebebe;
+}
+
+.input-wrapper-auth input {
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+}
