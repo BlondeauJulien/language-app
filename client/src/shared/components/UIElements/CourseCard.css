@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
 
-  border: solid 1px rgb(236, 236, 236);
-  border-bottom: solid 6px rgb(236, 236, 236);
-  border-left: solid 5px rgb(236, 236, 236);
+  border: solid 1px rgb(221, 221, 221);
+  border-bottom: solid 7px rgb(221, 221, 221);
+  border-left: solid 5px rgb(221, 221, 221);
   border-radius: 6px;
   padding: 16px;
   margin: 0 28px;
@@ -13,7 +13,6 @@
 
 .courseCard h3 {
   text-align: center;
-  color: var(--brand-color);
   height:100%;
 }
 

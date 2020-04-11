@@ -1,0 +1,58 @@
+.modal__Overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.335);
+	z-index: 10;
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+	z-index: 100;
+}
+
+.modal {
+  background-color: white;
+  padding: 24px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px 0 rgba(0,0,0,.15);
+  max-width: 95vw;
+  max-height: 95vw;
+}
+
+.modal__close-cross {
+  position: relative;
+  top: -12px;
+  left: 100%;
+
+}
+
+.modal__close-cross button i {
+  color: #c4c4c4;
+}
