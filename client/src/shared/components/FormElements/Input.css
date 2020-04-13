@@ -11,7 +11,16 @@
   border-bottom: 2px solid #bebebe;
 }
 
+.label-auth {
+  margin: 12px;
+  font-size: 1.3rem;
+  background-color: #ffffff;
+  color: rgb(182, 182, 182);
+  text-transform: uppercase;
+}
+
 .input-wrapper-auth input {
   font-size: 1.1rem;
   margin-bottom: 2px;
+  width: 100%;
 }

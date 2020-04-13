@@ -21,7 +21,7 @@ const Input = props => {
 
   return (
     <Fragment>
-      {props.label && <label htmlFor={props.id}>{props.label}</label>}
+      {props.label && <label htmlFor={props.id} className={'label-auth'}>{props.label}</label>}
       <div className={`input-wrapper-${props.wrapperDesign || 'search'}`}>
         {props.logo}
         {element}

@@ -1,0 +1,27 @@
+.profile-navigation {
+  border-bottom: solid 1px rgb(211, 211, 211);
+}
+
+.profile-navigation__ul {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.profile-navigation__li {
+  margin: 0 32px;
+  padding-bottom: 16px;
+  box-sizing: content-box;
+}
+
+.profile-navigation__li button {
+  color: rgb(184, 184, 184)!important;
+}
+
+.profile-navigation__li-selected {
+  border-bottom: solid 3px var(--brand-color);
+  color: var(--brand-color);
+}

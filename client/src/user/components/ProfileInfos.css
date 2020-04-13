@@ -1,0 +1,18 @@
+.profile-infos-container h3 {
+  font-size: 1.5rem;
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.profil-infos-buttons {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.profil-infos-buttons * {
+  margin: 0 12px;
+}

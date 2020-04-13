@@ -16,6 +16,11 @@
   color: white;
 }
 
+.button--danger {
+  background-color: rgb(255, 35, 35);
+  color: white;
+}
+
 .button--primary-txt-white-bg {
   background-color: white;
   color: var(--brand-color);
@@ -24,6 +29,12 @@
 .button--plain-text {
   background-color: inherit;
   color: var(--brand-color);
+  padding: 0;
+}
+
+.button--plain-text-danger {
+  background-color: inherit;
+  color: rgb(255, 35, 35);;
   padding: 0;
 }
 
