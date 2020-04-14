@@ -18,6 +18,15 @@
   width: 100%;
 }
 
+.input-small {
+  width: 250px;
+  padding: 4px 8px;
+}
+
+.input-small input {
+  width: 100%;
+}
+
 .input-wrapper-auth {
   margin: 12px;
   background-color: #ffffff;

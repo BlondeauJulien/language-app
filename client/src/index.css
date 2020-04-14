@@ -41,3 +41,7 @@ input {
 ::placeholder {
   color: #898989;
 }
+
+.separator {
+  border-right: solid 1px rgb(190, 190, 190);
+}

@@ -8,6 +8,7 @@ import Modal from './shared/components/UIElements/Modal';
 import AuthForm from './Auth/components/AuthForm';
 import UserProfile from './user/pages/UserProfile';
 import Search from './search/pages/Search';
+import Course from './course/pages/Course';
 
 function App() {
   const showAuthForm = false;
@@ -19,6 +20,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/profile' component={UserProfile} />
         <Route exact path='/search' component={Search} />
+        <Route exact path='/course' component={Course} />
         <Footer />
         { showAuthForm && (<Modal>
           <AuthForm />

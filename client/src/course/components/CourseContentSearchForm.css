@@ -1,0 +1,44 @@
+.form-search-course-content {
+  width: 620px;
+  min-height: 210px;
+}
+
+.search-coourse-content-header {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  
+  margin: 12px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+.search-coourse-content-header span {
+  margin: 0px 12px;
+}
+
+.button-course-unselected button{
+  color: rgb(182, 182, 182);
+}
+
+.search-course-content-inputs-container {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+/* from searchForm.css */
+.search-submit-container button{
+  display: block;
+  margin: 12px auto;
+}
+

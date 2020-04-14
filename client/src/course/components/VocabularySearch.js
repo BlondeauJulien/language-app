@@ -10,7 +10,7 @@ const VocabularySearch = () => {
           element={'input'}
           type={'text'} 
           label={'word'}
-          size={'input-mid'}
+          size={'input-small'}
           labelDesign={'mid'}
         />
       </div>
@@ -19,7 +19,7 @@ const VocabularySearch = () => {
           element={'input'}
           type={'text'} 
           label={'translate to'}
-          size={'input-mid'}
+          size={'input-small'}
           labelDesign={'mid'}
         />
       </div>
@@ -28,7 +28,7 @@ const VocabularySearch = () => {
           element={'input'}
           type={'text'} 
           label={'difficulty level'}
-          size={'input-mid'}
+          size={'input-small'}
           labelDesign={'mid'}
         />
       </div>
@@ -37,7 +37,7 @@ const VocabularySearch = () => {
           element={'input'}
           type={'text'} 
           label={'tag'}
-          size={'input-mid'}
+          size={'input-small'}
           labelDesign={'mid'}
         />
       </div>       

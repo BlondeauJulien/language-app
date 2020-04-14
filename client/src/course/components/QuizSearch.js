@@ -10,7 +10,7 @@ const QuizSearch = () => {
           element={'input'}
           type={'text'} 
           label={'tag'}
-          size={'input-mid'}
+          size={'input-small'}
           labelDesign={"mid"}
         />
       </div>
@@ -19,7 +19,7 @@ const QuizSearch = () => {
           element={'input'}
           type={'number'} 
           label={'Difficulty level'}
-          size={'input-mid'}
+          size={'input-small'}
           labelDesign={"mid"}
         />
       </div>     
