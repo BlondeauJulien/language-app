@@ -19,9 +19,9 @@ const VocabularyCard = () => {
         <div className="vocabulary-card-back">
           <div className="vocabulary-card-content">Here is the translation</div>
         </div>
-        
       </div>
-        <Button type={'button'} design={'plain-text'} >See whole card</Button>
+      
+      <Button type={'button'} design={'plain-text'} >See whole card</Button>
     </div>
 
   )

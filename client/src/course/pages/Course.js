@@ -3,7 +3,7 @@ import React from 'react';
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
 import CourseCard from '../../shared/components/UIElements/CourseCard';
 import CourseContentSearcForm from '../components/CourseContentSearchForm';
-import VocabularyCard from '../components/VocabularyCard';
+import CardsContainer from '../../shared/components/UIElements/CardsContainer';
 
 import './Course.css';
 
@@ -18,13 +18,34 @@ const Course = () => {
     }
   }
 
+  const words = [{
+    word: 'This is a word',
+    translation: 'This is the translation'
+    }, {
+    word: 'This is a word',
+    translation: 'This is the translation'
+    },{
+    word: 'This is a word',
+    translation: 'This is the translation'
+    },{
+    word: 'This is a word',
+    translation: 'This is the translation'
+    }, {
+    word: 'This is a word',
+    translation: 'This is the translation'
+    },{
+    word: 'This is a word',
+    translation: 'This is the translation'
+    }
+  ]
+
   return (
     <MainPageContentContainer>
       <div className="course-page-header">
         <CourseCard course={course}/>
         <CourseContentSearcForm />
       </div>
-      <VocabularyCard />
+      <CardsContainer words={words}/>
     </MainPageContentContainer>
   )
 }

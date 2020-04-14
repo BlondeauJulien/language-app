@@ -1,8 +1,9 @@
 .vocabulary-card-container {
   text-align: center;
-  width: 300px;
+  width: 280px;
   height: 200px;
-  margin: 24px 12px;
+  margin: 0px 12px;
+  margin-bottom: 50px;
 }
 
 .vocabulary-card {
@@ -55,6 +56,7 @@
 
 .vocabulary-card-container button {
   color: rgb(143, 143, 143);
+  padding-left: 24px;
 }
 
 .vocabulary-card-container button:hover {
