@@ -5,19 +5,41 @@
   border-radius: 6px;
 }
 
+.input-wrapper-search input{
+  width: 85%;
+}
+
+.input-mid {
+  width: 350px;
+  padding: 4px 8px;
+}
+
+.input-mid input {
+  width: 100%;
+}
+
 .input-wrapper-auth {
   margin: 12px;
   background-color: #ffffff;
   border-bottom: 2px solid #bebebe;
 }
 
-.label-auth {
-  margin: 12px;
-  font-size: 1.3rem;
-  background-color: #ffffff;
+label {
+  background-color: inherit;
   color: rgb(182, 182, 182);
   text-transform: uppercase;
 }
+
+.label-default {
+  margin: 12px;
+  font-size: 1.3rem;
+}
+
+.label-mid {
+  margin: 8px 0;
+  font-size: 1rem;
+}
+
 
 .input-wrapper-auth input {
   font-size: 1.1rem;

@@ -1,0 +1,28 @@
+.search-title {
+  font-size: 1.6rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.search-inputs-container {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.search-input-wrapper {
+  width: 350px;
+  margin: 8px 12px;
+}
+
+.search-submit-container button{
+  display: block;
+  margin: 12px auto;
+}

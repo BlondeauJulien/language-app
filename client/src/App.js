@@ -7,6 +7,7 @@ import Footer from './shared/components/UIElements/Footer';
 import Modal from './shared/components/UIElements/Modal';
 import AuthForm from './Auth/components/AuthForm';
 import UserProfile from './user/pages/UserProfile';
+import Search from './search/pages/Search';
 
 function App() {
   const showAuthForm = false;
@@ -17,6 +18,7 @@ function App() {
         <MainHeader />
         <Route exact path='/' component={Home} />
         <Route exact path='/profile' component={UserProfile} />
+        <Route exact path='/search' component={Search} />
         <Footer />
         { showAuthForm && (<Modal>
           <AuthForm />
