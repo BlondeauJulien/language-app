@@ -2,6 +2,7 @@ import React from 'react';
 
 import CourseCard from './CourseCard';
 import VocabularyCard from '../../../course/components/VocabularyCard';
+import QuizCard from '../../../course/components/QuizCard';
 
 import './CardsContainer.css';
 
@@ -17,8 +18,12 @@ const CardsContainer = props => {
         props.words.map(word => {
           return (<VocabularyCard word={word}/>)
         })
+        : props.quizzes ?
+        props.quizzes.map(quiz => {
+          return (<QuizCard quiz={quiz}/>)
+        })
         :
-        (<p>default</p>)
+        (<p>An error occured</p>)
       }
     </div>
   )

@@ -1,0 +1,53 @@
+.container {
+  width: 100%;
+}
+
+.quiz-card {
+  position: relative;
+  overflow: hidden;
+  width: 250px;
+  height: 250px;
+  margin: 12px 32px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px 6px rgba(0,0,0,.18);
+  border-radius: 12.5% / 10.8%;
+}
+
+.image-card {
+  position: absolute;
+  top: -9999px;
+  bottom: -9999px;
+  left: -9999px;
+  right: -9999px;
+  margin: auto;
+}
+
+.img-full-height {
+  height: 100%;
+}
+
+.img-full-width {
+  width: 100%;
+}
+
+.resize-by-width {
+  width: 100%;
+
+  position: absolute;
+  top: -9999px;
+  bottom: -9999px;
+  left: -9999px;
+  right: -9999px;
+  margin: auto;
+}
+
+.resize-by-height {
+  height: 100%;
+
+  position: absolute;
+  top: -9999px;
+  bottom: -9999px;
+  left: -9999px;
+  right: -9999px;
+  margin: auto;
+}
