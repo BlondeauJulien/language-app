@@ -78,8 +78,8 @@ const Course = () => {
         <CourseCard course={course}/>
         <CourseContentSearcForm />
       </div>
-      {/* <CardsContainer words={words}/> */}
-      <CardsContainer quizzes={quizzes}/>
+      <CardsContainer words={words}/>
+      {/* <CardsContainer quizzes={quizzes}/> */}
     </MainPageContentContainer>
   )
 }
