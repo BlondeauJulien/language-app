@@ -14,3 +14,7 @@
 .word-info-content-multiple * {
   margin-bottom: 4px;
 }
+
+.word-conjugation-link:hover {
+  color: var(--brand-color);
+}

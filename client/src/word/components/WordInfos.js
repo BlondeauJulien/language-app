@@ -10,7 +10,7 @@ const WordInfos = props => {
       <h3 className="word-info-title">Translation:</h3>
       <div className="word-info-content-multiple">
         {word.translation.map((t, i) => (
-          <p key={'translation-' + i}>{t}</p>
+          <p key={'translation-' + i}>{i+1 + ` - `}{t}</p>
         ))}
       </div>
     </div>
@@ -18,14 +18,19 @@ const WordInfos = props => {
       <h3 className="word-info-title">Phrases:</h3>
       <div className="word-info-content-multiple">
         {word.phrases.map((phrase, i) => (
-          <p key={'phrase-' + i}>{phrase.origin} / {phrase.translation}</p>
+          <p key={'phrase-' + i}>{i+1 + ` - `}{phrase.origin} / {phrase.translation}</p>
         ))}
       </div>
     </div>
     <div className="word-info">
       <h3 className="word-info-title">Conjugation/grammar link:</h3>
       <div className="word-info-content">
-        <p>{word.conjugationLink}</p>
+        <a className="word-conjugation-link" href={word.conjugationLink}>
+          {word.conjugationLink.length <= 45 ?
+            word.conjugationLink :
+            word.conjugationLink.substring(0, 40) + '...'
+          }
+        </a>
       </div>
     </div>
     <div className="word-info">
