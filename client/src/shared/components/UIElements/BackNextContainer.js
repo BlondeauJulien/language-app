@@ -8,7 +8,9 @@ const BackNextContainer = props => {
 			<div>
 				<i className="fas fa-chevron-left chevron-large" />
 			</div>
-      {props.children}
+      <div>
+        {props.children}
+      </div>
 			<div>
 				<i className="fas fa-chevron-right chevron-large" />
 			</div>

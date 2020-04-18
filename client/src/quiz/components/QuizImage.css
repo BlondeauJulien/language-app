@@ -1,0 +1,9 @@
+.quiz-image-container {
+  text-align: center;
+  margin: 32px 12px;
+}
+
+.quiz-image-container img {
+  max-width: 700px;
+  max-height: 300px;
+}

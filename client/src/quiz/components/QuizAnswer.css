@@ -1,0 +1,23 @@
+.quiz-answer-item {
+  flex: 1 0 auto;
+  align-self: stretch;
+  text-align: center;
+  width: 300px;
+  border: 2px solid rgba(4,143,255,1);
+  color: rgba(4,143,255,1);
+  border-radius: 6px;
+  margin: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: 0.7s;
+}
+
+.quiz-answer-item:hover {
+  background: rgba(4,143,255,1);
+  color: white;
+}
+
+.quiz-answer-item span {
+  font-size: 1rem;
+  line-height: 1.1rem;
+}
