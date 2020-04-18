@@ -46,16 +46,6 @@ input {
   border-right: solid 1px rgb(190, 190, 190);
 }
 
-.chevron-large {
-  font-size: 2.5rem;
-}
-
-.fa-chevron-left:hover,
-.fa-chevron-right:hover {
-  cursor: pointer;
-  color: var(--brand-color)
-}
-
 .tags-container {
   display: flex;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
-
+import BackNextContainer from '../../shared/components/UIElements/BackNextContainer';
 import WordTestActions from '../components/WordTestActions';
 import WordHeader from '../components/WordHeader';
 import WordInfos from '../components/WordInfos';
@@ -23,18 +23,12 @@ const Word = () => {
 
   return (
     <MainPageContentContainer>
-      <div className="word-container">
-        <div>
-          <i className="fas fa-chevron-left chevron-large"></i>
-        </div>
+      <BackNextContainer>
         <div className="word-main">
           <WordHeader word={word.word} />
           <WordInfos word={word} />
         </div>
-        <div>
-          <i className="fas fa-chevron-right chevron-large"></i>
-        </div>
-      </div>
+      </BackNextContainer>
       <WordTestActions />
     </MainPageContentContainer>
   )
