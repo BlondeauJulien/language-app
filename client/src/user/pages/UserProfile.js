@@ -5,6 +5,7 @@ import CardsContainer from '../../shared/components/UIElements/CardsContainer';
 import ProfileNav from '../components/ProfileNav';
 import ProfileInfos from '../components/ProfileInfos';
 import ProfileForm from '../components/ProfileForm';
+import UsersList from '../components/UsersList';
 
 import './UserProfile.css';
 
@@ -42,10 +43,11 @@ const UserProfile = () => {
     <MainPageContentContainer>
       <ProfileNav />
 {/*       <CardsContainer courses={courses}/> */}
-      <div className="profile-container">
- {/*        <ProfileInfos /> */}
+{/*       <div className="profile-container">
+        <ProfileInfos />
         <ProfileForm />
-      </div>
+      </div> */}
+      <UsersList />
     </MainPageContentContainer>
   )
 }

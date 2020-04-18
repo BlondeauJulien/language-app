@@ -15,6 +15,12 @@ const ProfileNav = () => {
         <li className={`profile-navigation__li${isSelected === 'courses' ? '-selected' : ''}`}>
           <Button type={'button'} design={'plain-text'}>My Courses</Button>
         </li>
+        <li className={`profile-navigation__li${isSelected === 'review' ? '-selected' : ''}`}>
+          <Button type={'button'} design={'plain-text'}>To Review</Button>
+        </li>
+        <li className={`profile-navigation__li${isSelected === 'users' ? '-selected' : ''}`}>
+          <Button type={'button'} design={'plain-text'}>Users</Button>
+        </li>
       </ul>
     </nav>
   )
