@@ -11,6 +11,7 @@ import Search from './search/pages/Search';
 import Course from './course/pages/Course';
 import Word from './word/pages/Word';
 import Quiz from './quiz/pages/Quiz';
+import MainForm from './form/pages/MainForm';
 
 function App() {
   const showAuthForm = false;
@@ -25,6 +26,7 @@ function App() {
         <Route exact path='/course' component={Course} />
         <Route exact path='/word' component={Word} />
         <Route exact path='/quiz' component={Quiz} />
+        <Route exact path='/form' component={MainForm} />
         <Footer />
         { showAuthForm && (<Modal>
           <AuthForm />

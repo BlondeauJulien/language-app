@@ -1,0 +1,17 @@
+.main-form__title {
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.main-form__input-container {
+  margin: 24px 0;
+}
+
+.main-form__input-container label {
+  margin: 0;
+  margin-bottom: 6px;
+}
+
+.main-form__button-container {
+  text-align: center;
+}
