@@ -1,4 +1,4 @@
-.user-item {
+.image-review-item {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -11,20 +11,15 @@
   border-bottom: solid 1px rgb(204, 204, 204);
 }
 
-.user-item__infos {
-  cursor: pointer;
+.image-review-item img {
+  width: 300px;
 }
 
-.user-item * {
-  display: block;
-  margin-bottom: 8px;
-}
-
-.user-item:last-of-type {
+.image-review-item:last-of-type {
   border: none;
 }
 
-.user-item__actions {
+.image-review-item__actions {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -45,13 +40,13 @@
   align-items: flex-start;
 }
 
-.user-item__actions button {
+.image-review-item__actions button {
   font-size: 0.8rem;
   padding: 4px 12px;
   margin: 0px 4px;
   margin-bottom: 4px;
 }
 
-.user-item__actions button:last-of-type {
+.image-review-item__actions button:last-of-type {
   background-color: red;
 }

@@ -14,7 +14,7 @@ const UserItem = props => {
         <span className="user-item__status">banned</span>
       </div>
       <div className="user-item__actions">
-        <Button type={'button'}>Role</Button>
+        <Button type={'button'}>Change Role</Button>
         <Button type={'button'}>Ban</Button>
       </div>
     </div>
