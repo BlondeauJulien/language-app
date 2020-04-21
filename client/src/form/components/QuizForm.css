@@ -1,0 +1,13 @@
+.quiz-answer-input-container h3 {
+  font-size: 1.3rem;
+  color: rgb(139, 139, 139);
+}
+
+.quiz-answer-input-container button {
+  background-color: rgb(1, 149, 1);
+}
+
+.tags-info {
+  font-size: 0.85rem;
+  color: rgb(158, 158, 158);
+}

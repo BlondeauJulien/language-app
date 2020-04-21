@@ -1,0 +1,60 @@
+.quiz-answer-input {
+  border-bottom: dashed 1px rgb(161, 161, 161);
+}
+
+.quiz-answer-input:last-of-type {
+  border-bottom: none;
+}
+
+.quiz-answer-input-container > div {
+  margin: 12px 0;
+}
+
+.quiz-answer-input-element {
+  margin: 12px 0;
+}
+
+.quiz-answer-correct-container {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+
+  margin: 12px 0;
+}
+
+.quiz-answer-correct-container * {
+  font-size: 1.3rem;
+  background-color: inherit;
+  color: rgb(182, 182, 182);
+  text-transform: uppercase;
+  margin-right: 8px
+}
+
+.quiz-answer-correct-pick {
+  cursor: pointer;
+}
+
+.quiz-answer-correct-picked {
+  color: var(--brand-color);
+}
+
+.delete-cross {
+  position: absolute;
+  width: 650px;
+  text-align: right;
+}
+
+.delete-cross i {
+  cursor: pointer;
+  color: rgb(153, 153, 153);
+}
+
+.delete-cross i:hover {
+  color: red;
+}

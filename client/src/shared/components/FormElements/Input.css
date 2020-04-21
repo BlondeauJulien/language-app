@@ -9,6 +9,16 @@
   width: 85%;
 }
 
+.input-full {
+  width: 100%;
+  padding: 4px 8px;
+}
+
+.input-full input {
+  width: 100%;
+  padding: 4px 8px;
+}
+
 .input-mid {
   width: 350px;
   padding: 4px 8px;

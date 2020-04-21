@@ -9,7 +9,11 @@ const Input = props => {
       <input 
         id={props.id} 
         type={props.type} 
-        placeholder={props.placeholder} 
+        placeholder={props.placeholder}
+        min={props.minValue}
+        max={props.maxValue}
+        minLength={props.minValue}
+        maxLength={props.maxValue}
       />
     ) : (
       <textarea 
