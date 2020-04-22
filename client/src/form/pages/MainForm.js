@@ -3,6 +3,7 @@ import React from 'react';
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
 import CourseForm from '../components/CourseForm';
 import QuizForm from '../components/QuizForm';
+import VocabularyForm from '../components/VocabularyForm';
 
 import './MainForm.css';
 
@@ -11,7 +12,8 @@ const MainForm = () => {
     <MainPageContentContainer>
       <div className="main-form-container">
         {/* <CourseForm /> */}
-        <QuizForm />
+        {/* <QuizForm /> */}
+        <VocabularyForm />
       </div>
     </MainPageContentContainer>
   )

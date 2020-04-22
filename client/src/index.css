@@ -23,7 +23,7 @@ a {
   text-decoration: none; /* no underline */
 }
 
-input {
+input, textarea {
   font-family: DINNextRoundedLTPro-Bold, sans-serif;
   font-size: 1rem;
   padding: 0;

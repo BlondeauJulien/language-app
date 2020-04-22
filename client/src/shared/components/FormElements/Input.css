@@ -14,7 +14,8 @@
   padding: 4px 8px;
 }
 
-.input-full input {
+.input-full input,
+.input-full textarea {
   width: 100%;
   padding: 4px 8px;
 }

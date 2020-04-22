@@ -18,7 +18,8 @@ const Input = props => {
     ) : (
       <textarea 
 				id={props.id} 
-				rows={props.rows || 3} 
+        rows={props.rows || 3} 
+        placeholder={props.placeholder}
 			/>
     )
 

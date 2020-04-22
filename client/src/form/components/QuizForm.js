@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
-import QuizAnswerInput from './QuizAnswerInput';
+import DualInput from './DualInput';
 import TagsInput from './TagsInput';
 
 import './QuizForm.css';
@@ -34,9 +34,27 @@ const QuizForm = () => {
 				</div>
 				<div className="main-form__input-container quiz-answer-input-container">
           <h3>Add Answers (at least one should be correct):</h3>
-          <QuizAnswerInput />
-          <QuizAnswerInput />
-          <QuizAnswerInput />
+					<DualInput 
+						isAnswerElement 
+						label1={'Answer 1'} 
+						placeholder1={'Add a phrase that describe (or not!) the image.'}
+						label2={'Translation for answer 1'}
+						placeholder2={'Add translation.'}
+					/>
+					<DualInput 
+						isAnswerElement 
+						label1={'Answer 2'} 
+						placeholder1={'Add a phrase that describe (or not!) the image.'}
+						label2={'Translation for answer 2'}
+						placeholder2={'Add translation.'}
+					/>					
+					<DualInput 
+						isAnswerElement 
+						label1={'Answer 3'} 
+						placeholder1={'Add a phrase that describe (or not!) the image.'}
+						label2={'Translation for answer 3'}
+						placeholder2={'Add translation.'}
+					/>
           <Button type="button" ><i className="fas fa-plus"></i>{' '}Add an answer</Button>
         </div>
         <TagsInput 
