@@ -5,7 +5,9 @@ import Button from '../FormElements/Button';
 
 import './MainHeader.css'
 
-const MainHeader = () => {
+const MainHeader = props => {
+  const { authForm, setAuthForm } = props;
+  
   return (
     <header>
       <div className="header-content-container">
@@ -18,8 +20,20 @@ const MainHeader = () => {
             <NavLinks />
           </nav> */}
           <div className="auth-buttons">
-            <Button type={'button'} design={'primary-bg'}>LOG IN TO YOUR ACCOUNT</Button>
-            <Button type={'button'} design={'primary-txt-white-bg'}>SIGN UP</Button>
+            <Button 
+              onClick={() => setAuthForm({...authForm, show: true, component: 'login'})} 
+              type={'button'} 
+              design={'primary-bg'}
+            >
+              LOG IN TO YOUR ACCOUNT
+            </Button>
+            <Button 
+              onClick={() => setAuthForm({...authForm, show: true, component: 'signup'})}
+              type={'button'} 
+              design={'primary-txt-white-bg'}
+            >
+              SIGN UP
+            </Button>
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ const Button = props => {
       <Link
         to={props.to}
         className={`button button--${props.design || 'primary-bg'} ${props.size || ''}`}
+        onClick={props.onClick}
       >
         {props.children}
       </Link>
@@ -20,6 +21,7 @@ const Button = props => {
     <button
       className={`button button--${props.design || 'primary-bg'} ${props.size || ''}`}
       type={props.type}
+      onClick={props.onClick}
     >
       {props.children}
     </button>

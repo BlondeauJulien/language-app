@@ -5,21 +5,39 @@ import Input from '../../shared/components/FormElements/Input';
 
 import './AuthForm.css';
 
-const AuthForm = () => {
+const AuthForm = props => {
+  const { authForm, setAuthForm } = props;
+
   return (
     <form className="auth-form">
       <div className="auth-form-header">
-        <h3>Create your account now</h3>
+        <h3>{authForm.component === 'login' ?  'Log in now' : 'Create your account now'}</h3>
         <div>
-          Already have an account?{` `}
-          <Button type={'button'} design={'plain-text'}>LOG IN</Button>
+          {authForm.component === 'login' ?  `Don't have an account? ` : `Already have an account? `}
+          <Button 
+            onClick={() => authForm.component === 'login' ? 
+              setAuthForm({...authForm, component: 'signup'}) :
+              setAuthForm({...authForm, component: 'login'})
+            } 
+            type={'button'} 
+            design={'plain-text'}
+          >
+          {authForm.component === 'login' ?  `SIGN UP` : `LOG IN`}
+          </Button>
         </div>
       </div>
-      <Input element={'input'} type={'text'} placeholder={'Name'} wrapperDesign={'auth'}/>
+      {authForm.component === 'signup' && (
+        <Input element={'input'} type={'text'} placeholder={'Name'} wrapperDesign={'auth'}/>
+      )}
       <Input element={'input'} type={'email'} placeholder={'Email'} wrapperDesign={'auth'}/>
       <Input element={'input'} type={'password'} placeholder={'Password'} wrapperDesign={'auth'}/>
       <div className="auth-submit-btn-container">
-        <Button type={'submit'} size={'button-full-length'}>SIGN UP</Button>
+        <Button 
+          type={'submit'} 
+          size={'button-full-length'}
+        >
+          {authForm.component === 'login' ?  `LOG IN` : `SIGN UP`}
+        </Button>
       </div>
     </form>
   )

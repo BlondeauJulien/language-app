@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
 import MainHeader from './shared/components/Header/MainHeader';
@@ -13,27 +13,33 @@ import Word from './word/pages/Word';
 import Quiz from './quiz/pages/Quiz';
 import MainForm from './form/pages/MainForm';
 
-function App() {
-  const showAuthForm = false;
+import AuthState from './context/auth/AuthState';
 
-  return (
-    <Router>
-      <div className="App">
-        <MainHeader />
-        <Route exact path='/' component={Home} />
-        <Route exact path='/profile' component={UserProfile} />
-        <Route exact path='/search' component={Search} />
-        <Route exact path='/course' component={Course} />
-        <Route exact path='/word' component={Word} />
-        <Route exact path='/quiz' component={Quiz} />
-        <Route exact path='/form' component={MainForm} />
-        <Footer />
-        { showAuthForm && (<Modal>
-          <AuthForm />
-        </Modal>)}
-      </div>
-    </Router>
-  );
+function App() {
+	const [authForm, setAuthForm] = useState({show: false, component: ''})
+
+	return (
+		<AuthState>
+			<Router>
+				<div className="App">
+					<MainHeader authForm={authForm} setAuthForm={setAuthForm}/>
+					<Route exact path="/" component={Home} />
+					<Route exact path="/profile" component={UserProfile} />
+					<Route exact path="/search" component={Search} />
+					<Route exact path="/course" component={Course} />
+					<Route exact path="/word" component={Word} />
+					<Route exact path="/quiz" component={Quiz} />
+					<Route exact path="/form" component={MainForm} />
+					<Footer />
+					{authForm.show && (
+						<Modal onClose={() => setAuthForm({...authForm, show: false, component: ''})}>
+							<AuthForm authForm={authForm} setAuthForm={setAuthForm}/>
+						</Modal>
+					)}
+				</div>
+			</Router>
+		</AuthState>
+	);
 }
 
 export default App;
