@@ -9,12 +9,12 @@ export const Modal = props => {
   const { onClose } = props;
 
   useEffect(() => {
-    document.querySelector('.modal__overlay').addEventListener('click', onCloseModal);
-    document.querySelector('.modal-container').addEventListener('click', onCloseModal);
+    document.addEventListener('click', onCloseModal);
+    document.addEventListener('click', onCloseModal);
 
     return () => {
-      document.querySelector('.modal__overlay').removeEventListener('click', onCloseModal);
-      document.querySelector('.modal-container').removeEventListener('click', onCloseModal);
+      document.removeEventListener('click', onCloseModal);
+      document.removeEventListener('click', onCloseModal);
     }
   }, []);
 

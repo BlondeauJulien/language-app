@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import NavLinks from './NavLinks';
 import Button from '../FormElements/Button';
@@ -7,14 +8,16 @@ import './MainHeader.css'
 
 const MainHeader = props => {
   const { authForm, setAuthForm } = props;
-  
+
   return (
     <header>
       <div className="header-content-container">
-        <div className="brand-name-container">
-          <i className="fas fa-language"></i>
-          <h1>LEARN</h1>
-        </div>
+        <Link to='/'>
+          <div className="brand-name-container">
+            <i className="fas fa-language"></i>
+            <h1>LEARN</h1>
+          </div>
+        </Link>
         <div className="auth-nav-container">
 {/*           <nav>
             <NavLinks />
