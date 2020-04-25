@@ -53,3 +53,10 @@ input, textarea {
 .tags-container * {
   margin-right: 8px;
 }
+
+.form-submit-error-message {
+  font-size: 1rem;
+  color: rgb(255, 0, 0);
+  text-align: center;
+  margin: 6px 0;
+}

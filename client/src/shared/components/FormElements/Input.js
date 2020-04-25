@@ -7,7 +7,10 @@ const Input = props => {
   const element = 
     props.element === 'input' ? (
       <input 
-        id={props.id} 
+        id={props.id}
+        value={props.value}
+        onChange={props.onChange}
+        onBlur={props.onTouchHandler} 
         type={props.type} 
         placeholder={props.placeholder}
         min={props.minValue}
@@ -17,7 +20,10 @@ const Input = props => {
       />
     ) : (
       <textarea 
-				id={props.id} 
+        id={props.id} 
+        onChange={props.onChange}
+        onBlur={props.onTouchHandler} 
+        value={props.value}
         rows={props.rows || 3} 
         placeholder={props.placeholder}
 			/>
@@ -31,6 +37,9 @@ const Input = props => {
         {props.logo}
         {element}
       </div>
+      {!props.isValid && props.isTouched && (
+        <p className="input__error-message">{props.inputErrorMessage}</p>
+      )}
     </Fragment>
   )
 }
