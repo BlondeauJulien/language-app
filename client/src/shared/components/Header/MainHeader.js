@@ -31,25 +31,28 @@ const MainHeader = props => {
           </div>
         </Link>
         <div className="auth-nav-container">
-{/*           <nav>
-            <NavLinks />
-          </nav> */}
-          <div className="auth-buttons">
-            <Button 
-              onClick={() => setAuthForm({...authForm, show: true, component: 'login'})} 
-              type={'button'} 
-              design={'primary-bg'}
-            >
-              LOG IN TO YOUR ACCOUNT
-            </Button>
-            <Button 
-              onClick={() => setAuthForm({...authForm, show: true, component: 'signup'})}
-              type={'button'} 
-              design={'primary-txt-white-bg'}
-            >
-              SIGN UP
-            </Button>
-          </div>
+          {user ? (
+            <nav>
+              <NavLinks />
+            </nav>
+          ) : (
+            <div className="auth-buttons">
+              <Button 
+                onClick={() => setAuthForm({...authForm, show: true, component: 'login'})} 
+                type={'button'} 
+                design={'primary-bg'}
+              >
+                LOG IN TO YOUR ACCOUNT
+              </Button>
+              <Button 
+                onClick={() => setAuthForm({...authForm, show: true, component: 'signup'})}
+                type={'button'} 
+                design={'primary-txt-white-bg'}
+              >
+                SIGN UP
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </header>
