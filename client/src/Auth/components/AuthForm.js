@@ -4,6 +4,7 @@ import validator from 'validator';
 import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
 import AuthContext from '../../context/auth/authContext';
+import Spinner from '../../shared/SVGImages/Spinner';
 
 import './AuthForm.css';
 
@@ -11,7 +12,7 @@ const AuthForm = (props) => {
   const authContext = useContext(AuthContext);
 
   const { authForm, setAuthForm } = props;
-  const { signup, signin } = authContext;
+  const { signup, signin, loading, user } = authContext;
 
   const formInitialState = {
 		email: { value: '', isValid: false, isTouched: false },
@@ -19,7 +20,13 @@ const AuthForm = (props) => {
 	}
 
   const [ formHasError, setFormHasError ] = useState(false);
-	const [ form, setForm ] = useState(formInitialState);
+  const [ form, setForm ] = useState(formInitialState);
+  
+  useEffect(() => {
+    if(user) {
+      setAuthForm(false);
+    }
+  }, [user])
 
 	useEffect(
 		() => {
@@ -73,7 +80,6 @@ const AuthForm = (props) => {
 			formToSend.username = form.username.value;
 			signup(formToSend);
 		}
-    setForm(formInitialState);
   };
 
 	return (
@@ -135,11 +141,18 @@ const AuthForm = (props) => {
         isValid={form.password.isValid}
         inputErrorMessage={'Password should contains at least 6 characters.'}
 			/>
-			<div className="auth-submit-btn-container">
-				<Button type={'submit'} size={'button-full-length'}>
-					{authForm.component === 'login' ? `LOG IN` : `SIGN UP`}
-				</Button>
-			</div>
+      {
+        loading ? (
+          <Spinner />
+        ) : (
+          <div className="auth-submit-btn-container">
+            <Button type={'submit'} size={'button-full-length'}>
+              {authForm.component === 'login' ? `LOG IN` : `SIGN UP`}
+            </Button>
+          </div>
+        )
+      }
+
       {
         formHasError && (
           <p className="form-submit-error-message">

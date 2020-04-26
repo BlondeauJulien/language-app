@@ -3,7 +3,7 @@ import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 import setAuthToken from '../../shared/util/setAuthToken';
-import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOG_USER } from '../types';
+import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOG_USER, SET_AUTH_LOADING } from '../types';
 
 const AuthState = (props) => {
 	const initialState = {
@@ -22,7 +22,7 @@ const AuthState = (props) => {
   const [ state, dispatch ] = useReducer(authReducer, initialState);
 
 	const signup = async form => {
-		//ADD LOADING
+    setLoadingTo(true);
 		try {
 			const res = await axios.post('/api/users/signup', form, config);
 			dispatch({
@@ -35,7 +35,7 @@ const AuthState = (props) => {
   };
   
   const signin = async form => {
-		//ADD LOADING
+		setLoadingTo(true);
 		try {
 			const res = await axios.post('/api/users/login', form, config);
 			dispatch({
@@ -59,6 +59,13 @@ const AuthState = (props) => {
 		} catch (err) {
 			console.log(err.message);
 		}
+  }
+
+  const setLoadingTo = value => {
+    dispatch({
+      type: SET_AUTH_LOADING,
+      payload: value
+    });
   }
 
 	return (

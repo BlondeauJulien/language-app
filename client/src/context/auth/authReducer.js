@@ -1,7 +1,8 @@
 import {
   REGISTER_SUCCESS,
   LOGIN_SUCCESS,
-  LOG_USER
+  LOG_USER,
+  SET_AUTH_LOADING
 } from '../types';
 
 export default (state, action) => {
@@ -20,7 +21,12 @@ export default (state, action) => {
 				},
 				loading: false,
 				error: null
-			}
+      };
+      case SET_AUTH_LOADING:
+        return {
+          ...state,
+          loading: action.payload
+        }
 		default:
 			return state;
 	}

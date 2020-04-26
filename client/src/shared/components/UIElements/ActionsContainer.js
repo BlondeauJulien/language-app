@@ -19,7 +19,7 @@ const ActionsContainer = () => {
         <div className="action-content">
           <h3>
             Search a course{` `}
-            <Link to="/search" style={{'font-size': '0.6rem', 'color': 'var(--brand-color)'}}>
+            <Link to="/search" style={{'fontSize': '0.6rem', 'color': 'var(--brand-color)'}}>
               advanced
             </Link>
           </h3>

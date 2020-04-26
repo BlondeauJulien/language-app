@@ -16,7 +16,6 @@ const MainHeader = props => {
   useEffect(() => {
     const tokenLS = localStorage.getItem('token');
     if(!user && tokenLS) {
-      console.log('hehe')
       logUser(tokenLS);
     }
   }, [user]);
