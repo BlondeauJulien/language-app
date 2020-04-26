@@ -1,12 +1,14 @@
 import {
   REGISTER_SUCCESS,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  LOG_USER
 } from '../types';
 
 export default (state, action) => {
 	switch (action.type) {
 		case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
+    case LOG_USER:
       localStorage.setItem('token', action.payload.token);
 			return {
 				...state,

@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get('/', authentication, usersControllers.getAllUsers);
 
+router.get('/loggeduser', authentication, usersControllers.getLoggedInUser);
+
 router.get('/:id/courses', usersControllers.getAllCoursesFromUser);
 
 router.post('/signup', [

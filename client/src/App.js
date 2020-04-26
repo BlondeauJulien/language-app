@@ -16,7 +16,7 @@ import MainForm from './form/pages/MainForm';
 import AuthState from './context/auth/AuthState';
 
 function App() {
-	const [authForm, setAuthForm] = useState({show: false, component: ''})
+	const [authForm, setAuthForm] = useState({show: false, component: ''});
 
 	return (
 		<AuthState>

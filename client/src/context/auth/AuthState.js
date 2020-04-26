@@ -2,7 +2,8 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
-import { REGISTER_SUCCESS, LOGIN_SUCCESS } from '../types';
+import setAuthToken from '../../shared/util/setAuthToken';
+import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOG_USER } from '../types';
 
 const AuthState = (props) => {
 	const initialState = {
@@ -44,7 +45,21 @@ const AuthState = (props) => {
 		} catch (err) {
 			console.log(err.message);
 		}
-	};
+  };
+  
+  const logUser = async token => {
+    setAuthToken(token);
+
+    try {
+			const res = await axios.get('/api/users/loggeduser');
+			dispatch({
+				type: LOG_USER,
+				payload: res.data
+			});
+		} catch (err) {
+			console.log(err.message);
+		}
+  }
 
 	return (
 		<AuthContext.Provider
@@ -54,7 +69,8 @@ const AuthState = (props) => {
 				loading: state.loading,
 				error: state.error,
         signup,
-        signin
+        signin,
+        logUser
 			}}
 		>
 			{props.children}

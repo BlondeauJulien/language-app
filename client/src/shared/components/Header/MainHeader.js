@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import NavLinks from './NavLinks';
 import Button from '../FormElements/Button';
+import AuthContext from '../../../context/auth/authContext';
 
 import './MainHeader.css'
 
 const MainHeader = props => {
+  const authContext = useContext(AuthContext);
+
+  const { logUser, user } = authContext;
   const { authForm, setAuthForm } = props;
+
+  useEffect(() => {
+    const tokenLS = localStorage.getItem('token');
+    if(!user && tokenLS) {
+      console.log('hehe')
+      logUser(tokenLS);
+    }
+  }, [user]);
+
 
   return (
     <header>
