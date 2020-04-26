@@ -11,7 +11,7 @@ const AuthForm = (props) => {
   const authContext = useContext(AuthContext);
 
   const { authForm, setAuthForm } = props;
-  const { signup } = authContext;
+  const { signup, signin } = authContext;
 
   const formInitialState = {
 		email: { value: '', isValid: false, isTouched: false },
@@ -64,11 +64,15 @@ const AuthForm = (props) => {
     }
 
     const formToSend = {
-      username: form.username.value,
       email: form.email.value,
       password: form.password.value
-    }
-    signup(formToSend);
+		}
+		if (authForm.component === 'login') {
+			signin(formToSend);
+		} else {
+			formToSend.username = form.username.value;
+			signup(formToSend);
+		}
     setForm(formInitialState);
   };
 
