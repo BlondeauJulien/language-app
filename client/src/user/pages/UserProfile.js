@@ -43,11 +43,11 @@ const UserProfile = () => {
     <MainPageContentContainer>
       <ProfileNav />
 {/*       <CardsContainer courses={courses}/> */}
-{/*       <div className="profile-container">
+      <div className="profile-container">
         <ProfileInfos />
-        <ProfileForm />
-      </div> */}
-      <ItemsList />
+        {/* <ProfileForm /> */}
+      </div>
+      {/* <ItemsList /> */}
     </MainPageContentContainer>
   )
 }

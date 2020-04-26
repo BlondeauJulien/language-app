@@ -3,7 +3,7 @@ import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 import setAuthToken from '../../shared/util/setAuthToken';
-import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOG_USER, SET_AUTH_LOADING } from '../types';
+import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOG_USER, SET_AUTH_LOADING, LOGOUT } from '../types';
 
 const AuthState = (props) => {
 	const initialState = {
@@ -61,6 +61,12 @@ const AuthState = (props) => {
 		}
   }
 
+  const logout = () => {
+    dispatch({
+      type: LOGOUT
+    });
+  }
+
   const setLoadingTo = value => {
     dispatch({
       type: SET_AUTH_LOADING,
@@ -77,7 +83,8 @@ const AuthState = (props) => {
 				error: state.error,
         signup,
         signin,
-        logUser
+        logUser,
+        logout
 			}}
 		>
 			{props.children}

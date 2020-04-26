@@ -2,7 +2,8 @@ import {
   REGISTER_SUCCESS,
   LOGIN_SUCCESS,
   LOG_USER,
-  SET_AUTH_LOADING
+  SET_AUTH_LOADING,
+  LOGOUT
 } from '../types';
 
 export default (state, action) => {
@@ -22,6 +23,15 @@ export default (state, action) => {
 				loading: false,
 				error: null
       };
+      case LOGOUT:
+        localStorage.removeItem('token');
+        return {
+          ...state,
+          token: null,
+          user: null,
+          loading: false,
+          error: null
+        }
       case SET_AUTH_LOADING:
         return {
           ...state,
