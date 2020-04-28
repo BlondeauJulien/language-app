@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, Fragment } from 'react';
+import React, { useEffect, useContext, Fragment, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
@@ -14,17 +14,22 @@ import './UserProfile.css';
 const UserProfile = () => {
 	const authContext = useContext(AuthContext);
 
-	const { logout, user, deleteUser, loading } = authContext;
-	const history = useHistory();
+	const { logout, user, deleteUser, loading, editProfile, error, setAuthError, success, resetSuccess } = authContext;
+  const history = useHistory();
+  const [ isEditMode, setIsEditMode ] = useState(false);
 
-	useEffect(
-		() => {
-			if (!user) {
-				history.push('/');
-			}
-		},
-		[ user ]
-	);
+	useEffect(() => {
+    if (!user) {
+      history.push('/');
+    }
+  }, [ user ]);
+    
+  useEffect(() => {
+    if (success === 'edit-profile') {
+      resetSuccess();
+      setIsEditMode(false);
+    }
+  }, [ success ]);
 
 	let courses = [
 		{
@@ -59,11 +64,28 @@ const UserProfile = () => {
 		<MainPageContentContainer>
 			{user && (
 				<Fragment>
-					<ProfileNav />
+					<ProfileNav setIsEditMode={setIsEditMode}/>
 					{/* <CardsContainer courses={courses}/>  */}
 					<div className="profile-container">
-						<ProfileInfos logout={logout} deleteUser={deleteUser} loading={loading} user={user} />
-						{/*  <ProfileForm /> */}
+            {
+              isEditMode ? (
+                <ProfileForm 
+                  user={user} 
+                  editProfile={editProfile} 
+                  error={error} 
+                  setIsEditMode={setIsEditMode}
+                  setAuthError={setAuthError}
+                />
+              ) : (
+                <ProfileInfos 
+                  logout={logout} 
+                  deleteUser={deleteUser} 
+                  loading={loading} 
+                  user={user} 
+                  setIsEditMode={setIsEditMode}
+                />
+              )
+            }
 					</div>
 					{/* <ItemsList /> */}
 				</Fragment>

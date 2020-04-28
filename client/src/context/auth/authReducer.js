@@ -5,7 +5,9 @@ import {
   SET_AUTH_LOADING,
   LOGOUT,
   SET_AUTH_ERROR,
-  DELETE_USER
+  DELETE_USER,
+  EDIT_USER,
+  RESET_SUCCESS
 } from '../types';
 
 export default (state, action) => {
@@ -25,6 +27,18 @@ export default (state, action) => {
 				loading: false,
 				error: null
       };
+      case EDIT_USER:
+        return {
+          ...state,
+          user: {
+            id: action.payload.userId,
+            username: action.payload.username,
+            email: action.payload.email,
+          },
+          loading: false,
+          error: null,
+          success: 'edit-profile'
+        }
       case LOGOUT:
         localStorage.removeItem('token');
         return {
@@ -55,6 +69,11 @@ export default (state, action) => {
           error: action.payload,
           loading: false,
         };
+      case RESET_SUCCESS:
+        return {
+          ...state,
+          success: null
+        }
 		default:
 			return state;
 	}

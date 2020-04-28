@@ -41,7 +41,7 @@ const updateUserInfos = async (req, res, next) => {
   }
 
   if(!passwordMatch) {
-    const error = new HttpError(`The password you entered doest not match this account`, 401);
+    const error = new HttpError(`The password you entered does not match this account`, 401);
     return next(error);
   }
 

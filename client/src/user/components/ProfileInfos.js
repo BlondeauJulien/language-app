@@ -34,7 +34,7 @@ const ProfileInfos = props => {
       ) : (
         (
           <div className="profil-infos-buttons">
-            <Button type="button" >EDIT</Button>
+            <Button type="button" onClick={() => props.setIsEditMode(true)}>EDIT</Button>
             <Button type="button" design={'danger'} onClick={props.logout}>LOG OUT</Button>
             <Button type="button" design={'plain-text-danger'}  onClick={() => {setOpenDeleteForm(true)}}>DELETE ACCOUNT</Button>
           </div>
