@@ -7,7 +7,7 @@ const InfoElement = props => {
     <div className="profile-info-element">
       <h4 className="info-title">{props.title}</h4>
       <div className="profile-info">
-        <span>Julien123</span>
+        <span>{props.infoValue}</span>
       </div>
     </div>
   )

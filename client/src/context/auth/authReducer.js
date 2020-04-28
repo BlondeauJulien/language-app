@@ -4,7 +4,8 @@ import {
   LOG_USER,
   SET_AUTH_LOADING,
   LOGOUT,
-  SET_AUTH_ERROR
+  SET_AUTH_ERROR,
+  DELETE_USER
 } from '../types';
 
 export default (state, action) => {
@@ -26,6 +27,16 @@ export default (state, action) => {
       };
       case LOGOUT:
         localStorage.removeItem('token');
+        return {
+          ...state,
+          token: null,
+          user: null,
+          loading: false,
+          error: null
+        };
+      case DELETE_USER:
+        localStorage.removeItem('token');
+        alert(action.payload.message);
         return {
           ...state,
           token: null,

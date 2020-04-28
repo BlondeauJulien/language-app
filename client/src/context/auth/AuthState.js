@@ -3,7 +3,7 @@ import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 import setAuthToken from '../../shared/util/setAuthToken';
-import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOG_USER, SET_AUTH_LOADING, LOGOUT, SET_AUTH_ERROR } from '../types';
+import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOG_USER, SET_AUTH_LOADING, LOGOUT, SET_AUTH_ERROR, DELETE_USER } from '../types';
 
 const AuthState = (props) => {
 	const initialState = {
@@ -75,6 +75,23 @@ const AuthState = (props) => {
     });
   }
 
+  const deleteUser = async form => {
+    setAuthToken(state.token);
+    const configDelete = {
+      ...config,
+      data: form
+    }
+    try {
+			const res = await axios.delete(`/api/users/${state.user.id}`, configDelete);
+			dispatch({
+				type: DELETE_USER,
+				payload: res.data
+      });
+		} catch (err) {
+      setAuthError(err.response.data.message);
+		}
+  }
+
   const setLoadingTo = value => {
     dispatch({
       type: SET_AUTH_LOADING,
@@ -93,6 +110,7 @@ const AuthState = (props) => {
         signin,
         logUser,
         logout,
+        deleteUser,
         setAuthError
 			}}
 		>

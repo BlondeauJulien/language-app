@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
@@ -12,57 +12,64 @@ import AuthContext from '../../context/auth/authContext';
 import './UserProfile.css';
 
 const UserProfile = () => {
-  const authContext = useContext(AuthContext);
+	const authContext = useContext(AuthContext);
 
-  const { logout, user } = authContext;
-  const history = useHistory();
+	const { logout, user, deleteUser, loading } = authContext;
+	const history = useHistory();
 
-  useEffect(() => {
-    if(!user) {
-      history.push('/');
-    }
-  }, [user]);
+	useEffect(
+		() => {
+			if (!user) {
+				history.push('/');
+			}
+		},
+		[ user ]
+	);
 
-  let courses = [
-    {
-      name: 'Learn Norwegian colours',
-      countryFlag: 'NO',
-      language: 'Norwegian',
-      learningFrom: 'French',
-      creator: {
-        username: 'julien'
-      }
-    },
-    {
-      name: 'Learn Norwegian colours',
-      countryFlag: 'NO',
-      language: 'Norwegian',
-      learningFrom: 'French',
-      creator: {
-        username: 'julien123456789'
-      }
-    },
-    {
-      name: 'Learn Norwegian colours Learn Norwegian colours',
-      countryFlag: 'NO',
-      language: 'Norwegian',
-      learningFrom: 'French',
-      creator: {
-        username: 'julien'
-      }
-    },
-  ]
-  return (
-    <MainPageContentContainer>
-      <ProfileNav />
-{/*       <CardsContainer courses={courses}/> */}
-      <div className="profile-container">
-        <ProfileInfos logout={logout}/>
-        {/* <ProfileForm /> */}
-      </div>
-      {/* <ItemsList /> */}
-    </MainPageContentContainer>
-  )
-}
+	let courses = [
+		{
+			name: 'Learn Norwegian colours',
+			countryFlag: 'NO',
+			language: 'Norwegian',
+			learningFrom: 'French',
+			creator: {
+				username: 'julien'
+			}
+		},
+		{
+			name: 'Learn Norwegian colours',
+			countryFlag: 'NO',
+			language: 'Norwegian',
+			learningFrom: 'French',
+			creator: {
+				username: 'julien123456789'
+			}
+		},
+		{
+			name: 'Learn Norwegian colours Learn Norwegian colours',
+			countryFlag: 'NO',
+			language: 'Norwegian',
+			learningFrom: 'French',
+			creator: {
+				username: 'julien'
+			}
+		}
+	];
+	return (
+		<MainPageContentContainer>
+			{user && (
+				<Fragment>
+					<ProfileNav />
+					{/* <CardsContainer courses={courses}/>  */}
+					<div className="profile-container">
+						<ProfileInfos logout={logout} deleteUser={deleteUser} loading={loading} user={user} />
+						{/*  <ProfileForm /> */}
+					</div>
+					{/* <ItemsList /> */}
+				</Fragment>
+			)}
+		</MainPageContentContainer>
+	);
+};
 
-export default UserProfile
+export default UserProfile;

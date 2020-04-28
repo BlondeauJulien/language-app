@@ -16,3 +16,20 @@
 .profil-infos-buttons * {
   margin: 0 12px;
 }
+
+.user-infos__form-delete {
+  margin: 24px 0;
+}
+
+.user-infos__form-delete > button {
+  margin: 16px 0;
+  margin-right: 8px;
+}
+
+.user-infos__form-delete label {
+  margin: 0;
+}
+
+.user-infos__form-delete > button:first-of-type {
+  background-color: rgb(255, 35, 35);
+}
