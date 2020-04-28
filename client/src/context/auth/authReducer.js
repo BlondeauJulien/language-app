@@ -3,7 +3,8 @@ import {
   LOGIN_SUCCESS,
   LOG_USER,
   SET_AUTH_LOADING,
-  LOGOUT
+  LOGOUT,
+  SET_AUTH_ERROR
 } from '../types';
 
 export default (state, action) => {
@@ -31,12 +32,18 @@ export default (state, action) => {
           user: null,
           loading: false,
           error: null
-        }
+        };
       case SET_AUTH_LOADING:
         return {
           ...state,
           loading: action.payload
-        }
+        };
+      case SET_AUTH_ERROR:
+        return {
+          ...state,
+          error: action.payload,
+          loading: false,
+        };
 		default:
 			return state;
 	}

@@ -3,7 +3,7 @@ import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 import setAuthToken from '../../shared/util/setAuthToken';
-import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOG_USER, SET_AUTH_LOADING, LOGOUT } from '../types';
+import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOG_USER, SET_AUTH_LOADING, LOGOUT, SET_AUTH_ERROR } from '../types';
 
 const AuthState = (props) => {
 	const initialState = {
@@ -30,7 +30,7 @@ const AuthState = (props) => {
 				payload: res.data
 			});
 		} catch (err) {
-			console.log(err.message);
+      setAuthError(err.response.data.message);
 		}
   };
   
@@ -41,10 +41,11 @@ const AuthState = (props) => {
 			dispatch({
 				type: LOGIN_SUCCESS,
 				payload: res.data
-			});
+      });
+
 		} catch (err) {
-			console.log(err.message);
-		}
+      setAuthError(err.response.data.message);
+    }
   };
   
   const logUser = async token => {
@@ -57,8 +58,15 @@ const AuthState = (props) => {
 				payload: res.data
 			});
 		} catch (err) {
-			console.log(err.message);
+			console.log('An error occured while auto login');
 		}
+  }
+
+  const setAuthError = value => {
+    dispatch({
+      type: SET_AUTH_ERROR,
+      payload: value
+    });
   }
 
   const logout = () => {
@@ -84,7 +92,8 @@ const AuthState = (props) => {
         signup,
         signin,
         logUser,
-        logout
+        logout,
+        setAuthError
 			}}
 		>
 			{props.children}

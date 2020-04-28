@@ -12,7 +12,7 @@ const AuthForm = (props) => {
   const authContext = useContext(AuthContext);
 
   const { authForm, setAuthForm } = props;
-  const { signup, signin, loading, user } = authContext;
+  const { signup, signin, loading, user, error, setAuthError } = authContext;
 
   const formInitialState = {
 		email: { value: '', isValid: false, isTouched: false },
@@ -26,22 +26,32 @@ const AuthForm = (props) => {
     if(user) {
       setAuthForm(false);
     }
-  }, [user])
+  }, [user]);
 
-	useEffect(
-		() => {
-			if (authForm.component === 'signup') {
-				const formSignup = { ...form, username: { value: '', isValid: false, isTouched: false } };
-				setForm(formSignup);
-			} else {
-				const formSignin = { ...form };
-				delete formSignin.username;
+	useEffect(() => {
+    if (authForm.component === 'signup') {
+      const formSignup = { ...form, username: { value: '', isValid: false, isTouched: false } };
+      setForm(formSignup);
+    } else {
+      const formSignin = { ...form };
+      delete formSignin.username;
 
-				setForm(formSignin);
-			}
-		},
-		[ authForm ]
-	);
+      setForm(formSignin);
+    }
+  },[ authForm ]);
+  
+  useEffect(() => {
+    let errorTimer
+    if(error) {
+      errorTimer = setTimeout(() => {
+        setAuthError(false);
+      }, 10000);
+    }
+
+    return () => {
+      clearTimeout(errorTimer);
+    }
+  }, [error]);
 
 	const onTouchHandler = e => {
 		setForm({...form, [e.target.id]: {...form[e.target.id], isTouched: true}});
@@ -52,6 +62,9 @@ const AuthForm = (props) => {
     const value = e.target.value;
 
     setFormHasError(false);
+    if(error) {
+      setAuthError(false);
+    }
 		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
   }
 
@@ -157,6 +170,14 @@ const AuthForm = (props) => {
         formHasError && (
           <p className="form-submit-error-message">
             Please fill the form properly before submitting
+          </p>
+        )
+      }
+
+      { // backend error
+        error && (
+          <p className="form-submit-error-message">
+            {error}
           </p>
         )
       }
