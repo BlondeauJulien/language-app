@@ -29,7 +29,7 @@ function App() {
 					<Route exact path="/course" component={Course} />
 					<Route exact path="/word" component={Word} />
 					<Route exact path="/quiz" component={Quiz} />
-					<Route exact path="/form" component={MainForm} />
+					<Route exact path={`/create/:formType`} component={MainForm} />
 					<Footer />
 					{authForm.show && (
 						<Modal onClose={() => setAuthForm({...authForm, show: false, component: ''})}>

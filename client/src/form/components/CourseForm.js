@@ -6,7 +6,8 @@ import FlagsList from './FlagsList';
 
 import './CourseForm.css';
 
-const CourseForm = () => {
+const CourseForm = props => {
+  
 	return (
 		<form>
 			<h2 className="main-form__title">Course</h2>
