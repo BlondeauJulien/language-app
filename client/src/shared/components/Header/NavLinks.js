@@ -13,7 +13,7 @@ const NavLinks = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={`/create`}>
+        <NavLink to={`/create/course`}>
           <i className="fas fa-plus"></i>
           <span className="nav-link-text">Create</span>
         </NavLink>
