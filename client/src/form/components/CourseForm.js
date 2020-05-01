@@ -10,7 +10,7 @@ const CourseForm = () => {
   
 	return (
 		<form>
-			<h2 className="main-form__title">Course</h2>
+			<h2 className="main-form__title">Create your course</h2>
 			<div className="main-form__input-container">
 				<Input
 					element={'input'}

@@ -27,8 +27,8 @@ const ProfileInfos = props => {
     <div className="profile-infos-container">
       <h3>hello, {props.user.username}</h3>
       {/* A mettre en place, should pass to edit mode if click on infoelement */}
-      <InfoElement title={'USERNAME'} infoValue={props.user.username}/>
-      <InfoElement title={'EMAIL'} infoValue={props.user.email}/>
+      <InfoElement title={'USERNAME'} infoValue={props.user.username} setIsEditMode={props.setIsEditMode}/>
+      <InfoElement title={'EMAIL'} infoValue={props.user.email} setIsEditMode={props.setIsEditMode}/>
       {props.loading ? (
         <Spinner />
       ) : (

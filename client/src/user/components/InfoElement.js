@@ -6,7 +6,7 @@ const InfoElement = props => {
   return (
     <div className="profile-info-element">
       <h4 className="info-title">{props.title}</h4>
-      <div className="profile-info">
+      <div className="profile-info" onClick={() => props.setIsEditMode(true)}>
         <span>{props.infoValue}</span>
       </div>
     </div>
