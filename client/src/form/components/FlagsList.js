@@ -9,6 +9,7 @@ import Button from '../../shared/components/FormElements/Button';
 
 const FlagsList = () => {
   const [displayAllFlags, setDisplayAllFlags] = useState(false);
+  const [searchFlag, setSearchFlag] = useState('');
   
   const flagsEl = () => {
     let flags = []
@@ -21,16 +22,30 @@ const FlagsList = () => {
           <span>{Flags[i].name}</span>
         </div>
       )
-
-      flags.push(content);
+      let searchInput = new RegExp(searchFlag, 'gi');
+      if(Flags[i].name.match(searchInput)) {
+        flags.push(content);
+      }
     }
     return flags;
+  }
+
+  const onChangeSearch = e => {
+    setDisplayAllFlags(true);
+    setSearchFlag(e.target.value);
   }
 
 	return (
 		<div className="flags-list-component">
 			<div className="flags-list-search">
-				<Input element="input" placeholder="Search course flag" />
+        <Input 
+          element="input" 
+          id={'searchFlag'}
+          value={searchFlag}
+          onChange={onChangeSearch}
+          type={'text'}
+          placeholder="Search course flag" 
+        />
 			</div>
 			<div className="flags-container">
         {
@@ -39,7 +54,7 @@ const FlagsList = () => {
 			</div>
 			<div className="flags-button">
 				<Button type="button" design="plain-text" onClick={() => setDisplayAllFlags(!displayAllFlags)}>
-					See All
+				  {displayAllFlags ?	'SEE LESS' : 'SEE ALL'}
 				</Button>
 			</div>
 		</div>

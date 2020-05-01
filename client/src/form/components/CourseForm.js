@@ -15,7 +15,7 @@ const CourseForm = () => {
 		name: { value: '', isValid: false, isTouched: false },
 		language: { value: '', isValid: false, isTouched: false },
 		learningFrom: { value: '', isValid: false, isTouched: false },
-		countryFlag: { value: 'FR', isValid: false, isTouched: false },
+		countryFlag: { value: '', isValid: false, isTouched: false },
 	}
 
   const [ formHasError, setFormHasError ] = useState(false);
