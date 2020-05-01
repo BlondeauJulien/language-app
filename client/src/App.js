@@ -14,30 +14,33 @@ import Quiz from './quiz/pages/Quiz';
 import MainForm from './form/pages/MainForm';
 
 import AuthState from './context/auth/AuthState';
+import CourseState from './context/course/CourseState';
 
 function App() {
-	const [authForm, setAuthForm] = useState({show: false, component: ''});
+	const [ authForm, setAuthForm ] = useState({ show: false, component: '' });
 
 	return (
 		<AuthState>
-			<Router>
-				<div className="App">
-					<MainHeader authForm={authForm} setAuthForm={setAuthForm}/>
-					<Route exact path="/" component={Home} />
-					<Route exact path="/profile" component={UserProfile} />
-					<Route exact path="/search" component={Search} />
-					<Route exact path="/course" component={Course} />
-					<Route exact path="/word" component={Word} />
-					<Route exact path="/quiz" component={Quiz} />
-					<Route exact path={`/create/:formType`} component={MainForm} />
-					<Footer />
-					{authForm.show && (
-						<Modal onClose={() => setAuthForm({...authForm, show: false, component: ''})}>
-							<AuthForm authForm={authForm} setAuthForm={setAuthForm}/>
-						</Modal>
-					)}
-				</div>
-			</Router>
+			<CourseState>
+				<Router>
+					<div className="App">
+						<MainHeader authForm={authForm} setAuthForm={setAuthForm} />
+						<Route exact path="/" component={Home} />
+						<Route exact path="/profile" component={UserProfile} />
+						<Route exact path="/search" component={Search} />
+						<Route exact path="/course" component={Course} />
+						<Route exact path="/word" component={Word} />
+						<Route exact path="/quiz" component={Quiz} />
+						<Route exact path={`/create/:formType`} component={MainForm} />
+						<Footer />
+						{authForm.show && (
+							<Modal onClose={() => setAuthForm({ ...authForm, show: false, component: '' })}>
+								<AuthForm authForm={authForm} setAuthForm={setAuthForm} />
+							</Modal>
+						)}
+					</div>
+				</Router>
+			</CourseState>
 		</AuthState>
 	);
 }
