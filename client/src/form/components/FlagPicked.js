@@ -17,7 +17,9 @@ const FlagPicked = (props) => {
 						<div className="flag-container">
 							<Flag countryCode={flag.code} countryName={flag.name} />
 							<span>{flag.name}</span>
-							<Button type="button" design={'plain-text'}>CHANGE</Button>
+              <div className="flag-picked-change-btn">
+							  <Button type="button" design={'plain-text'} onClick={props.resetFlag}>CHANGE</Button>
+              </div>
 						</div>
 					);
 					setFlag(flagToDisplay);

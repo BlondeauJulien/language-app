@@ -7,7 +7,7 @@ import './FlagsList.css';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 
-const FlagsList = () => {
+const FlagsList = props => {
   const [displayAllFlags, setDisplayAllFlags] = useState(false);
   const [searchFlag, setSearchFlag] = useState('');
   
@@ -17,7 +17,7 @@ const FlagsList = () => {
       if(!displayAllFlags && i === 8) break;
 
       let content = (
-        <div className="flag-container">
+        <div className="flag-container" onClick={() => props.pickFlagHandler(Flags[i].code)}>
           <Flag countryCode={Flags[i].code} countryName={Flags[i].name} />
           <span>{Flags[i].name}</span>
         </div>
