@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import validator from 'validator';
 
 import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
+import validate from '../../shared/util/inputValidation';
 
 import './AuthForm.css';
 
@@ -66,12 +66,6 @@ const AuthForm = (props) => {
       setAuthError(false);
     }
 		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
-  }
-
-  const validate = (value, id) => {
-    if(id === 'username') return validator.isLength(value, {min: 4, max: 16});
-    if(id === 'email') return validator.isEmail(value);
-    if(id === 'password') return validator.isLength(value, {min: 6});
   }
 
 	const onSubmit = (e) => {

@@ -1,15 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import validator from 'validator';
 
 import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
-import Flags from '../../shared/util/countriesFlags';
 import FlagsList from './FlagsList';
 import FlagPicked from './FlagPicked';
 import Spinner from '../../shared/SVGImages/Spinner';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
+import validate from '../../shared/util/inputValidation';
 
 import './CourseForm.css';
 
@@ -64,20 +63,6 @@ const CourseForm = () => {
 
   const pickFlagHandler = flagCode => {
     setForm({...form, countryFlag: {...form.countryFlag, value: flagCode, isValid: validate(flagCode, 'countryFlag')}});
-  }
-
-  const validate = (value, id) => {
-    if(id === 'name') return validator.isLength(value, {min: 4, max: 40});
-    if(id === 'language') return validator.isLength(value, {min: 2, max: 24});
-    if(id === 'learningFrom') return validator.isLength(value, {min: 2, max: 24});
-    if(id === 'countryFlag') {
-      for(let i = 0; i < Flags.length; i++) {
-        if(Flags[i].code === value) {
-          return true;
-        }
-      }
-      return false;
-    }
   }
 
   const onTouchHandler = e => {
