@@ -52,11 +52,15 @@ const FlagsList = props => {
           flagsEl()
         }
 			</div>
-			<div className="flags-button">
-				<Button type="button" design="plain-text" onClick={() => setDisplayAllFlags(!displayAllFlags)}>
-				  {displayAllFlags ?	'SEE LESS' : 'SEE ALL'}
-				</Button>
-			</div>
+      {
+        !searchFlag && (
+          <div className="flags-button">
+            <Button type="button" design="plain-text" onClick={() => setDisplayAllFlags(!displayAllFlags)}>
+              {displayAllFlags ?	'SEE LESS' : 'SEE ALL'}
+            </Button>
+          </div>
+        )
+      }
 		</div>
 	);
 };

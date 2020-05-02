@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import validator from 'validator';
 
 import Button from '../../shared/components/FormElements/Button';
@@ -6,6 +7,7 @@ import Input from '../../shared/components/FormElements/Input';
 import Flags from '../../shared/util/countriesFlags';
 import FlagsList from './FlagsList';
 import FlagPicked from './FlagPicked';
+import Spinner from '../../shared/SVGImages/Spinner';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -14,9 +16,10 @@ import './CourseForm.css';
 const CourseForm = () => {
   const courseContext = useContext(CourseContext);
   const authContext = useContext(AuthContext);
+  const history = useHistory();
 
-  const { createCourse } = courseContext;
-  const { token } = authContext
+  const { createCourse, loading, success, resetCourseSuccess, setCourseError, error } = courseContext;
+  const { token } = authContext;
 
   const formInitialState = {
 		name: { value: '', isValid: false, isTouched: false },
@@ -28,14 +31,34 @@ const CourseForm = () => {
   const [ formHasError, setFormHasError ] = useState(false);
   const [ form, setForm ] = useState(formInitialState);
 
+  useEffect(() => {
+    if(success) {
+      resetCourseSuccess();
+      history.push('/course');
+    }
+  }, [ success ]);
+
+  useEffect(() => {
+    let errorTimer
+    if(error) {
+      errorTimer = setTimeout(() => {
+        setCourseError(false);
+      }, 10000);
+    }
+
+    return () => {
+      clearTimeout(errorTimer);
+    }
+  }, [error]);
+
   const onChange = e => {
     const id = e.target.id;
     const value = e.target.value;
 
     setFormHasError(false);
-/*     if(error) {
-      setAuthError(false);
-    } */
+    if(error) {
+      setCourseError(false);
+    }
 		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
   }
 
@@ -142,14 +165,29 @@ const CourseForm = () => {
           )
         }
 			</div>
-			<div className="main-form__button-container">
-				<Button>Create</Button>
-			</div>
+      {
+        loading ? (
+          <Spinner />
+        ) : (
+          <div className="main-form__button-container">
+            <Button>Create</Button>
+          </div>
+        )
+      }
+
 
       {
         formHasError && (
           <p className="form-submit-error-message">
             Please fill the form properly before submitting, don't forgot to pick a flag
+          </p>
+        )
+      }
+
+      { // backend error
+        error && (
+          <p className="form-submit-error-message">
+            {error}
           </p>
         )
       }

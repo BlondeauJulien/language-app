@@ -6,7 +6,8 @@ import setAuthToken from '../../shared/util/setAuthToken';
 import {
   CREATE_COURSE_SUCCESS,
   SET_COURSE_LOADING,
-  SET_COURSE_ERROR
+  SET_COURSE_ERROR,
+  RESET_COURSE_SUCCESS
 } from '../types';
 
 const CourseState = (props) => {
@@ -28,7 +29,7 @@ const CourseState = (props) => {
   const [ state, dispatch ] = useReducer(courseReducer, initialState);
   
   const createCourse = async (formData, creatorToken) => {
-    //setLoadingTo(true);
+    setLoadingTo(true);
     setAuthToken(creatorToken)
 		try {
 			const res = await axios.post('/api/courses', formData, config);
@@ -55,6 +56,12 @@ const CourseState = (props) => {
 		});
   }
 
+	const resetCourseSuccess = () => {
+		dispatch({
+			type: RESET_COURSE_SUCCESS
+		});
+	};
+
 	return (
 		<CourseContext.Provider
 			value={{
@@ -64,7 +71,8 @@ const CourseState = (props) => {
         loading: state.loading,
         error: state.error,
         success: state.success,
-        createCourse
+        createCourse,
+        resetCourseSuccess
 			}}
 		>
 			{props.children}

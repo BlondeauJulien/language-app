@@ -1,7 +1,8 @@
 import {
   CREATE_COURSE_SUCCESS,
   SET_COURSE_LOADING,
-  SET_COURSE_ERROR
+  SET_COURSE_ERROR,
+  RESET_COURSE_SUCCESS
 } from '../types';
 
 export default (state, action) => {
@@ -9,12 +10,11 @@ export default (state, action) => {
     case CREATE_COURSE_SUCCESS:
       return {
         ...state,
-        courses: action.payload,
         currentCourse: action.payload,
         isEditMode: false,
         loading: false,
         error: null,
-        success: null
+        success: true
       };
     case SET_COURSE_LOADING:
       return {
@@ -27,6 +27,11 @@ export default (state, action) => {
         error: action.payload,
         loading: false,
       };
+    case RESET_COURSE_SUCCESS:
+      return {
+        ...state,
+        success: null
+      }
 		default:
 			return state;
 	}
