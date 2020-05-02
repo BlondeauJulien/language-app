@@ -23,7 +23,7 @@ const CardsContainer = props => {
           return (<QuizCard quiz={quiz}/>)
         })
         :
-        (<p>An error occured</p>)
+        (<p>An error occured or there is nothing to display</p>)
       }
     </div>
   )
