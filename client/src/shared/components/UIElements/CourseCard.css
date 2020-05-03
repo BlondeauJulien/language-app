@@ -9,6 +9,7 @@
   padding: 16px;
   margin: 0 28px;
   width: 250px;
+  cursor: pointer;
 }
 
 .courseCard h3 {

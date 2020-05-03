@@ -9,7 +9,8 @@ import {
   SET_COURSE_LOADING,
   SET_COURSE_ERROR,
   RESET_COURSE_SUCCESS,
-  GET_COURSES_SUCCESS
+  GET_COURSES_SUCCESS,
+  SELECT_COURSE
 } from '../types';
 
 const CourseState = (props) => {
@@ -58,6 +59,18 @@ const CourseState = (props) => {
 		}
   }
 
+  const selectCourse = courseId => {
+    // Call this function withou param to reset selected course to null
+    let course = null;
+    if(courseId) {
+      course = state.courses.find(course => course._id === courseId);
+    }
+    dispatch({
+      type: SELECT_COURSE,
+      payload: course
+    });
+  }
+
   const setLoadingTo = value => {
     dispatch({
 			type: SET_COURSE_LOADING,
@@ -89,7 +102,8 @@ const CourseState = (props) => {
         success: state.success,
         createCourse,
         resetCourseSuccess,
-        getCourses
+        getCourses,
+        selectCourse
 			}}
 		>
 			{props.children}

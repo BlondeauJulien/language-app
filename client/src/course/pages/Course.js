@@ -13,14 +13,18 @@ const Course = () => {
 	const courseContext = useContext(CourseContext);
 	const history = useHistory();
 
-	const { currentCourse } = courseContext;
+	const { currentCourse, selectCourse } = courseContext;
 
 	const [ contentToDisplay, setContentToDisplay ] = useState('word');
 
 	useEffect(() => {
 		if (!currentCourse) {
 			history.push('/');
-		}
+    }
+    
+    return () => {
+      selectCourse(null);
+    }
 	}, []);
 
 	const words = [

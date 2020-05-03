@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import HomeHeader from '../components/HomeHeader';
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
@@ -11,8 +12,9 @@ import CourseContext from '../../context/course/courseContext';
 
 const Home = () => {
   const courseContext = useContext(CourseContext);
+  const history = useHistory()
 
-  const { getCourses, courses, loading, error } = courseContext;
+  const { getCourses, courses, loading, error, currentCourse } = courseContext;
   const [coursesToDisplay, setCoursesToDisplay] = useState(null);
 
   useEffect(() => {
@@ -21,7 +23,13 @@ const Home = () => {
     } else {
       setCoursesToDisplay(courses)
     }
-  }, [ courses, error ])
+  }, [ courses, error ]);
+
+  useEffect(() => {
+    if(currentCourse) {
+      history.push('/course');
+    }
+  }, [ currentCourse ]);
 
   return (
     <div>

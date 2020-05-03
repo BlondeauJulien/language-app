@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Flag from './Flag';
+import CourseContext from '../../../context/course/courseContext';
 
 import './CourseCard.css'
 
 const CourseCard = props => {
-  const { name, countryFlag, language, learningFrom, creator } = props.course;
+  const courseContext = useContext(CourseContext)
+  
+  const { _id, name, countryFlag, language, learningFrom, creator } = props.course;
+  const { selectCourse } = courseContext;
+
+  const onSelectCourse = () => {
+    selectCourse(_id);
+  }
+
   return (
-    <div className="courseCard">
+    <div className="courseCard" onClick={onSelectCourse}>
       <h3>{name}</h3>
       <div className="courseCard__flag-container">
         <Flag countryCode={countryFlag} />
