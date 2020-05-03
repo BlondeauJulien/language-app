@@ -10,7 +10,9 @@ import {
   SET_COURSE_ERROR,
   RESET_COURSE_SUCCESS,
   GET_COURSES_SUCCESS,
-  SELECT_COURSE
+  SELECT_COURSE,
+  GET_COURSES_VOCABULARY,
+  GET_COURSES_QUIZZES
 } from '../types';
 
 const CourseState = (props) => {
@@ -71,6 +73,32 @@ const CourseState = (props) => {
     });
   }
 
+  const getCourseVocabulary = async courseId => {
+    setLoadingTo(true);
+    try {
+      const res = await axios.get(`/api/courses/${courseId}/vocabulary`);
+			dispatch({
+				type: GET_COURSES_VOCABULARY,
+				payload: res.data.course.vocabulary
+			});
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
+  }
+
+  const getCourseQuizzes = async courseId => {
+    setLoadingTo(true);
+    try {
+      const res = await axios.get(`/api/courses/${courseId}/quizzes`);
+			dispatch({
+				type: GET_COURSES_QUIZZES,
+				payload: res.data.course.quizzes
+			});
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
+  }
+
   const setLoadingTo = value => {
     dispatch({
 			type: SET_COURSE_LOADING,
@@ -103,7 +131,9 @@ const CourseState = (props) => {
         createCourse,
         resetCourseSuccess,
         getCourses,
-        selectCourse
+        selectCourse,
+        getCourseVocabulary,
+        getCourseQuizzes
 			}}
 		>
 			{props.children}

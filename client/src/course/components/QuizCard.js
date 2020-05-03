@@ -4,9 +4,9 @@ import './QuizCard.css';
 
 const QuizCard = props => {
   useEffect(() => {
-    const imageEl = document.getElementById(props.quiz.id);
-    const imgNaturalWith = document.getElementById(props.quiz.id).naturalWidth;
-    const imgNaturalHeight = document.getElementById(props.quiz.id).naturalHeight;
+    const imageEl = document.getElementById(props.quiz._id);
+    const imgNaturalWith = document.getElementById(props.quiz._id).naturalWidth;
+    const imgNaturalHeight = document.getElementById(props.quiz._id).naturalHeight;
 
     if(imgNaturalWith < imgNaturalHeight) {
       imageEl.classList.add('img-full-width');
@@ -15,7 +15,7 @@ const QuizCard = props => {
     }
 
     const handleHoverImage = e => {
-      if(e.target.id === props.quiz.id) {
+      if(e.target.id === props.quiz._id) {
         if(imgNaturalWith < imgNaturalHeight) {
           imageEl.classList.remove('image-card', 'img-full-width');
           imageEl.classList.add('resize-by-height')
@@ -27,7 +27,7 @@ const QuizCard = props => {
     }
 
     const handleLeaveImageHover = e => {
-      if(e.target.id === props.quiz.id) {
+      if(e.target.id === props.quiz._id) {
         if(imgNaturalWith < imgNaturalHeight) {
           imageEl.classList.add('image-card', 'img-full-width');
           imageEl.classList.remove('resize-by-height')
@@ -51,7 +51,7 @@ const QuizCard = props => {
 
 	return (
     <div className="quiz-card">
-      <img className="image-card" id={props.quiz.id} src={props.quiz.image} />
+      <img className="image-card" id={props.quiz._id} src={props.quiz.image} />
     </div>
 	);
 };

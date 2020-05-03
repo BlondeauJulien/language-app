@@ -4,7 +4,9 @@ import {
   SET_COURSE_ERROR,
   RESET_COURSE_SUCCESS,
   GET_COURSES_SUCCESS,
-  SELECT_COURSE
+  SELECT_COURSE,
+  GET_COURSES_VOCABULARY,
+  GET_COURSES_QUIZZES
 } from '../types';
 
 export default (state, action) => {
@@ -32,6 +34,22 @@ export default (state, action) => {
       return {
         ...state,
         currentCourse: action.payload,
+        isEditMode: false,
+        loading: false,
+        error: null,
+        success: null
+      };
+    case GET_COURSES_VOCABULARY:
+      return {
+        currentCourse: {...state.currentCourse, vocabulary: action.payload},
+        isEditMode: false,
+        loading: false,
+        error: null,
+        success: null
+      };
+    case GET_COURSES_QUIZZES:
+      return {
+        currentCourse: {...state.currentCourse, quizzes: action.payload},
         isEditMode: false,
         loading: false,
         error: null,
