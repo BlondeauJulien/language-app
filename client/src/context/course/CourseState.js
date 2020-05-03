@@ -3,11 +3,13 @@ import axios from 'axios';
 import CourseContext from './courseContext';
 import courseReducer from './courseReducer';
 import setAuthToken from '../../shared/util/setAuthToken';
+import createQueriesString from '../util/createQueryString';
 import {
   CREATE_COURSE_SUCCESS,
   SET_COURSE_LOADING,
   SET_COURSE_ERROR,
-  RESET_COURSE_SUCCESS
+  RESET_COURSE_SUCCESS,
+  GET_COURSES_SUCCESS
 } from '../types';
 
 const CourseState = (props) => {
@@ -35,6 +37,20 @@ const CourseState = (props) => {
 			const res = await axios.post('/api/courses', formData, config);
 			dispatch({
 				type: CREATE_COURSE_SUCCESS,
+				payload: res.data
+			});
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
+  }
+
+  const getCourses = async (queries = {}) => {
+    setLoadingTo(true);
+    const queriesString = createQueriesString(queries);
+    try {
+      const res = await axios.get(`/api/courses${queriesString}`);
+			dispatch({
+				type: GET_COURSES_SUCCESS,
 				payload: res.data
 			});
 		} catch (err) {
@@ -72,7 +88,8 @@ const CourseState = (props) => {
         error: state.error,
         success: state.success,
         createCourse,
-        resetCourseSuccess
+        resetCourseSuccess,
+        getCourses
 			}}
 		>
 			{props.children}

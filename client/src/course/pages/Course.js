@@ -5,7 +5,6 @@ import MainPageContentContainer from '../../shared/components/UIElements/MainPag
 import CourseCard from '../../shared/components/UIElements/CourseCard';
 import CourseContentSearcForm from '../components/CourseContentSearchForm';
 import CardsContainer from '../../shared/components/UIElements/CardsContainer';
-import QuizCard from '../components/QuizCard';
 import CourseContext from '../../context/course/courseContext';
 
 import './Course.css';
