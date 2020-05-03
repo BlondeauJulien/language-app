@@ -5,21 +5,27 @@ import Button from '../../shared/components/FormElements/Button';
 import QuizSearch from './QuizSearch';
 import VocabularySearch from './VocabularySearch';
 
-const CourseContentSearchForm = () => {
+const CourseContentSearchForm = props => {
+  const { contentToDisplay, setContentToDisplay} = props;
   return (
     <form className="form-search-course-content">
       <div className="search-coourse-content-header">
-        <span className="button-course-unselected">
-          <Button type={'button'} design={'plain-text'}>Words</Button>
+        <span className={`${contentToDisplay !== 'word' ? 'button-course-unselected' : ''}`}>
+          <Button type={'button'} design={'plain-text'} onClick={() => setContentToDisplay('word')}>Words</Button>
         </span>
         <span className="separator"></span>
-        <span>
-          <Button type={'button'} design={'plain-text'}>Quizzes</Button>
+        <span className={`${contentToDisplay !== 'quiz' ? 'button-course-unselected' : ''}`}>
+          <Button type={'button'} design={'plain-text'} onClick={() => setContentToDisplay('quiz')}>Quizzes</Button>
         </span>
       </div>
       <div className="search-course-content-inputs-container">
-        <QuizSearch />
-        {/* <VocabularySearch /> */}
+        {
+          contentToDisplay === 'word' ? (
+            <VocabularySearch />
+          ) : (
+            <QuizSearch />
+          )
+        }
       </div>
       <div className="search-submit-container">
         <Button type={'submit'}>Search</Button>

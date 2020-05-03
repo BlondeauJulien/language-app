@@ -92,7 +92,7 @@ const Course = () => {
         currentCourse && (
           <div className="course-page-header">
           <CourseCard course={currentCourse} />
-          <CourseContentSearcForm />
+          <CourseContentSearcForm contentToDisplay={contentToDisplay} setContentToDisplay={setContentToDisplay} />
           </div>
         )
       }
