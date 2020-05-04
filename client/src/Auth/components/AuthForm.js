@@ -24,7 +24,7 @@ const AuthForm = (props) => {
   
   useEffect(() => {
     if(user) {
-      setAuthForm(false);
+      setAuthForm({ ...authForm, show: false });
     }
   }, [user]);
 

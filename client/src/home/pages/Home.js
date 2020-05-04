@@ -10,10 +10,11 @@ import Spinner from '../../shared/SVGImages/Spinner';
 
 import CourseContext from '../../context/course/courseContext';
 
-const Home = () => {
+const Home = props => {
   const courseContext = useContext(CourseContext);
-  const history = useHistory()
+  const history = useHistory();
 
+  const { authForm, setAuthForm} = props;
   const { getCourses, courses, loading, error, currentCourse } = courseContext;
   const [coursesToDisplay, setCoursesToDisplay] = useState(null);
 
@@ -35,7 +36,7 @@ const Home = () => {
     <div>
       <HomeHeader />
       <MainPageContentContainer mainHome>
-        <ActionsContainer />
+        <ActionsContainer authForm={authForm} setAuthForm={setAuthForm}/>
         <CardsContainerHeader title={'Trending Courses'}/>
         { loading && <Spinner /> }
         { error && <p>{error}</p> }

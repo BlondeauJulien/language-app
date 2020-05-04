@@ -25,7 +25,9 @@ function App() {
 				<Router>
 					<div className="App">
 						<MainHeader authForm={authForm} setAuthForm={setAuthForm} />
-						<Route exact path="/" component={Home} />
+						<Route exact path="/" >
+              <Home authForm={authForm} setAuthForm={setAuthForm} />
+            </Route>
 						<Route exact path="/profile" component={UserProfile} />
 						<Route exact path="/search" component={Search} />
 						<Route exact path="/course" component={Course} />
