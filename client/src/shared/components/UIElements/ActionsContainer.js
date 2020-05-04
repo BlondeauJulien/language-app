@@ -24,7 +24,6 @@ const ActionsContainer = props => {
     if(!authForm.show && redirect.redirect) {
       setRedirect({...redirect, redirect: false, to: ''});
     }
-    console.log('here')
   }, [user, redirect, authForm]);
 
   const onClickCreate = () => {
