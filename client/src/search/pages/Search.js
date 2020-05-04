@@ -1,48 +1,34 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
 import CardsContainer from '../../shared/components/UIElements/CardsContainer';
 import SearchForm from '../components/SearchForm';
+import Spinner from '../../shared/SVGImages/Spinner';
+import CourseContext from '../../context/course/courseContext';
 
 import './Search.css'
 
 const Search = () => {
-  let courses = [
-    {
-      name: 'Learn Norwegian colours',
-      countryFlag: 'NO',
-      language: 'Norwegian',
-      learningFrom: 'French',
-      creator: {
-        username: 'julien'
-      }
-    },
-    {
-      name: 'Learn Norwegian colours',
-      countryFlag: 'NO',
-      language: 'Norwegian',
-      learningFrom: 'French',
-      creator: {
-        username: 'julien123456789'
-      }
-    },
-    {
-      name: 'Learn Norwegian colours Learn Norwegian colours',
-      countryFlag: 'NO',
-      language: 'Norwegian',
-      learningFrom: 'French',
-      creator: {
-        username: 'julien'
-      }
-    },
-  ]
+  const courseContext = useContext(CourseContext);
+  const { courses, loading, error} = courseContext;
+  
 
   return (
     <MainPageContentContainer>
       <div className="search-form-container">
         <SearchForm />
       </div>
-      <CardsContainer courses={courses}/>
+      {
+        loading ? (
+          <Spinner />
+        ) : error ? (
+          <p className="form-submit-error-message">
+            {error}
+          </p>
+        ) : courses ? (
+          <CardsContainer courses={courses}/>
+        ) : null
+      }
     </MainPageContentContainer>
   )
 }

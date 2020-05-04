@@ -19,12 +19,19 @@ const Home = props => {
   const [coursesToDisplay, setCoursesToDisplay] = useState(null);
 
   useEffect(() => {
-    if(!courses && !error) {
-      getCourses();
+    getCourses({username: 'julienbbb123456'});
+  }, []);
+
+  useEffect(() => {
+/*     if(!courses && !error) {
+      getCourses({username: 'julienbbb123456'});
     } else {
       setCoursesToDisplay(courses)
+    } */
+    if(courses && !error && !loading) {
+      setCoursesToDisplay(courses)
     }
-  }, [ courses, error ]);
+  }, [ courses, error, loading ]);
 
   useEffect(() => {
     if(currentCourse) {
