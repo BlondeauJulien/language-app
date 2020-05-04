@@ -16,6 +16,7 @@ const ActionsContainer = props => {
   const { authForm, setAuthForm} = props;
   const { user } = authContext;
   const [ redirect, setRedirect ] = useState({redirect: false, to: ''});
+  const [ form, setForm ] = useState({ name: ''});
 
   useEffect(() => {
     if(redirect.redirect && user) {
@@ -35,6 +36,20 @@ const ActionsContainer = props => {
     }
   }
 
+  const onClickAdvancedSearch = () => {
+    props.resetCourses();
+  }
+
+  const onChange = e => {
+    setForm({...form, [e.target.id]: e.target.value});
+  }
+
+  const onSubmitQuickSearch = e => {
+    e.preventDefault();
+    props.getCourses(form);
+    history.push('/search')
+  }
+
   const logo = (<i className="fas fa-search" style={{'color': 'var(--brand-color)', 'marginRight': '8px'}}></i>)
   return (
     <div className="actions-container">
@@ -45,19 +60,21 @@ const ActionsContainer = props => {
         <div className="action-content">
           <h3>
             Search a course{` `}
-            <Link to="/search" style={{'fontSize': '0.6rem', 'color': 'var(--brand-color)'}}>
+            <Link to="/search" onClick={onClickAdvancedSearch} style={{'fontSize': '0.6rem', 'color': 'var(--brand-color)'}}>
               advanced
             </Link>
           </h3>
-          <div >
+          <form onSubmit={onSubmitQuickSearch}>
             <Input 
+              id={'name'}
+              value={form.name}
+              onChange={onChange}
               element={'input'}
-              id={"search-course"}
               type={'text'}
               placeholder={'e.g., Norwegian, French...'}
               logo={logo}
             />
-          </div>
+          </form>
 
         </div>
       </div>

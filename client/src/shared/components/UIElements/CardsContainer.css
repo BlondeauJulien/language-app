@@ -5,3 +5,7 @@
   width: 95%;
   margin: 32px auto;
 }
+
+.empty-result-message {
+  margin: auto;
+}

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Flag from './Flag';
 import CourseContext from '../../../context/course/courseContext';
@@ -6,13 +7,17 @@ import CourseContext from '../../../context/course/courseContext';
 import './CourseCard.css'
 
 const CourseCard = props => {
-  const courseContext = useContext(CourseContext)
+  const courseContext = useContext(CourseContext);
+  const history = useHistory();
   
   const { _id, name, countryFlag, language, learningFrom, creator } = props.course;
   const { selectCourse } = courseContext;
 
   const onSelectCourse = () => {
-    selectCourse(_id);
+    if(!props.unClickable) {
+      selectCourse(_id);
+      history.push('/course');
+    }
   }
 
   return (

@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '../../shared/components/FormElements/Button';
 import CourseSearch from './CourseSearch';
 
 import './SearchForm.css'
 
-const searchForm = () => {
+const SearchForm = props => {
+  const [ form, setForm ] = useState({
+    name: '',
+    language: '',
+    learningFrom: '',
+    username: ''
+  });
+
+  const onSubmit = e => {
+    e.preventDefault();
+    props.getCourses(form);
+  }
+
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <h3 className="search-title">Search a course</h3>
       <div className="search-inputs-container">
-        <CourseSearch />
+        <CourseSearch form={form} setForm={setForm}/>
       </div>
       <div className="search-submit-container">
         <Button type={'submit'}>Search</Button>
@@ -19,4 +31,4 @@ const searchForm = () => {
   )
 }
 
-export default searchForm
+export default SearchForm

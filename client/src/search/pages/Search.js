@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
 import CardsContainer from '../../shared/components/UIElements/CardsContainer';
@@ -10,13 +10,18 @@ import './Search.css'
 
 const Search = () => {
   const courseContext = useContext(CourseContext);
-  const { courses, loading, error} = courseContext;
+  const { courses, loading, error, resetCourses, getCourses } = courseContext;
   
+  useEffect(() => {
+    return () => {
+      resetCourses();
+    }
+  }, [])
 
   return (
     <MainPageContentContainer>
       <div className="search-form-container">
-        <SearchForm />
+        <SearchForm getCourses={getCourses} />
       </div>
       {
         loading ? (

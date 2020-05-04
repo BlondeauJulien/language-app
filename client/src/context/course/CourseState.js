@@ -12,7 +12,8 @@ import {
   GET_COURSES_SUCCESS,
   SELECT_COURSE,
   GET_COURSES_VOCABULARY,
-  GET_COURSES_QUIZZES
+  GET_COURSES_QUIZZES,
+  RESET_COURSES
 } from '../types';
 
 const CourseState = (props) => {
@@ -59,6 +60,12 @@ const CourseState = (props) => {
 		} catch (err) {
 			setCourseError(err.response.data.message);
 		}
+  }
+
+  const resetCourses = () => {
+    dispatch({
+      type: RESET_COURSES
+    });
   }
 
   const selectCourse = courseId => {
@@ -133,7 +140,8 @@ const CourseState = (props) => {
         getCourses,
         selectCourse,
         getCourseVocabulary,
-        getCourseQuizzes
+        getCourseQuizzes,
+        resetCourses
 			}}
 		>
 			{props.children}

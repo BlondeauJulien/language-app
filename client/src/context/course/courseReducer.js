@@ -6,7 +6,8 @@ import {
   GET_COURSES_SUCCESS,
   SELECT_COURSE,
   GET_COURSES_VOCABULARY,
-  GET_COURSES_QUIZZES
+  GET_COURSES_QUIZZES,
+  RESET_COURSES
 } from '../types';
 
 export default (state, action) => {
@@ -26,6 +27,14 @@ export default (state, action) => {
         courses: action.payload.courses,
         currentCourse: null,
         isEditMode: false,
+        loading: false,
+        error: null,
+        success: null
+      };
+    case RESET_COURSES:
+      return {
+        ...state,
+        courses: null,
         loading: false,
         error: null,
         success: null
