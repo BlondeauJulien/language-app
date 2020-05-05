@@ -17,8 +17,8 @@ const Course = () => {
   const authContext = useContext(AuthContext);
 	const history = useHistory();
 
-  const { currentCourse, selectCourse, loading, getCourseVocabulary, getCourseQuizzes } = courseContext;
-  const { user } = authContext;
+  const { currentCourse, selectCourse, loading, getCourseVocabulary, getCourseQuizzes, deleteCourse, error, success } = courseContext;
+  const { user, token } = authContext;
 
 	const [ contentToDisplay, setContentToDisplay ] = useState('word');
 
@@ -26,7 +26,7 @@ const Course = () => {
 		if (!currentCourse) {
 			history.push('/');
     }
-    
+
     return () => {
       selectCourse(null);
     }
@@ -43,7 +43,11 @@ const Course = () => {
       }
     }
     
-	}, [ contentToDisplay, loading, currentCourse ]);
+  }, [ contentToDisplay, currentCourse ]);
+  
+  const onClickDelete = () => {
+    deleteCourse(currentCourse._id, token);
+  }
 
 	return (
 		<MainPageContentContainer>
@@ -57,7 +61,13 @@ const Course = () => {
                   <div className="user-course-actions-btn">
                     <Button design={'green'} size={'button-mid'}><i className="fas fa-plus"></i> {contentToDisplay}</Button>
                     <Button design={'orange'} size={'button-mid'}><i className="fas fa-edit"></i></Button>
-                    <Button design={'danger'} size={'button-mid'}><i className="fas fa-trash-alt"></i></Button>
+                    <Button 
+                      design={'danger'} 
+                      size={'button-mid'}
+                      onClick={onClickDelete}
+                    >
+                      <i className="fas fa-trash-alt"></i>
+                    </Button>
                   </div>
                 )
               }
@@ -66,9 +76,16 @@ const Course = () => {
           </div>
         )
       }
+      {error && <p className="form-submit-error-message">{error}</p>}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}
 			{contentToDisplay === 'word' && currentCourse  && currentCourse.vocabulary && <CardsContainer words={currentCourse.vocabulary} /> }
 			{contentToDisplay === 'quiz' && currentCourse  && currentCourse.quizzes && <CardsContainer quizzes={currentCourse.quizzes} />}
+      {success && success.for === 'delete' && (
+        <div className="success-action-container">
+          <p>{success.message}</p>
+          <Button to={'/'} design={'primary-txt-white-bg'}>Go back to home page</Button>
+        </div>
+      )}
 		</MainPageContentContainer>
 	);
 };

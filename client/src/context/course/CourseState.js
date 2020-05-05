@@ -13,7 +13,8 @@ import {
   SELECT_COURSE,
   GET_COURSES_VOCABULARY,
   GET_COURSES_QUIZZES,
-  RESET_COURSES
+  RESET_COURSES,
+  DELETE_COURSES_SUCCESS
 } from '../types';
 
 const CourseState = (props) => {
@@ -80,6 +81,19 @@ const CourseState = (props) => {
     });
   }
 
+  const deleteCourse = async (courseId, userToken) => {
+    setAuthToken(userToken)
+    try {
+      const res = await axios.delete(`/api/courses/${courseId}`);
+			dispatch({
+				type: DELETE_COURSES_SUCCESS,
+				payload: res.data
+			});
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
+  }
+
   const getCourseVocabulary = async courseId => {
     setLoadingTo(true);
     try {
@@ -141,7 +155,8 @@ const CourseState = (props) => {
         selectCourse,
         getCourseVocabulary,
         getCourseQuizzes,
-        resetCourses
+        resetCourses,
+        deleteCourse
 			}}
 		>
 			{props.children}

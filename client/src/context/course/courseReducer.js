@@ -7,7 +7,8 @@ import {
   SELECT_COURSE,
   GET_COURSES_VOCABULARY,
   GET_COURSES_QUIZZES,
-  RESET_COURSES
+  RESET_COURSES,
+  DELETE_COURSES_SUCCESS
 } from '../types';
 
 export default (state, action) => {
@@ -47,6 +48,15 @@ export default (state, action) => {
         loading: false,
         error: null,
         success: null
+      };
+    case DELETE_COURSES_SUCCESS:
+      return {
+        ...state,
+        currentCourse: null,
+        isEditMode: false,
+        loading: false,
+        error: null,
+        success: action.payload
       };
     case GET_COURSES_VOCABULARY:
       return {

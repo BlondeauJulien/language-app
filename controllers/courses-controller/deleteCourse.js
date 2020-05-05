@@ -52,7 +52,7 @@ const deleteCourse = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({message: "Course deleted successfully"});
+  res.status(200).json({message: "Course deleted successfully", for: 'delete'});
 
 }
 

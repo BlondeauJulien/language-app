@@ -146,8 +146,8 @@ describe('POST - /api/courses', () => {
     let createCourseRes = await request.post(`/api/courses`)
     .send(defaultCourse).set('Authorization', `Bearer ${user.body.token}`);
 
-    defaultCourse.creator = {id: user.body.userId, username: user.body.username};
-    defaultCourse.courseId = createCourseRes.body.courseId;
+    defaultCourse.creator = {_id: user.body.userId, username: user.body.username};
+    defaultCourse._id = createCourseRes.body._id;
 
     expect(createCourseRes.status).toBe(201);
     expect(createCourseRes.body).toMatchObject(defaultCourse);
