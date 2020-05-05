@@ -6,15 +6,19 @@ import CourseCard from '../../shared/components/UIElements/CourseCard';
 import CourseContentSearcForm from '../components/CourseContentSearchForm';
 import CardsContainer from '../../shared/components/UIElements/CardsContainer';
 import Spinner from '../../shared/SVGImages/Spinner';
+import Button from '../../shared/components/FormElements/Button';
 import CourseContext from '../../context/course/courseContext';
+import AuthContext from '../../context/auth/authContext';
 
 import './Course.css';
 
 const Course = () => {
-	const courseContext = useContext(CourseContext);
+  const courseContext = useContext(CourseContext);
+  const authContext = useContext(AuthContext);
 	const history = useHistory();
 
-	const { currentCourse, selectCourse, loading, getCourseVocabulary, getCourseQuizzes } = courseContext;
+  const { currentCourse, selectCourse, loading, getCourseVocabulary, getCourseQuizzes } = courseContext;
+  const { user } = authContext;
 
 	const [ contentToDisplay, setContentToDisplay ] = useState('word');
 
@@ -46,8 +50,19 @@ const Course = () => {
       {
         currentCourse && (
           <div className="course-page-header">
-          <CourseCard course={currentCourse} unClickable/>
-          <CourseContentSearcForm contentToDisplay={contentToDisplay} setContentToDisplay={setContentToDisplay} />
+            <div>
+              <CourseCard course={currentCourse} unClickable/>
+              { 
+                user.id === currentCourse.creator._id && (
+                  <div className="user-course-actions-btn">
+                    <Button design={'green'} size={'button-mid'}><i className="fas fa-plus"></i> {contentToDisplay}</Button>
+                    <Button design={'orange'} size={'button-mid'}><i className="fas fa-edit"></i></Button>
+                    <Button design={'danger'} size={'button-mid'}><i className="fas fa-trash-alt"></i></Button>
+                  </div>
+                )
+              }
+            </div>
+            <CourseContentSearcForm contentToDisplay={contentToDisplay} setContentToDisplay={setContentToDisplay} />
           </div>
         )
       }

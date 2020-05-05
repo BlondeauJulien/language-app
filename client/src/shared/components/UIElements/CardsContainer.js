@@ -28,7 +28,7 @@ const CardsContainer = props => {
       {
         (props.courses && props.courses.length === 0) || 
         (props.words && props.words.length === 0) ||
-        (props.quizzes && props.qui.length === 0) ? 
+        (props.quizzes && props.quizzes.length === 0) ? 
         (<p className="empty-result-message">Nothing to display / no result</p>) : null
       }
     </div>
