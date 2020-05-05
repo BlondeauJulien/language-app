@@ -50,6 +50,7 @@ export default (state, action) => {
       };
     case GET_COURSES_VOCABULARY:
       return {
+        ...state,
         currentCourse: {...state.currentCourse, vocabulary: action.payload},
         isEditMode: false,
         loading: false,
@@ -58,6 +59,7 @@ export default (state, action) => {
       };
     case GET_COURSES_QUIZZES:
       return {
+        ...state,
         currentCourse: {...state.currentCourse, quizzes: action.payload},
         isEditMode: false,
         loading: false,
