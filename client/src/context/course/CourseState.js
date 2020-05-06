@@ -14,14 +14,16 @@ import {
   GET_COURSES_VOCABULARY,
   GET_COURSES_QUIZZES,
   RESET_COURSES,
-  DELETE_COURSES_SUCCESS
+  DELETE_COURSES_SUCCESS,
+  SET_COURSE_EDIT,
+  EDIT_COURSES_SUCCESS
 } from '../types';
 
 const CourseState = (props) => {
 	const initialState = {
     courses: null,
     currentCourse: null,
-    isEditMode: false,
+    courseToEdit: null,
     loading: false,
     error: null,
     success: null
@@ -79,6 +81,27 @@ const CourseState = (props) => {
       type: SELECT_COURSE,
       payload: course
     });
+  }
+
+  const setCourseToEdit = course => {
+    dispatch({
+      type: SET_COURSE_EDIT,
+      payload: course
+    });
+  }
+
+  const editCourse = async (courseId, formData, userToken) => {
+    setAuthToken(userToken);
+    setLoadingTo(true);
+    try {
+      const res = await axios.patch(`/api/courses/${courseId}`, formData, config);
+			dispatch({
+				type: EDIT_COURSES_SUCCESS,
+				payload: res.data
+			});
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
   }
 
   const deleteCourse = async (courseId, userToken) => {
@@ -145,7 +168,7 @@ const CourseState = (props) => {
 			value={{
         courses: state.courses,
         currentCourse: state.currentCourse,
-        isEditMode: state.isEditMode,
+        courseToEdit: state.courseToEdit,
         loading: state.loading,
         error: state.error,
         success: state.success,
@@ -156,7 +179,9 @@ const CourseState = (props) => {
         getCourseVocabulary,
         getCourseQuizzes,
         resetCourses,
-        deleteCourse
+        deleteCourse,
+        setCourseToEdit,
+        editCourse
 			}}
 		>
 			{props.children}

@@ -182,8 +182,8 @@ describe('Patch - /api/courses/:id', () => {
     const updatedCourseRes = await request.patch(`/api/courses/${courseToUpdate._id}`)
     .send(fieldsToUpdate).set('Authorization', `Bearer ${user.body.token}`);
 
-    fieldsToUpdate.creator = {id: user.body.userId, username: user.body.username};
-    fieldsToUpdate.courseId = updatedCourseRes.body.courseId;
+    fieldsToUpdate.creator = {_id: user.body.userId, username: user.body.username};
+    fieldsToUpdate._id = updatedCourseRes.body._id;
 
     expect(updatedCourseRes.status).toBe(200);
 

@@ -16,7 +16,7 @@ const Search = () => {
     return () => {
       resetCourses();
     }
-  }, [])
+  }, []);
 
   return (
     <MainPageContentContainer>

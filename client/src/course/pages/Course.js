@@ -17,7 +17,16 @@ const Course = () => {
   const authContext = useContext(AuthContext);
 	const history = useHistory();
 
-  const { currentCourse, selectCourse, loading, getCourseVocabulary, getCourseQuizzes, deleteCourse, error, success } = courseContext;
+  const { 
+    currentCourse, 
+    selectCourse, 
+    loading, 
+    getCourseVocabulary, 
+    getCourseQuizzes,
+    setCourseToEdit, 
+    deleteCourse, 
+    error, 
+    success } = courseContext;
   const { user, token } = authContext;
 
 	const [ contentToDisplay, setContentToDisplay ] = useState('word');
@@ -44,6 +53,11 @@ const Course = () => {
     }
     
   }, [ contentToDisplay, currentCourse ]);
+
+  const onCLickEdit = () => {
+    setCourseToEdit(currentCourse);
+		history.push('/form/course');
+  }
   
   const onClickDelete = () => {
     deleteCourse(currentCourse._id, token);
@@ -57,10 +71,16 @@ const Course = () => {
             <div>
               <CourseCard course={currentCourse} unClickable/>
               { 
-                user.id === currentCourse.creator._id && (
+                user && user.id === currentCourse.creator._id && (
                   <div className="user-course-actions-btn">
                     <Button design={'green'} size={'button-mid'}><i className="fas fa-plus"></i> {contentToDisplay}</Button>
-                    <Button design={'orange'} size={'button-mid'}><i className="fas fa-edit"></i></Button>
+                    <Button 
+                      design={'orange'} 
+                      size={'button-mid'}
+                      onClick={onCLickEdit}
+                    >
+                      <i className="fas fa-edit"></i>
+                    </Button>
                     <Button 
                       design={'danger'} 
                       size={'button-mid'}

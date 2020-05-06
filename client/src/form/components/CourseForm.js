@@ -17,18 +17,18 @@ const CourseForm = () => {
   const authContext = useContext(AuthContext);
   const history = useHistory();
 
-  const { createCourse, loading, success, resetCourseSuccess, setCourseError, error } = courseContext;
+  const { createCourse, loading, success, resetCourseSuccess, setCourseError, error, courseToEdit, editCourse } = courseContext;
   const { token } = authContext;
 
   const formInitialState = {
 		name: { value: '', isValid: false, isTouched: false },
 		language: { value: '', isValid: false, isTouched: false },
-		learningFrom: { value: '', isValid: false, isTouched: false },
-		countryFlag: { value: '', isValid: false, isTouched: true },
+		learningFrom: { value: '', isValid: false, isTouched: false }
 	}
 
   const [ formHasError, setFormHasError ] = useState(false);
   const [ form, setForm ] = useState(formInitialState);
+  const [ countryFlag, setCountryFlag ] = useState({ value: '', isValid: false });
 
   useEffect(() => {
     if(success) {
@@ -38,10 +38,23 @@ const CourseForm = () => {
   }, [ success ]);
 
   useEffect(() => {
-    let errorTimer
+    if(courseToEdit) {
+      setForm({
+        ...form,
+        name: {...form.name, value: courseToEdit.name, isValid: true},
+        language: {...form.language, value: courseToEdit.language, isValid: true},
+        learningFrom: {...form.learningFrom, value: courseToEdit.learningFrom, isValid: true}
+      });
+      setCountryFlag({...countryFlag, value: courseToEdit.countryFlag, isValid: true});
+    }
+
+  }, [ courseToEdit ])
+
+  useEffect(() => {
+    let errorTimer;
     if(error) {
       errorTimer = setTimeout(() => {
-        setCourseError(false);
+        setCourseError(null);
       }, 10000);
     }
 
@@ -58,11 +71,12 @@ const CourseForm = () => {
     if(error) {
       setCourseError(false);
     }
-		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
+    setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
   }
 
   const pickFlagHandler = flagCode => {
-    setForm({...form, countryFlag: {...form.countryFlag, value: flagCode, isValid: validate(flagCode, 'countryFlag')}});
+    setFormHasError(false)
+    setCountryFlag({...countryFlag, value: flagCode, isValid: validate(flagCode, 'countryFlag')})
   }
 
   const onTouchHandler = e => {
@@ -78,20 +92,27 @@ const CourseForm = () => {
         return;
       }
     }
+    if(!countryFlag.isValid){
+      setFormHasError(true);
+      return
+    }
 
     const formToSend = {
       name: form.name.value,
       language: form.language.value,
       learningFrom: form.learningFrom.value,
-      countryFlag: form.countryFlag.value
+      countryFlag: countryFlag.value
     }
 
+    courseToEdit ? 
+    editCourse(courseToEdit._id, formToSend, token) 
+    : 
     createCourse(formToSend, token);
   }
   
 	return (
 		<form onSubmit={onSubmit}>
-			<h2 className="main-form__title">Create your course</h2>
+			<h2 className="main-form__title">{courseToEdit ? 'Edit' : 'Create'} your course</h2>
 			<div className="main-form__input-container">
 				<Input
           id={'name'}
@@ -143,8 +164,8 @@ const CourseForm = () => {
 			<div className="main-form__input-container">
 				<label className="label-default">PICK A FLAG</label>
         {
-          form.countryFlag.value ? (
-            <FlagPicked flag={form.countryFlag.value} resetFlag={() => pickFlagHandler('')}/>
+          countryFlag.value ? (
+            <FlagPicked flag={countryFlag.value} resetFlag={() => pickFlagHandler('')}/>
           ) : (
             <FlagsList pickFlagHandler={pickFlagHandler}/>
           )
@@ -155,7 +176,7 @@ const CourseForm = () => {
           <Spinner />
         ) : (
           <div className="main-form__button-container">
-            <Button>Create</Button>
+            <Button>{courseToEdit ? 'Edit' : 'Create'}</Button>
           </div>
         )
       }

@@ -58,10 +58,10 @@ const updateCourse = async (req, res, next) => {
 
   res.status(200).json({
     creator: {
-      id: requestor._id,
+      _id: requestor._id,
       username: requestor.username
     },
-    courseId: updatedCourse._id,
+    _id: updatedCourse._id,
     name: updatedCourse.name,
     language: updatedCourse.language,
     learningFrom: updatedCourse.learningFrom,

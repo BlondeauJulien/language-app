@@ -8,7 +8,9 @@ import {
   GET_COURSES_VOCABULARY,
   GET_COURSES_QUIZZES,
   RESET_COURSES,
-  DELETE_COURSES_SUCCESS
+  DELETE_COURSES_SUCCESS,
+  SET_COURSE_EDIT,
+  EDIT_COURSES_SUCCESS
 } from '../types';
 
 export default (state, action) => {
@@ -17,7 +19,7 @@ export default (state, action) => {
       return {
         ...state,
         currentCourse: action.payload,
-        isEditMode: false,
+        courseToEdit: null,
         loading: false,
         error: null,
         success: true
@@ -27,7 +29,7 @@ export default (state, action) => {
         ...state,
         courses: action.payload.courses,
         currentCourse: null,
-        isEditMode: false,
+        courseToEdit: null,
         loading: false,
         error: null,
         success: null
@@ -44,16 +46,33 @@ export default (state, action) => {
       return {
         ...state,
         currentCourse: action.payload,
-        isEditMode: false,
         loading: false,
         error: null,
         success: null
+      };
+    case SET_COURSE_EDIT:
+      return {
+        ...state,
+        currentCourse: null,
+        courseToEdit: action.payload,
+        loading: false,
+        error: null,
+        success: null
+      };
+    case EDIT_COURSES_SUCCESS:
+      return {
+        ...state,
+        currentCourse: action.payload,
+        courseToEdit: null,
+        loading: false,
+        error: null,
+        success: true
       };
     case DELETE_COURSES_SUCCESS:
       return {
         ...state,
         currentCourse: null,
-        isEditMode: false,
+        courseToEdit: null,
         loading: false,
         error: null,
         success: action.payload
@@ -62,7 +81,7 @@ export default (state, action) => {
       return {
         ...state,
         currentCourse: {...state.currentCourse, vocabulary: action.payload},
-        isEditMode: false,
+        courseToEdit: null,
         loading: false,
         error: null,
         success: null
@@ -71,7 +90,7 @@ export default (state, action) => {
       return {
         ...state,
         currentCourse: {...state.currentCourse, quizzes: action.payload},
-        isEditMode: false,
+        courseToEdit: null,
         loading: false,
         error: null,
         success: null
