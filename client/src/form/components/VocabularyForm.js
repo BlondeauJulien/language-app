@@ -63,7 +63,7 @@ const VocabularyForm = () => {
 		setForm({...form, [id]: [...form[id].map((el, i) => {
 			if(i.toString() === position) {
 				el.value = value;
-				el.isValid = validate(value, id, position);
+				el.isValid = validate(value, id);
 			}
 			return el;
 		})]});
@@ -112,7 +112,7 @@ const VocabularyForm = () => {
 		setForm({...form, [id]: [...form[id].map((el, i) => {
 			if(i.toString() === position) {
 				el[idEl].value = value;
-				el[idEl].isValid = validate(value, id, position);
+				el[idEl].isValid = validate(value, id + idEl);
 			}
 			return el;
 		})]});
@@ -152,6 +152,46 @@ const VocabularyForm = () => {
 	const onSubmit = e => {
 		e.preventDefault();
 		console.log(form)
+		for(const input in form) {
+			if(input === "translation") {
+				let hasError = form[input].find(el => !el.isValid);
+				if(hasError) {
+					setFormHasError(true);
+					return;
+				}
+			} else if (input === "phrases"){
+				let hasError = form[input].find(el => !el.origin.isValid || !el.translation.isValid);
+				if(hasError) {
+					setFormHasError(true);
+					return;
+				}
+			} else {
+				if(!form[input].isValid) {
+					setFormHasError(true);
+					return;
+				}
+			}
+    }
+
+     const formToSend = {
+			word: form.word.value,
+			translation: form.translation.map(t => t.value),
+			difficultyLevel: form.difficultyLevel.value,
+		} 
+		if(form.phrases.length) {
+			formToSend.phrases = form.phrases.map(p => {
+				return {origin: p.origin.value, translation: p.translation.value};
+			})
+		}
+		if(form.conjugationLink.value) formToSend.conjugationLink = form.conjugationLink.value;
+		if(form.personalNote.value) formToSend.personalNote = form.personalNote.value;
+		if(form.tags.value) {
+			formToSend.tags = form.tags.value.split(',').map(t => {
+				return t.trim();
+			})
+		}
+
+		console.log(formToSend)
 	}
 
 	if(!currentCourse) {
@@ -169,8 +209,7 @@ const VocabularyForm = () => {
 					onChange={onChange}
 					element={'input'} 
 					type={'text'} 
-					label={'Word'} 
-					placeholder={'(required)'} 
+					label={`Word*`} 
 					size={'input-full'} 
 					onTouchHandler={onTouchHandler}
           isTouched={form.word && form.word.isTouched}
@@ -186,7 +225,7 @@ const VocabularyForm = () => {
 						id={`translation-${i}`}
 						value={el.value}
 						onChange={onChangeInputForMulti}
-						label={`Translation ${i+1}`}
+						label={`Translation ${i+1}*`}
 						displayDeleteButton={form.translation.length > 1}
 						onDeleteInputForMulti={onDeleteInputForMulti}
 						onTouchHandler={onTouchHandlerInputForMulti}
@@ -210,14 +249,14 @@ const VocabularyForm = () => {
 						key={`phrases-${i}`}
 						id1={`phrases-origin-${i}`}
 						value1={el.origin.value}
-						label1={`Phrase ${i+1}`}
+						label1={`Phrase ${i+1}*`}
 						placeholder1={`Add a phrase...`}
 						isTouched1={el.origin.isTouched}
 						isValid1={el.origin.isValid}
 						
 						id2={`phrases-translation-${i}`}
 						value2={el.translation.value}
-						label2={`Translation for phrase ${i+1}`}
+						label2={`Translation for phrase ${i+1}*`}
 						placeholder2={`Add translation.`}
 						isTouched2={el.translation.isTouched}
 						isValid2={el.translation.isValid}
@@ -270,8 +309,8 @@ const VocabularyForm = () => {
 					onChange={onChange}
           element={'input'}
           type={'number'}
-          label={'Difficulty level'}
-          placeholder={'(1 to 10) (required)'}
+          label={'Difficulty level*'}
+          placeholder={'(1 to 10)'}
           size={'input-full'}
           minValue="1"
 					maxValue="10"
@@ -296,6 +335,14 @@ const VocabularyForm = () => {
 				<Button type={'button'} onClick={onClickBackCoure}>Back to course</Button>
         <Button type={'submit'} design={'green'} >Create</Button>
       </div>
+
+			{
+        formHasError && (
+          <p className="form-submit-error-message">
+            Please fill the form properly before submitting
+          </p>
+        )
+      }
 		</form>
 	);
 };
