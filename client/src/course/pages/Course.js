@@ -29,7 +29,8 @@ const Course = () => {
     success } = courseContext;
   const { user, token } = authContext;
 
-	const [ contentToDisplay, setContentToDisplay ] = useState('word');
+  const [ contentToDisplay, setContentToDisplay ] = useState('word');
+  const [ keepCurrentCourse, setKeepCurrentCourse ] = useState(false);
 
 	useEffect(() => {
 		if (!currentCourse) {
@@ -37,7 +38,10 @@ const Course = () => {
     }
 
     return () => {
-      selectCourse(null);
+      let regex = /vocabulary|quiz/gi
+      if(!regex.test(history.location.pathname)) {
+        selectCourse(null);
+      }
     }
 	}, []);
 
@@ -54,7 +58,17 @@ const Course = () => {
     
   }, [ contentToDisplay, currentCourse ]);
 
-  const onCLickEdit = () => {
+  const onCLickCreateContent = () => {
+    setKeepCurrentCourse(true);
+    console.log(keepCurrentCourse)
+    if(contentToDisplay === 'word') {
+      history.push('/form/vocabulary');
+    } else {
+      history.push('/form/quiz');
+    }
+  }
+
+  const onClickEdit = () => {
     setCourseToEdit(currentCourse);
 		history.push('/form/course');
   }
@@ -73,11 +87,17 @@ const Course = () => {
               { 
                 user && user.id === currentCourse.creator._id && (
                   <div className="user-course-actions-btn">
-                    <Button design={'green'} size={'button-mid'}><i className="fas fa-plus"></i> {contentToDisplay}</Button>
+                    <Button 
+                      design={'green'} 
+                      size={'button-mid'}
+                      onClick={onCLickCreateContent}
+                    >
+                      <i className="fas fa-plus"></i> {contentToDisplay}
+                    </Button>
                     <Button 
                       design={'orange'} 
                       size={'button-mid'}
-                      onClick={onCLickEdit}
+                      onClick={onClickEdit}
                     >
                       <i className="fas fa-edit"></i>
                     </Button>

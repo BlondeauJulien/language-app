@@ -2,3 +2,7 @@
   width: 650px;
   margin: auto;
 }
+
+.main-form__button-container button{
+  margin: 4px 8px;
+}

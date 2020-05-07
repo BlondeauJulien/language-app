@@ -16,8 +16,3 @@
 .phrases-container > div:last-of-type {
   border: none;
 }
-
-.translations-container button,
-.phrases-container button {
-  background-color: rgb(1, 149, 1);
-}

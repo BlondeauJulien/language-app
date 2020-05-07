@@ -1,54 +1,47 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Input from '../../shared/components/FormElements/Input';
 import DualInput from './DualInput';
+import InputForMulti from './InputForMulti';
 import Button from '../../shared/components/FormElements/Button';
 import TagsInput from './TagsInput'
+import CourseContext from '../../context/course/courseContext';
 
 import './VocabularyForm.css';
 
 const VocabularyForm = () => {
+	const courseContext = useContext(CourseContext);
+	const history = useHistory();
+
+	const { currentCourse } = courseContext
+
+	const onClickBackCoure = () => {
+		history.push('/course');
+	}
+
+	if(!currentCourse) {
+		history.push('/');
+		return null
+	}
+
 	return (
 		<form>
-			<h2 className="main-form__title">Word</h2>
+			<h2 className="main-form__title">Add a word for: {currentCourse.name}</h2>
 			<div className="main-form__input-container">
 				<Input element={'input'} type={'text'} label={'Word'} placeholder={''} size={'input-full'} />
 			</div>
 			<div className="main-form__input-container translations-container">
 				<h3>Translations:</h3>
-				<div>
-					<Input
-						element={'input'}
-						type={'text'}
-						label={'Translation1'}
-						placeholder={''}
-						size={'input-full'}
-					/>
-				</div>
-				<div>
-					<Input
-						element={'input'}
-						type={'text'}
-						label={'Translation2'}
-						placeholder={''}
-						size={'input-full'}
-					/>
-				</div>
-				<div>
-					<Input
-						element={'input'}
-						type={'text'}
-						label={'Translation3'}
-						placeholder={''}
-						size={'input-full'}
-					/>
-				</div>
-				<Button type="button">
+				<InputForMulti label={'Translation 1'} />
+				<InputForMulti label={'Translation 2'} />
+				<InputForMulti label={'Translation 3'} />
+				<Button type="button" size={'button-mid'} design={'green'}>
 					<i className="fas fa-plus" /> Add a translation
 				</Button>
 			</div>
 			<div className="main-form__input-container phrases-container">
-				<h3>Add phrases including {'word'}:</h3>
+				<h3>Add phrases including the {'word'}:</h3>
 				<DualInput
 					label1={'Phrase 1'}
 					placeholder1={'Add a phrase...'}
@@ -67,7 +60,7 @@ const VocabularyForm = () => {
 					label2={'Translation for phrase 3'}
 					placeholder2={'Add translation.'}
 				/>
-				<Button type="button">
+				<Button type="button" size={'button-mid'} design={'green'}>
 					<i className="fas fa-plus" /> Add a phrase
 				</Button>
 			</div>
@@ -75,7 +68,7 @@ const VocabularyForm = () => {
 				<Input element={'input'} type={'text'} label={'Conjugation/Grammar link'} placeholder={'Add a link to conjugation or grammar rule...'} size={'input-full'} />
 			</div>
       <div className="main-form__input-container">
-				<Input label={'Conjugation/Grammar link'} placeholder={'Add a note about this word'} size={'input-full'} />
+				<Input label={'Note'} placeholder={'Add a note about this word'} size={'input-full'} />
 			</div>
       <div className="main-form__input-container">
         <Input
@@ -93,7 +86,8 @@ const VocabularyForm = () => {
           placeholder={'color, verb, family...'}
         />
       <div className="main-form__button-container">
-        <Button>Create</Button>
+				<Button onClick={onClickBackCoure}>Back to course</Button>
+        <Button design={'green'} >Create</Button>
       </div>
 		</form>
 	);
