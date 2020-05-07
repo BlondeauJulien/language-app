@@ -176,7 +176,7 @@ const CourseForm = () => {
           <Spinner />
         ) : (
           <div className="main-form__button-container">
-            <Button>{courseToEdit ? 'Edit' : 'Create'}</Button>
+            <Button type={'submit'}>{courseToEdit ? 'Edit' : 'Create'}</Button>
           </div>
         )
       }

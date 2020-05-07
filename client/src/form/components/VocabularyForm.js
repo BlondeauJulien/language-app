@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Input from '../../shared/components/FormElements/Input';
@@ -7,17 +7,151 @@ import InputForMulti from './InputForMulti';
 import Button from '../../shared/components/FormElements/Button';
 import TagsInput from './TagsInput'
 import CourseContext from '../../context/course/courseContext';
+import AuthContext from '../../context/auth/authContext';
+import validate from '../../shared/util/inputValidation';
 
 import './VocabularyForm.css';
 
 const VocabularyForm = () => {
 	const courseContext = useContext(CourseContext);
+	const authContext = useContext(AuthContext);
 	const history = useHistory();
 
-	const { currentCourse } = courseContext
+	const { currentCourse, error, setCourseError } = courseContext;
+	const { token } = authContext;
+
+	const formInitialState = {
+		word: { value: '', isValid: false, isTouched: false },
+		translation: [{ value: '', isValid: false, isTouched: false }],
+		phrases: [],
+		conjugationLink: { value: '', isValid: true, isTouched: false },
+		personalNote: { value: '', isValid: true, isTouched: false },
+		difficultyLevel: { value: '', isValid: false, isTouched: false },
+		tags: { value: '', isValid: true, isTouched: false }
+	}
+
+	const [ formHasError, setFormHasError ] = useState(false);
+  const [ form, setForm ] = useState(formInitialState);
 
 	const onClickBackCoure = () => {
 		history.push('/course');
+	}
+
+	const resetErrors = () => {
+		setFormHasError(false);
+    if(error) {
+      setCourseError(false);
+    }
+	} 
+
+	const onChange = e => {
+    const id = e.target.id;
+    const value = e.target.value;
+
+		resetErrors();
+
+		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
+	}
+
+	const onChangeInputForMulti = e => {
+    const id = e.target.id.split('-')[0];
+		const position = e.target.id.split('-')[1];
+		const value = e.target.value;
+
+		resetErrors();
+
+		setForm({...form, [id]: [...form[id].map((el, i) => {
+			if(i.toString() === position) {
+				el.value = value;
+				el.isValid = validate(value, id, position);
+			}
+			return el;
+		})]});
+	}
+
+	const onDeleteInputForMulti = element => {
+		const id = element.split('-')[0];
+		const position = element.split('-')[1];
+
+		setForm({...form, [id]: [...form[id].filter((el, i) => {
+			return i.toString() !== position;
+		})]});
+	}
+
+	const onClickAddTranslation = () => {
+		if(form.translation.length >= 8 ) return;
+		const id = 'translation';
+    const value = { value: '', isValid: false, isTouched: false };
+		setForm({...form, [id]: [...form[id], value]});
+	}
+	
+	const onTouchHandler = e => {
+		setForm({...form, [e.target.id]: {...form[e.target.id], isTouched: true}});
+	}
+	
+	const onTouchHandlerInputForMulti = e => {
+		const id = e.target.id.split('-')[0];
+		const position = e.target.id.split('-')[1];
+
+		setForm({...form, [id]: [...form[id].map((el, i) => {
+			if(i.toString() === position) {
+				el.isTouched = true;
+			}
+			return el;
+		})]});
+	}
+
+	const onChangeDualInput = e => {
+    const id = e.target.id.split('-')[0];
+    const idEl = e.target.id.split('-')[1];
+		const position = e.target.id.split('-')[2];
+		const value = e.target.value;
+
+		resetErrors();
+
+		setForm({...form, [id]: [...form[id].map((el, i) => {
+			if(i.toString() === position) {
+				el[idEl].value = value;
+				el[idEl].isValid = validate(value, id, position);
+			}
+			return el;
+		})]});
+	}
+
+	const onTouchHandlerDualInput = e => {
+    const id = e.target.id.split('-')[0];
+    const idEl = e.target.id.split('-')[1];
+		const position = e.target.id.split('-')[2];
+
+		setForm({...form, [id]: [...form[id].map((el, i) => {
+			if(i.toString() === position) {
+				el[idEl].isTouched = true;
+			}
+			return el;
+		})]});
+	}
+
+	const onClickAddPhrase = () => {
+		if(form.phrases.length >= 8 ) return;
+
+		const id = 'phrases';
+		const base = { value: '', isValid: false, isTouched: false }
+    const value = {origin: { ...base}, translation: {...base}};
+		setForm({...form, [id]: [...form[id], value]});
+	}
+
+	const onDeleteDualInput = element => {
+		const id = element.split('-')[0];
+		const position = element.split('-')[2];
+
+		setForm({...form, [id]: [...form[id].filter((el, i) => {
+			return i.toString() !== position;
+		})]});
+	}
+
+	const onSubmit = e => {
+		e.preventDefault();
+		console.log(form)
 	}
 
 	if(!currentCourse) {
@@ -26,68 +160,141 @@ const VocabularyForm = () => {
 	}
 
 	return (
-		<form>
+		<form onSubmit={onSubmit}>
 			<h2 className="main-form__title">Add a word for: {currentCourse.name}</h2>
 			<div className="main-form__input-container">
-				<Input element={'input'} type={'text'} label={'Word'} placeholder={''} size={'input-full'} />
+				<Input 
+					id={'word'}
+					value={form.word && form.word.value}
+					onChange={onChange}
+					element={'input'} 
+					type={'text'} 
+					label={'Word'} 
+					placeholder={'(required)'} 
+					size={'input-full'} 
+					onTouchHandler={onTouchHandler}
+          isTouched={form.word && form.word.isTouched}
+          isValid={form.word && form.word.isValid}
+					inputErrorMessage={'Word should contain between 1 and 30 characters.'}
+				/>
 			</div>
 			<div className="main-form__input-container translations-container">
 				<h3>Translations:</h3>
-				<InputForMulti label={'Translation 1'} />
-				<InputForMulti label={'Translation 2'} />
-				<InputForMulti label={'Translation 3'} />
-				<Button type="button" size={'button-mid'} design={'green'}>
-					<i className="fas fa-plus" /> Add a translation
-				</Button>
+				{form.translation.map((el, i) => {
+					return <InputForMulti 
+						key={`translation-${i}`}
+						id={`translation-${i}`}
+						value={el.value}
+						onChange={onChangeInputForMulti}
+						label={`Translation ${i+1}`}
+						displayDeleteButton={form.translation.length > 1}
+						onDeleteInputForMulti={onDeleteInputForMulti}
+						onTouchHandler={onTouchHandlerInputForMulti}
+						isTouched={el.isTouched}
+						isValid={el.isValid}
+						inputErrorMessage={'Translation should contain between 1 and 30 characters.'}
+					/>
+				})}
+				{
+					form.translation.length < 8 && (
+						<Button type="button" onClick={onClickAddTranslation} size={'button-mid'} design={'green'}>
+							<i className="fas fa-plus" /> Add a translation
+						</Button>
+					)
+				}
 			</div>
 			<div className="main-form__input-container phrases-container">
 				<h3>Add phrases including the {'word'}:</h3>
-				<DualInput
-					label1={'Phrase 1'}
-					placeholder1={'Add a phrase...'}
-					label2={'Translation for phrase 1'}
-					placeholder2={'Add translation.'}
-				/>
-				<DualInput
-					label1={'Phrase 2'}
-					placeholder1={'Add a phrase...'}
-					label2={'Translation for phrase 2'}
-					placeholder2={'Add translation.'}
-				/>
-				<DualInput
-					label1={'Phrase 3'}
-					placeholder1={'Add a phrase...'}
-					label2={'Translation for phrase 3'}
-					placeholder2={'Add translation.'}
-				/>
-				<Button type="button" size={'button-mid'} design={'green'}>
-					<i className="fas fa-plus" /> Add a phrase
-				</Button>
+				{form.phrases.map((el, i) => {
+					return <DualInput 
+						key={`phrases-${i}`}
+						id1={`phrases-origin-${i}`}
+						value1={el.origin.value}
+						label1={`Phrase ${i+1}`}
+						placeholder1={`Add a phrase...`}
+						isTouched1={el.origin.isTouched}
+						isValid1={el.origin.isValid}
+						
+						id2={`phrases-translation-${i}`}
+						value2={el.translation.value}
+						label2={`Translation for phrase ${i+1}`}
+						placeholder2={`Add translation.`}
+						isTouched2={el.translation.isTouched}
+						isValid2={el.translation.isValid}
+						
+						onDeleteDualInput={onDeleteDualInput}
+						onChange={onChangeDualInput}
+						onTouchHandler={onTouchHandlerDualInput}
+						displayDeleteButton={true}
+						inputErrorMessage={'It should contain between 1 and 200 characters.'}
+					/>
+				})}
+				{
+					form.phrases.length < 8 && (
+						<Button type="button" onClick={onClickAddPhrase} size={'button-mid'} design={'green'}>
+							<i className="fas fa-plus" /> Add a phrase
+						</Button>
+					)
+				}				
 			</div>
       <div className="main-form__input-container">
-				<Input element={'input'} type={'text'} label={'Conjugation/Grammar link'} placeholder={'Add a link to conjugation or grammar rule...'} size={'input-full'} />
+				<Input 
+					id={'conjugationLink'}
+					value={form.conjugationLink && form.conjugationLink.value}
+					onChange={onChange}
+					element={'input'} 
+					type={'text'} 
+					label={'Conjugation/Grammar link'} 
+					placeholder={'Add a link to conjugation or grammar rule...'} 
+					size={'input-full'} 
+				/>
 			</div>
       <div className="main-form__input-container">
-				<Input label={'Note'} placeholder={'Add a note about this word'} size={'input-full'} />
+				<Input 
+					id={'personalNote'}
+					value={form.personalNote && form.personalNote.value}
+					onChange={onChange}
+					label={'Note'} 
+					placeholder={'Add a note about this word'} 
+					size={'input-full'} 
+					onTouchHandler={onTouchHandler}
+          isTouched={form.personalNote && form.personalNote.isTouched}
+          isValid={form.personalNote && form.personalNote.isValid}
+          inputErrorMessage={'Note should contain at most 400 characters.'}
+				/>
 			</div>
       <div className="main-form__input-container">
         <Input
+					id={'difficultyLevel'}
+					value={form.difficultyLevel && form.difficultyLevel.value}
+					onChange={onChange}
           element={'input'}
           type={'number'}
           label={'Difficulty level'}
-          placeholder={'(1 to 10)'}
+          placeholder={'(1 to 10) (required)'}
           size={'input-full'}
           minValue="1"
-          maxValue="10"
+					maxValue="10"
+					onTouchHandler={onTouchHandler}
+          isTouched={form.difficultyLevel && form.difficultyLevel.isTouched}
+          isValid={form.difficultyLevel && form.difficultyLevel.isValid}
+          inputErrorMessage={'Difficulty level should be between 1 and 10 (included)'}
         />
       </div>
-      <TagsInput 
+			<TagsInput 
+					id={'tags'}
+					value={form.tags && form.tags.value}
+					onChange={onChange}
           containerClassName={'main-form__input-container'} 
-          placeholder={'color, verb, family...'}
+					placeholder={'color, verb, family...'}
+					onTouchHandler={onTouchHandler}
+          isTouched={form.tags && form.tags.isTouched}
+          isValid={form.tags && form.tags.isValid}
+          inputErrorMessage={'Each tag should have between 4 and 16 characters'}
         />
       <div className="main-form__button-container">
-				<Button onClick={onClickBackCoure}>Back to course</Button>
-        <Button design={'green'} >Create</Button>
+				<Button type={'button'} onClick={onClickBackCoure}>Back to course</Button>
+        <Button type={'submit'} design={'green'} >Create</Button>
       </div>
 		</form>
 	);

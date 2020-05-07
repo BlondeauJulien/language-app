@@ -30,7 +30,6 @@ const Course = () => {
   const { user, token } = authContext;
 
   const [ contentToDisplay, setContentToDisplay ] = useState('word');
-  const [ keepCurrentCourse, setKeepCurrentCourse ] = useState(false);
 
 	useEffect(() => {
 		if (!currentCourse) {
@@ -59,8 +58,6 @@ const Course = () => {
   }, [ contentToDisplay, currentCourse ]);
 
   const onCLickCreateContent = () => {
-    setKeepCurrentCourse(true);
-    console.log(keepCurrentCourse)
     if(contentToDisplay === 'word') {
       history.push('/form/vocabulary');
     } else {
