@@ -7,6 +7,7 @@ import CourseContentSearcForm from '../components/CourseContentSearchForm';
 import CardsContainer from '../../shared/components/UIElements/CardsContainer';
 import Spinner from '../../shared/SVGImages/Spinner';
 import Button from '../../shared/components/FormElements/Button';
+import UserContentActionsButtons from '../../shared/components/FormElements/UserContentActionsButtons';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -83,29 +84,13 @@ const Course = () => {
               <CourseCard course={currentCourse} unClickable/>
               { 
                 user && user.id === currentCourse.creator._id && (
-                  <div className="user-course-actions-btn">
-                    <Button 
-                      design={'green'} 
-                      size={'button-mid'}
-                      onClick={onCLickCreateContent}
-                    >
-                      <i className="fas fa-plus"></i> {contentToDisplay}
-                    </Button>
-                    <Button 
-                      design={'orange'} 
-                      size={'button-mid'}
-                      onClick={onClickEdit}
-                    >
-                      <i className="fas fa-edit"></i>
-                    </Button>
-                    <Button 
-                      design={'danger'} 
-                      size={'button-mid'}
-                      onClick={onClickDelete}
-                    >
-                      <i className="fas fa-trash-alt"></i>
-                    </Button>
-                  </div>
+                  
+                  <UserContentActionsButtons 
+                    textToDisplayOnCreateBtn={contentToDisplay}
+                    onCLickCreateContent={onCLickCreateContent}
+                    onClickEdit={onClickEdit}
+                    onClickDelete={onClickDelete}
+                  />                  
                 )
               }
             </div>
