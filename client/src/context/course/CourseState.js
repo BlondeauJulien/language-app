@@ -18,6 +18,7 @@ import {
   SET_COURSE_EDIT,
   EDIT_COURSES_SUCCESS,
   CREATE_VOCABULARY,
+  SELECT_VOCABULARY,
   DELETE_VOCABULARY_SUCCESS
 } from '../types';
 
@@ -146,6 +147,13 @@ const CourseState = (props) => {
 		}
   }
 
+  const selectVocabulary = word => {
+    dispatch({
+      type: SELECT_VOCABULARY,
+      payload: word
+    })
+  }
+
   const deleteVocabulary = async (vocId, userToken) => {
     setAuthToken(userToken)
     setLoadingTo(true);
@@ -217,6 +225,7 @@ const CourseState = (props) => {
         setCourseToEdit,
         editCourse,
         createVocabulary,
+        selectVocabulary,
         deleteVocabulary,
         setCourseError
 			}}

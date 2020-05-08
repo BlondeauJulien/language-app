@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
 import BackNextContainer from '../../shared/components/UIElements/BackNextContainer';
@@ -16,28 +17,22 @@ import './Word.css';
 const Word = () => {
   const courseContext = useContext(CourseContext);
   const authContext = useContext(AuthContext);
+  const history = useHistory();
 
-  const { currentVocabulary, deleteVocabulary, success, error, loading, resetCourseSuccess } = courseContext;
+  const { currentVocabulary, deleteVocabulary, success, error, loading, selectVocabulary, resetCourseSuccess } = courseContext;
   const { user, token } = authContext;
 
   useEffect(() => {
     return () => {
+      selectVocabulary(null);
       resetCourseSuccess();
     }
   }, []);
 
-
-  let word = {
-    word: 'Le motLe motLe motLe motLe mot1234',
-    translation: ['translation 1', 'translation 2', 'translation 3'],
-    phrases: [{origin: 'phrase 1 is a phrase', translation: 'And this is the translation'},
-    {origin: 'phrase 1 is a phrase', translation: 'And this is the translation'},
-    {origin: 'phrase 1 is a phrase', translation: 'And this is the translation'}],
-    conjugationLink: 'https://www.google.com/',
-    personalNote: 'This is a note',
-    tags: ['tag1', 'tag2', 'tag3', 'tag4']
+  if(!currentVocabulary) {
+    history.push('/course');
+    return null
   }
-
 
   return (
     <MainPageContentContainer>
@@ -46,8 +41,8 @@ const Word = () => {
       </div>
       <BackNextContainer>
         <div className="word-main">
-          <WordHeader word={word.word} />
-          <WordInfos word={word} />
+          <WordHeader word={currentVocabulary.word} />
+          <WordInfos word={currentVocabulary} />
         </div>
       </BackNextContainer>
       <WordTestActions />

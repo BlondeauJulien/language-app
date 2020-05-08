@@ -38,7 +38,7 @@ const Course = () => {
     }
 
     return () => {
-      let regex = /vocabulary|quiz/gi
+      let regex = /vocabulary|quiz|word/gi
       if(!regex.test(history.location.pathname)) {
         selectCourse(null);
       }
