@@ -11,7 +11,7 @@ const WordHeader = props => {
 			<div className="word-open-infos">
 				<i class="fas fa-caret-down" />
 				<Button type="button" design={'plain-text'}>
-					see more
+					Know it? Forgot it? Check word infos
 				</Button>
 				<i class="fas fa-caret-down" />
 			</div>

@@ -16,13 +16,15 @@ import {
   RESET_COURSES,
   DELETE_COURSES_SUCCESS,
   SET_COURSE_EDIT,
-  EDIT_COURSES_SUCCESS
+  EDIT_COURSES_SUCCESS,
+  CREATE_VOCABULARY
 } from '../types';
 
 const CourseState = (props) => {
 	const initialState = {
     courses: null,
     currentCourse: null,
+    currentVocabulary: null,
     courseToEdit: null,
     loading: false,
     error: null,
@@ -72,7 +74,7 @@ const CourseState = (props) => {
   }
 
   const selectCourse = courseId => {
-    // Call this function withou param to reset selected course to null
+    // Call this function without param to reset selected course to null
     let course = null;
     if(courseId) {
       course = state.courses.find(course => course._id === courseId);
@@ -130,6 +132,19 @@ const CourseState = (props) => {
 		}
   }
 
+  const createVocabulary = async (formData, userToken) => {
+    setAuthToken(userToken)
+    try {
+      const res = await axios.post(`/api/vocabulary`, formData, config);
+			dispatch({
+				type: CREATE_VOCABULARY,
+				payload: res.data
+			});
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
+  }
+
   const getCourseQuizzes = async courseId => {
     setLoadingTo(true);
     try {
@@ -168,6 +183,7 @@ const CourseState = (props) => {
 			value={{
         courses: state.courses,
         currentCourse: state.currentCourse,
+        currentVocabulary: state.currentVocabulary,
         courseToEdit: state.courseToEdit,
         loading: state.loading,
         error: state.error,
@@ -181,7 +197,9 @@ const CourseState = (props) => {
         resetCourses,
         deleteCourse,
         setCourseToEdit,
-        editCourse
+        editCourse,
+        createVocabulary,
+        setCourseError
 			}}
 		>
 			{props.children}

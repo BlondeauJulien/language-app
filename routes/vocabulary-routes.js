@@ -27,9 +27,9 @@ router.post('/', [
     .withMessage('Your note is not valid. Should contain at most 400 characters'),
     check('difficultyLevel').isNumeric()
     .withMessage('The difficulaty number is not valid.'),
-    check('tags').custom(arr => arr.length >= 0 && arr.length <= 10 )
+    check('tags').optional().custom(arr => arr.length >= 0 && arr.length <= 10 )
     .withMessage('The tags are not valid. Should contain at most 10 tags.'),
-    check('tags').custom(arr => checkLengthOfStringInArr(arr, 4, 16))
+    check('tags').optional().custom(arr => checkLengthOfStringInArr(arr, 4, 16))
     .withMessage('The tags are not valid. Each tags should be at least 4 characters long and at most 16.'),
 
   ]

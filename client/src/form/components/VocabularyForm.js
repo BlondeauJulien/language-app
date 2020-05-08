@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Input from '../../shared/components/FormElements/Input';
@@ -8,6 +8,7 @@ import Button from '../../shared/components/FormElements/Button';
 import TagsInput from './TagsInput'
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
+import Spinner from '../../shared/SVGImages/Spinner';
 import validate from '../../shared/util/inputValidation';
 
 import './VocabularyForm.css';
@@ -17,7 +18,7 @@ const VocabularyForm = () => {
 	const authContext = useContext(AuthContext);
 	const history = useHistory();
 
-	const { currentCourse, error, setCourseError } = courseContext;
+	const { currentCourse, createVocabulary, loading, error, setCourseError, success, resetCourseSuccess, currentVocabulary } = courseContext;
 	const { token } = authContext;
 
 	const formInitialState = {
@@ -31,7 +32,14 @@ const VocabularyForm = () => {
 	}
 
 	const [ formHasError, setFormHasError ] = useState(false);
-  const [ form, setForm ] = useState(formInitialState);
+	const [ form, setForm ] = useState(formInitialState);
+	
+	useEffect(() => {
+    if(success && currentVocabulary) {
+      resetCourseSuccess();
+      history.push('/word');
+    }
+  }, [ success, currentVocabulary ]);
 
 	const onClickBackCoure = () => {
 		history.push('/course');
@@ -177,6 +185,7 @@ const VocabularyForm = () => {
 			word: form.word.value,
 			translation: form.translation.map(t => t.value),
 			difficultyLevel: form.difficultyLevel.value,
+			course: currentCourse._id
 		} 
 		if(form.phrases.length) {
 			formToSend.phrases = form.phrases.map(p => {
@@ -191,7 +200,8 @@ const VocabularyForm = () => {
 			})
 		}
 
-		console.log(formToSend)
+		console.log(formToSend);
+		createVocabulary(formToSend, token);
 	}
 
 	if(!currentCourse) {
@@ -321,25 +331,40 @@ const VocabularyForm = () => {
         />
       </div>
 			<TagsInput 
-					id={'tags'}
-					value={form.tags && form.tags.value}
-					onChange={onChange}
-          containerClassName={'main-form__input-container'} 
-					placeholder={'color, verb, family...'}
-					onTouchHandler={onTouchHandler}
-          isTouched={form.tags && form.tags.isTouched}
-          isValid={form.tags && form.tags.isValid}
-          inputErrorMessage={'Each tag should have between 4 and 16 characters'}
-        />
-      <div className="main-form__button-container">
-				<Button type={'button'} onClick={onClickBackCoure}>Back to course</Button>
-        <Button type={'submit'} design={'green'} >Create</Button>
-      </div>
+				id={'tags'}
+				value={form.tags && form.tags.value}
+				onChange={onChange}
+				containerClassName={'main-form__input-container'} 
+				placeholder={'color, verb, family...'}
+				onTouchHandler={onTouchHandler}
+				isTouched={form.tags && form.tags.isTouched}
+				isValid={form.tags && form.tags.isValid}
+				inputErrorMessage={'Each tag should have between 4 and 16 characters'}
+			/>
+			{
+				loading ? (
+					<Spinner />
+				) : (
+					<div className="main-form__button-container">
+						<Button type={'button'} onClick={onClickBackCoure}>Back to course</Button>
+						<Button type={'submit'} design={'green'} >Create</Button>
+					</div>
+
+				)
+			}
 
 			{
         formHasError && (
           <p className="form-submit-error-message">
             Please fill the form properly before submitting
+          </p>
+        )
+      }
+
+			{ // backend error
+        error && (
+          <p className="form-submit-error-message">
+            {error}
           </p>
         )
       }

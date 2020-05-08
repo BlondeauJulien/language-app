@@ -10,7 +10,8 @@ import {
   RESET_COURSES,
   DELETE_COURSES_SUCCESS,
   SET_COURSE_EDIT,
-  EDIT_COURSES_SUCCESS
+  EDIT_COURSES_SUCCESS,
+  CREATE_VOCABULARY
 } from '../types';
 
 export default (state, action) => {
@@ -85,6 +86,16 @@ export default (state, action) => {
         loading: false,
         error: null,
         success: null
+      };
+    case CREATE_VOCABULARY:
+      return {
+        ...state,
+        currentCourse: {...state.currentCourse, vocabulary: [...state.currentCourse.vocabulary, action.payload]},
+        currentVocabulary: action.payload,
+        courseToEdit: null,
+        loading: false,
+        error: null,
+        success: true
       };
     case GET_COURSES_QUIZZES:
       return {
