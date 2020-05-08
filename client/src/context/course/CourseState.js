@@ -17,7 +17,8 @@ import {
   DELETE_COURSES_SUCCESS,
   SET_COURSE_EDIT,
   EDIT_COURSES_SUCCESS,
-  CREATE_VOCABULARY
+  CREATE_VOCABULARY,
+  DELETE_VOCABULARY_SUCCESS
 } from '../types';
 
 const CourseState = (props) => {
@@ -145,6 +146,23 @@ const CourseState = (props) => {
 		}
   }
 
+  const deleteVocabulary = async (vocId, userToken) => {
+    setAuthToken(userToken)
+    setLoadingTo(true);
+    try {
+      const res = await axios.delete(`/api/vocabulary/${vocId}`);
+			dispatch({
+				type: DELETE_VOCABULARY_SUCCESS,
+				payload: {
+          message: res.data.message,
+          vocId
+        }
+			});
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
+  }
+
   const getCourseQuizzes = async courseId => {
     setLoadingTo(true);
     try {
@@ -199,6 +217,7 @@ const CourseState = (props) => {
         setCourseToEdit,
         editCourse,
         createVocabulary,
+        deleteVocabulary,
         setCourseError
 			}}
 		>

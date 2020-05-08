@@ -1,0 +1,9 @@
+.success-action-container {
+  width: 100%;
+  text-align: center;
+}
+
+.success-action-container p {
+  font-size: 2rem;
+  color: rgb(15, 167, 15);
+}

@@ -8,5 +8,8 @@
   margin: 32px 0;
 }
 
-
+.vocab-creator-actions {
+  position: absolute;
+  right: 5%
+}
 

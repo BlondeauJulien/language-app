@@ -6,8 +6,8 @@ import CourseCard from '../../shared/components/UIElements/CourseCard';
 import CourseContentSearcForm from '../components/CourseContentSearchForm';
 import CardsContainer from '../../shared/components/UIElements/CardsContainer';
 import Spinner from '../../shared/SVGImages/Spinner';
-import Button from '../../shared/components/FormElements/Button';
 import UserContentActionsButtons from '../../shared/components/FormElements/UserContentActionsButtons';
+import SuccessMessage from '../../shared/components/UIElements/SuccessMessage';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -103,10 +103,7 @@ const Course = () => {
 			{contentToDisplay === 'word' && currentCourse  && currentCourse.vocabulary && <CardsContainer words={currentCourse.vocabulary} /> }
 			{contentToDisplay === 'quiz' && currentCourse  && currentCourse.quizzes && <CardsContainer quizzes={currentCourse.quizzes} />}
       {success && success.for === 'delete' && (
-        <div className="success-action-container">
-          <p>{success.message}</p>
-          <Button to={'/'} design={'primary-txt-white-bg'}>Go back to home page</Button>
-        </div>
+        <SuccessMessage redirectTo={'/'} message={success.message} btnText={'Go back to home page'}/>
       )}
 		</MainPageContentContainer>
 	);

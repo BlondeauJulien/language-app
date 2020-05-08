@@ -11,7 +11,8 @@ import {
   DELETE_COURSES_SUCCESS,
   SET_COURSE_EDIT,
   EDIT_COURSES_SUCCESS,
-  CREATE_VOCABULARY
+  CREATE_VOCABULARY,
+  DELETE_VOCABULARY_SUCCESS
 } from '../types';
 
 export default (state, action) => {
@@ -97,6 +98,19 @@ export default (state, action) => {
         error: null,
         success: true
       };
+    case DELETE_VOCABULARY_SUCCESS: 
+      return {
+        ...state,
+        currentCourse: {
+          ...state.currentCourse, 
+          vocabulary: [...state.currentCourse.vocabulary].filter(v => v._id !== action.payload.vocId)
+        },
+        currentVocabulary: null,
+        courseToEdit: null,
+        loading: false,
+        error: null,
+        success: {message: action.payload.message, for: 'delete'} 
+      }
     case GET_COURSES_QUIZZES:
       return {
         ...state,
