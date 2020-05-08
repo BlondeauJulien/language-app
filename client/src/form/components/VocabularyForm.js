@@ -18,7 +18,17 @@ const VocabularyForm = () => {
 	const authContext = useContext(AuthContext);
 	const history = useHistory();
 
-	const { currentCourse, createVocabulary, loading, error, setCourseError, success, resetCourseSuccess, currentVocabulary } = courseContext;
+	const { 
+		currentCourse, 
+		createVocabulary, 
+		loading, 
+		error, 
+		setCourseError, 
+		success, 
+		resetCourseSuccess, 
+		currentVocabulary,
+		vocabularyToEdit
+	} = courseContext;
 	const { token } = authContext;
 
 	const formInitialState = {
@@ -39,7 +49,29 @@ const VocabularyForm = () => {
       resetCourseSuccess();
       history.push('/word');
     }
-  }, [ success, currentVocabulary ]);
+	}, [ success, currentVocabulary ]);
+	
+	useEffect(() => {
+		if(vocabularyToEdit) {
+			setForm({
+				...form,
+				word: {...form.word, value: vocabularyToEdit.word, isValid: true},
+				translation: [...vocabularyToEdit.translation].map(t => {
+					return { value: t, isValid: true, isTouched: false}
+				}),
+				phrases: [...vocabularyToEdit.phrases].map(p => {
+					return {
+						origin: { value: p.origin, isValid: true, isTouched: false},
+						translation: { value: p.translation, isValid: true, isTouched: false}
+					}
+				}),
+				conjugationLink: {...form.conjugationLink, value: vocabularyToEdit.conjugationLink, isValid: true},
+				personalNote: {...form.personalNote, value: vocabularyToEdit.personalNote, isValid: true},
+				difficultyLevel: {...form.difficultyLevel, value: vocabularyToEdit.difficultyLevel, isValid: true},
+				tags: {...form.tags, value: vocabularyToEdit.tags.join(', '), isValid: true},
+			});
+		}
+	}, [ vocabularyToEdit ])
 
 	const onClickBackCoure = () => {
 		history.push('/course');

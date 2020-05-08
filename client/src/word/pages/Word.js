@@ -19,7 +19,17 @@ const Word = () => {
   const authContext = useContext(AuthContext);
   const history = useHistory();
 
-  const { currentVocabulary, deleteVocabulary, success, error, loading, selectVocabulary, resetCourseSuccess } = courseContext;
+  const { 
+    currentVocabulary, 
+    deleteVocabulary, 
+    success, 
+    error, 
+    loading, 
+    selectVocabulary, 
+    resetCourseSuccess, 
+    onSetWordToEdit,
+    vocabularyToEdit
+  } = courseContext;
   const { user, token } = authContext;
   const [ displayWordInfos, setDisplayWordInfo ] = useState(false);
 
@@ -30,15 +40,23 @@ const Word = () => {
     }
   }, []);
 
+  if(vocabularyToEdit) {
+    history.push('/form/vocabulary');
+    return null;
+  }
+
   if(!currentVocabulary) {
     history.push('/course');
-    return null
+    return null;
   }
 
   return (
     <MainPageContentContainer>
       <div className="vocab-creator-actions">
-        <UserContentActionsButtons onClickDelete={() => deleteVocabulary(currentVocabulary._id, token)}/>
+        <UserContentActionsButtons 
+          onClickEdit={() => onSetWordToEdit(currentVocabulary)}
+          onClickDelete={() => deleteVocabulary(currentVocabulary._id, token)}
+        />
       </div>
       <BackNextContainer>
         <div className="word-main">

@@ -13,6 +13,7 @@ import {
   EDIT_COURSES_SUCCESS,
   CREATE_VOCABULARY,
   SELECT_VOCABULARY,
+  SET_VOCABULARY_EDIT,
   DELETE_VOCABULARY_SUCCESS
 } from '../types';
 
@@ -107,7 +108,17 @@ export default (state, action) => {
         loading: false,
         error: null,
         success: null
-      }
+      };
+    case SET_VOCABULARY_EDIT:
+      return {
+        ...state,
+        currentVocabulary: null,
+        courseToEdit: null,
+        vocabularyToEdit: action.payload,
+        loading: false,
+        error: null,
+        success: null
+      };
     case DELETE_VOCABULARY_SUCCESS: 
       return {
         ...state,
