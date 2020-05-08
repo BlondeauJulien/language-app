@@ -77,6 +77,10 @@ const VocabularyForm = () => {
 		history.push('/course');
 	}
 
+	const onClickBackToWord = () => {
+		console.log('hellooooo')
+	}
+
 	const resetErrors = () => {
 		setFormHasError(false);
     if(error) {
@@ -243,7 +247,9 @@ const VocabularyForm = () => {
 
 	return (
 		<form onSubmit={onSubmit}>
-			<h2 className="main-form__title">Add a word for: {currentCourse.name}</h2>
+			<h2 className="main-form__title">
+				{vocabularyToEdit ? 'Edit word' : `Add a word for: ${currentCourse.name}`}
+			</h2>
 			<div className="main-form__input-container">
 				<Input 
 					id={'word'}
@@ -378,8 +384,12 @@ const VocabularyForm = () => {
 					<Spinner />
 				) : (
 					<div className="main-form__button-container">
-						<Button type={'button'} onClick={onClickBackCoure}>Back to course</Button>
-						<Button type={'submit'} design={'green'} >Create</Button>
+						<Button type={'button'} onClick={vocabularyToEdit ? onClickBackToWord : onClickBackCoure}>
+							{vocabularyToEdit ? 'Back to Word' : 'Back to course'}
+						</Button>
+						<Button type={'submit'} design={'green'} >
+							{vocabularyToEdit ? 'Edit' : 'Create'}
+						</Button>
 					</div>
 
 				)
