@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
@@ -21,6 +21,7 @@ const Word = () => {
 
   const { currentVocabulary, deleteVocabulary, success, error, loading, selectVocabulary, resetCourseSuccess } = courseContext;
   const { user, token } = authContext;
+  const [ displayWordInfos, setDisplayWordInfo ] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -41,11 +42,15 @@ const Word = () => {
       </div>
       <BackNextContainer>
         <div className="word-main">
-          <WordHeader word={currentVocabulary.word} />
-          <WordInfos word={currentVocabulary} />
+          <WordHeader word={currentVocabulary.word} displayWordInfos={displayWordInfos} setDisplayWordInfo={setDisplayWordInfo}/>
+          {
+            displayWordInfos && <WordInfos word={currentVocabulary} />
+          }
         </div>
       </BackNextContainer>
-      <WordTestActions />
+      {
+        displayWordInfos && <WordTestActions />
+      }
       {error && <p className="form-submit-error-message">{error}</p>}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}
       {success && success.for === 'delete' && (
