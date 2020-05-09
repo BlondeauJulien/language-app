@@ -241,11 +241,11 @@ const VocabularyForm = () => {
 			})
 		}
 		console.log(form)
-	/* 	{
+		{
 			vocabularyToEdit ? 
 			editVocabulary( vocabularyToEdit._id ,formToSend, token) : 
 			createVocabulary(formToSend, token)
-		} */
+		}
 		
 	}
 

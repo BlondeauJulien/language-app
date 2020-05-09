@@ -19,7 +19,7 @@ const TagsInput = props => {
         isValid={props.isValid}
         inputErrorMessage={props.inputErrorMessage}
       />
-      <span className="tags-info">Maximum of 8 tags, each separeted with a comma ","</span>
+      <span className="tags-info">Maximum of 8 tags, each separated with a comma ","</span>
     </div>
   )
 }

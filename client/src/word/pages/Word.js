@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
@@ -28,26 +28,34 @@ const Word = () => {
     selectVocabulary, 
     resetCourseSuccess, 
     setWordToEdit,
-    vocabularyToEdit
+    vocabularyToEdit,
+    currentCourse
   } = courseContext;
   const { user, token } = authContext;
   const [ displayWordInfos, setDisplayWordInfo ] = useState(false);
+  const [ redirect, setRedirect ] = useState({
+    toVocabularyForm: false,
+    toCoursePage: false
+  });
 
   useEffect(() => {
+    if(redirect.toVocabularyForm) {
+      history.push('/form/vocabulary');
+    } else if (redirect.toCoursePage) {
+      history.push('/course');
+    }
     return () => {
       selectVocabulary(null);
       resetCourseSuccess();
     }
-  }, []);
+  }, [ redirect ]);
 
   if(vocabularyToEdit) {
-    history.push('/form/vocabulary');
-    return null;
+    !redirect.toVocabularyForm && setRedirect({...redirect, toVocabularyForm: true});
   }
 
   if(!currentVocabulary) {
-    history.push('/course');
-    return null;
+    !redirect.toCoursePage && setRedirect({...redirect, toCoursePage: true});
   }
 
   const onClickEdit = () => setWordToEdit(currentVocabulary);
@@ -55,20 +63,30 @@ const Word = () => {
 
   return (
     <MainPageContentContainer>
-      <div className="vocab-creator-actions">
-        <UserContentActionsButtons 
-          onClickEdit={onClickEdit}
-          onClickDelete={onClickDelete}
-        />
-      </div>
-      <BackNextContainer>
-        <div className="word-main">
-          <WordHeader word={currentVocabulary.word} displayWordInfos={displayWordInfos} setDisplayWordInfo={setDisplayWordInfo}/>
-          {
-            displayWordInfos && <WordInfos word={currentVocabulary} />
-          }
-        </div>
-      </BackNextContainer>
+      {
+        currentVocabulary && (
+          <Fragment>
+            {
+              user && currentCourse.creator._id === user.id && (
+                <div className="vocab-creator-actions">
+                  <UserContentActionsButtons 
+                    onClickEdit={onClickEdit}
+                    onClickDelete={onClickDelete}
+                  />
+                </div>
+              )
+            }
+            <BackNextContainer>
+              <div className="word-main">
+                <WordHeader word={currentVocabulary.word} displayWordInfos={displayWordInfos} setDisplayWordInfo={setDisplayWordInfo}/>
+                {
+                  displayWordInfos && <WordInfos word={currentVocabulary} />
+                }
+              </div>
+            </BackNextContainer>
+          </Fragment>
+        )
+      }
       {
         displayWordInfos && <WordTestActions />
       }
