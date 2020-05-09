@@ -71,8 +71,8 @@ const VocabularyForm = () => {
 						translation: { value: p.translation, isValid: true, isTouched: false}
 					}
 				}),
-				conjugationLink: {...form.conjugationLink, value: vocabularyToEdit.conjugationLink, isValid: true},
-				personalNote: {...form.personalNote, value: vocabularyToEdit.personalNote, isValid: true},
+				conjugationLink: {...form.conjugationLink, value: vocabularyToEdit.conjugationLink || '', isValid: true},
+				personalNote: {...form.personalNote, value: vocabularyToEdit.personalNote || '', isValid: true},
 				difficultyLevel: {...form.difficultyLevel, value: vocabularyToEdit.difficultyLevel, isValid: true},
 				tags: {...form.tags, value: vocabularyToEdit.tags.join(', '), isValid: true},
 			});
@@ -240,12 +240,12 @@ const VocabularyForm = () => {
 				return t.trim();
 			})
 		}
-
-		{
+		console.log(form)
+	/* 	{
 			vocabularyToEdit ? 
 			editVocabulary( vocabularyToEdit._id ,formToSend, token) : 
 			createVocabulary(formToSend, token)
-		}
+		} */
 		
 	}
 
