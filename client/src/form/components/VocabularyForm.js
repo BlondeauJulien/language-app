@@ -29,7 +29,8 @@ const VocabularyForm = () => {
 		currentVocabulary,
 		selectVocabulary,
 		vocabularyToEdit,
-		setWordToEdit
+		setWordToEdit,
+		editVocabulary
 	} = courseContext;
 	const { token } = authContext;
 
@@ -240,7 +241,12 @@ const VocabularyForm = () => {
 			})
 		}
 
-		createVocabulary(formToSend, token);
+		{
+			vocabularyToEdit ? 
+			editVocabulary( vocabularyToEdit._id ,formToSend, token) : 
+			createVocabulary(formToSend, token)
+		}
+		
 	}
 
 	if(!currentCourse) {

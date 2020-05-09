@@ -14,6 +14,7 @@ import {
   CREATE_VOCABULARY,
   SELECT_VOCABULARY,
   SET_VOCABULARY_EDIT,
+  EDIT_VOCABULARY_SUCCESS,
   DELETE_VOCABULARY_SUCCESS
 } from '../types';
 
@@ -101,6 +102,7 @@ export default (state, action) => {
         success: true
       };
     case SELECT_VOCABULARY:
+    case EDIT_VOCABULARY_SUCCESS:
       return {
         ...state,
         currentVocabulary: action.payload,

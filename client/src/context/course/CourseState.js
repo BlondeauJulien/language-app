@@ -20,6 +20,7 @@ import {
   CREATE_VOCABULARY,
   SELECT_VOCABULARY,
   SET_VOCABULARY_EDIT,
+  EDIT_VOCABULARY_SUCCESS,
   DELETE_VOCABULARY_SUCCESS
 } from '../types';
 
@@ -163,6 +164,21 @@ const CourseState = (props) => {
     });
   }
 
+  const editVocabulary = async (vocabID, formData, userToken) => {
+    setAuthToken(userToken);
+    setLoadingTo(true);
+    try {
+      const res = await axios.patch(`/api/vocabulary/${vocabID}`, formData, config);
+      console.log(res)
+ 			dispatch({
+        type: EDIT_VOCABULARY_SUCCESS,
+				payload: res.data
+			}); 
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
+  }
+
   const deleteVocabulary = async (vocId, userToken) => {
     setAuthToken(userToken)
     setLoadingTo(true);
@@ -237,6 +253,7 @@ const CourseState = (props) => {
         createVocabulary,
         selectVocabulary,
         setWordToEdit,
+        editVocabulary,
         deleteVocabulary,
         setCourseError
 			}}
