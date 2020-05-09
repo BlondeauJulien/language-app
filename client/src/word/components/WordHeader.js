@@ -11,11 +11,11 @@ const WordHeader = props => {
 			{
 				!props.displayWordInfos && (
 					<div className="word-open-infos">
-						<i class="fas fa-caret-down" />
+						<i className="fas fa-caret-down" />
 						<Button type="button" onClick={() => props.setDisplayWordInfo(true)} design={'plain-text'}>
 							Know it? Forgot it? Check word infos
 						</Button>
-						<i class="fas fa-caret-down" />
+						<i className="fas fa-caret-down" />
 					</div>
 				)
 			}

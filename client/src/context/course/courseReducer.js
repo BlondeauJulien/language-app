@@ -110,9 +110,10 @@ export default (state, action) => {
         success: null
       };
     case SET_VOCABULARY_EDIT:
+      let currentVoc = {...state.currentVocabulary}
       return {
         ...state,
-        currentVocabulary: null,
+        currentVocabulary: action.payload || Object.keys(currentVoc).length === 0 ? null : currentVoc,
         courseToEdit: null,
         vocabularyToEdit: action.payload,
         loading: false,

@@ -27,7 +27,9 @@ const VocabularyForm = () => {
 		success, 
 		resetCourseSuccess, 
 		currentVocabulary,
-		vocabularyToEdit
+		selectVocabulary,
+		vocabularyToEdit,
+		setWordToEdit
 	} = courseContext;
 	const { token } = authContext;
 
@@ -45,10 +47,13 @@ const VocabularyForm = () => {
 	const [ form, setForm ] = useState(formInitialState);
 	
 	useEffect(() => {
-    if(success && currentVocabulary) {
+    if(currentVocabulary) {
       resetCourseSuccess();
       history.push('/word');
-    }
+		}
+		return () => {
+			setWordToEdit(null);
+		}
 	}, [ success, currentVocabulary ]);
 	
 	useEffect(() => {
@@ -73,12 +78,12 @@ const VocabularyForm = () => {
 		}
 	}, [ vocabularyToEdit ])
 
-	const onClickBackCoure = () => {
+	const onClickBackCourse = () => {
 		history.push('/course');
 	}
 
 	const onClickBackToWord = () => {
-		console.log('hellooooo')
+		selectVocabulary(vocabularyToEdit);
 	}
 
 	const resetErrors = () => {
@@ -195,7 +200,6 @@ const VocabularyForm = () => {
 
 	const onSubmit = e => {
 		e.preventDefault();
-		console.log(form)
 		for(const input in form) {
 			if(input === "translation") {
 				let hasError = form[input].find(el => !el.isValid);
@@ -236,7 +240,6 @@ const VocabularyForm = () => {
 			})
 		}
 
-		console.log(formToSend);
 		createVocabulary(formToSend, token);
 	}
 
@@ -384,7 +387,7 @@ const VocabularyForm = () => {
 					<Spinner />
 				) : (
 					<div className="main-form__button-container">
-						<Button type={'button'} onClick={vocabularyToEdit ? onClickBackToWord : onClickBackCoure}>
+						<Button type={'button'} onClick={vocabularyToEdit ? onClickBackToWord : onClickBackCourse}>
 							{vocabularyToEdit ? 'Back to Word' : 'Back to course'}
 						</Button>
 						<Button type={'submit'} design={'green'} >

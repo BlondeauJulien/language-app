@@ -27,7 +27,7 @@ const Word = () => {
     loading, 
     selectVocabulary, 
     resetCourseSuccess, 
-    onSetWordToEdit,
+    setWordToEdit,
     vocabularyToEdit
   } = courseContext;
   const { user, token } = authContext;
@@ -50,12 +50,15 @@ const Word = () => {
     return null;
   }
 
+  const onClickEdit = () => setWordToEdit(currentVocabulary);
+  const onClickDelete = () => deleteVocabulary(currentVocabulary._id, token);
+
   return (
     <MainPageContentContainer>
       <div className="vocab-creator-actions">
         <UserContentActionsButtons 
-          onClickEdit={() => onSetWordToEdit(currentVocabulary)}
-          onClickDelete={() => deleteVocabulary(currentVocabulary._id, token)}
+          onClickEdit={onClickEdit}
+          onClickDelete={onClickDelete}
         />
       </div>
       <BackNextContainer>

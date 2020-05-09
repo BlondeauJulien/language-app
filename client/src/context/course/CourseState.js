@@ -156,7 +156,7 @@ const CourseState = (props) => {
     })
   }
 
-  const onSetWordToEdit = word => {
+  const setWordToEdit = word => {
     dispatch({
       type: SET_VOCABULARY_EDIT,
       payload: word
@@ -236,7 +236,7 @@ const CourseState = (props) => {
         editCourse,
         createVocabulary,
         selectVocabulary,
-        onSetWordToEdit,
+        setWordToEdit,
         deleteVocabulary,
         setCourseError
 			}}
