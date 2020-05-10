@@ -5,7 +5,7 @@ import './QuizAnswer.css';
 const QuizAnswer = props => {
   return (
     <div className="quiz-answer-item">
-      <span>{props.text || 'This is the answer1'}</span>
+      <span>{props.answer.answer}</span>
     </div>
   )
 }
