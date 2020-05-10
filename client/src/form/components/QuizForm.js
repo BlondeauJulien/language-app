@@ -19,10 +19,13 @@ const QuizForm = () => {
 
 	const { 
 		currentCourse,
+		currentQuiz,
 		error,
+		success,
 		setCourseError,
 		createQuiz,
-		loading
+		loading,
+		resetCourseSuccess
 	} = courseContext;
 	const { token } = authContext;
 
@@ -44,6 +47,16 @@ const QuizForm = () => {
 
 	const [ formHasError, setFormHasError ] = useState(false);
 	const [ form, setForm ] = useState(formInitialState);
+
+	useEffect(() => {
+    if(currentQuiz) {
+      resetCourseSuccess();
+      history.push('/quiz');
+		}
+/* 		return () => {
+			setWordToEdit(null);
+		} */
+	}, [ success, currentQuiz ]);
 
 	const onClickBackCourse = () => {
 		history.push('/course');
