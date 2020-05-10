@@ -18,6 +18,7 @@ const QuizForm = () => {
 	const history = useHistory();
 
 	const { 
+		currentCourse,
 		error,
 		setCourseError
 	} = courseContext;
@@ -51,7 +52,6 @@ const QuizForm = () => {
 		resetErrors();
 
 		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
-		console.log(form)
 	}
 
 	const onTouchHandler = e => {
@@ -115,9 +115,55 @@ const QuizForm = () => {
 		})]});
 	}
 
+	const onSubmit = e => {
+		e.preventDefault();
+		for(const input in form) {
+			if (input === "answers"){
+				let hasError = form[input].find(el => !el.answer.isValid || !el.translation.isValid);
+				if(hasError) {
+					setFormHasError(true);
+					return;
+				}
+			} else {
+				if(!form[input].isValid) {
+					setFormHasError(true);
+					return;
+				}
+			}
+    }
+
+    const formToSend = {
+			image: form.image.value,
+			difficultyLevel: form.difficultyLevel.value,
+			answers: form.answers.map(a => {
+				return {answer: a.answer.value, translation: a.translation.value, isCorrect: a.isCorrect};
+			}),
+			course: currentCourse._id
+		} 
+
+		if(form.tags.value) {
+			formToSend.tags = form.tags.value.split(',').map(t => {
+				return t.trim();
+			})
+		}
+
+		console.log(formToSend);
+/* 		{
+			vocabularyToEdit ? 
+			editVocabulary( vocabularyToEdit._id ,formToSend, token) : 
+			createVocabulary(formToSend, token)
+		} */
+		
+	}
+
+	if(!currentCourse) {
+		history.push('/');
+		return null
+	}
+
 	return (
 		<div>
-			<form>
+			<form onSubmit={onSubmit}>
 				<h2 className="main-form__title">Quiz</h2>
 				<div className="main-form__input-container">
 					<Input
@@ -204,6 +250,13 @@ const QuizForm = () => {
 				<div className="main-form__button-container">
 					<Button>Create</Button>
 				</div>
+				{
+					formHasError && (
+						<p className="form-submit-error-message">
+							Please fill the form properly before submitting
+						</p>
+					)
+				}
 			</form>
 		</div>
 	);
