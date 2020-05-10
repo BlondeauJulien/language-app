@@ -179,7 +179,7 @@ const QuizForm = () => {
 						onChange={onChangeDualInput}
 						onTouchHandler={onTouchHandlerDualInput}
 						displayDeleteButton={form.answers.length > 1}
-						inputErrorMessage={'It should contain between 1 and 200 characters.'}
+						inputErrorMessage={'It should contain between 2 and 200 characters.'}
 					/>
 				})}
 				{

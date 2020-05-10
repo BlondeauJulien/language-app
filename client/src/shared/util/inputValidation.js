@@ -27,6 +27,11 @@ export default (value, id) => {
   if(id === 'conjugationLink') return true;
   if(id === 'phrasesorigin' ||
   id === 'phrasestranslation') return validator.isLength(value, {min: 1, max: 200});
+
+  //Quiz
+  if(id === 'image') return validator.isLength(value, {min: 1});
+  if(id === 'answersanswer' ||
+  id === 'answerstranslation') return validator.isLength(value, {min: 2, max: 200});
   
   //shared
   if(id === 'difficultyLevel') return validator.isInt(value, {gt: 0, lt: 11});
