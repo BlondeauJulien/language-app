@@ -49,8 +49,18 @@ const DualInput = props => {
 				props.isAnswerElement && (
 					<div className="quiz-answer-correct-container">
 						<span className="quiz-answer-correct-title">This answer is correct:</span>
-						<div className="quiz-answer-correct-pick quiz-answer-correct-picked">Yes</div>
-						<div className="quiz-answer-correct-pick">No</div>
+						<div 
+							className={`quiz-answer-correct-pick ${props.isCorrect ? 'quiz-answer-correct-picked' : ''}`}
+							onClick={() => props.onChangeIsCorrect(true, props.id1.split('-')[2])}
+						>
+							Yes
+						</div>
+						<div 
+							className={`quiz-answer-correct-pick ${!props.isCorrect ? 'quiz-answer-correct-picked' : ''}`}
+							onClick={() => props.onChangeIsCorrect(false, props.id1.split('-')[2])}
+						>
+							No
+						</div>
 					</div>
 				)
 			}
