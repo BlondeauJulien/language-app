@@ -22,7 +22,8 @@ import {
   SET_VOCABULARY_EDIT,
   EDIT_VOCABULARY_SUCCESS,
   DELETE_VOCABULARY_SUCCESS,
-  CREATE_QUIZ
+  CREATE_QUIZ,
+  SELECT_QUIZ
 } from '../types';
 
 const CourseState = (props) => {
@@ -224,6 +225,13 @@ const CourseState = (props) => {
 		}
   }
 
+  const selectQuiz = quiz => {
+    dispatch({
+      type: SELECT_QUIZ,
+      payload: quiz
+    })
+  }
+
   const setLoadingTo = value => {
     dispatch({
 			type: SET_COURSE_LOADING,
@@ -272,7 +280,8 @@ const CourseState = (props) => {
         editVocabulary,
         deleteVocabulary,
         setCourseError,
-        createQuiz
+        createQuiz,
+        selectQuiz
 			}}
 		>
 			{props.children}

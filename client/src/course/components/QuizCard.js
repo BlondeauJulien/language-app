@@ -1,12 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import CourseContext from '../../context/course/courseContext';
 
 import './QuizCard.css';
 
 const QuizCard = props => {
+  const { quiz } = props;
+
+  const courseContext = useContext(CourseContext);
+  const history = useHistory();
+
+  const { selectQuiz, currentQuiz } = courseContext;
+
   useEffect(() => {
-    const imageEl = document.getElementById(props.quiz._id);
-    const imgNaturalWith = document.getElementById(props.quiz._id).naturalWidth;
-    const imgNaturalHeight = document.getElementById(props.quiz._id).naturalHeight;
+    if(currentQuiz) {
+      history.push('/quiz');
+    }
+  }, [currentQuiz])
+
+  useEffect(() => {
+    const imageEl = document.getElementById(quiz._id);
+    const imgNaturalWith = document.getElementById(quiz._id).naturalWidth;
+    const imgNaturalHeight = document.getElementById(quiz._id).naturalHeight;
 
     if(imgNaturalWith < imgNaturalHeight) {
       imageEl.classList.add('img-full-width');
@@ -15,7 +31,7 @@ const QuizCard = props => {
     }
 
     const handleHoverImage = e => {
-      if(e.target.id === props.quiz._id) {
+      if(e.target.id === quiz._id) {
         if(imgNaturalWith < imgNaturalHeight) {
           imageEl.classList.remove('image-card', 'img-full-width');
           imageEl.classList.add('resize-by-height')
@@ -27,7 +43,7 @@ const QuizCard = props => {
     }
 
     const handleLeaveImageHover = e => {
-      if(e.target.id === props.quiz._id) {
+      if(e.target.id === quiz._id) {
         if(imgNaturalWith < imgNaturalHeight) {
           imageEl.classList.add('image-card', 'img-full-width');
           imageEl.classList.remove('resize-by-height')
@@ -47,11 +63,13 @@ const QuizCard = props => {
     }
   })
 
-
+  const onSelectQuiz = () => {
+    selectQuiz(quiz);
+  }
 
 	return (
-    <div className="quiz-card">
-      <img className="image-card" id={props.quiz._id} src={props.quiz.image} />
+    <div className="quiz-card" onClick={onSelectQuiz}>
+      <img className="image-card" id={quiz._id} src={quiz.image} />
     </div>
 	);
 };
