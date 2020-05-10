@@ -29,7 +29,7 @@ export default (value, id) => {
   id === 'phrasestranslation') return validator.isLength(value, {min: 1, max: 200});
 
   //Quiz
-  if(id === 'image') return validator.isLength(value, {min: 1});
+  if(id === 'image') return validator.isURL(value);
   if(id === 'answersanswer' ||
   id === 'answerstranslation') return validator.isLength(value, {min: 2, max: 200});
   

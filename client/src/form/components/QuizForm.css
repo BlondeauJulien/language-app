@@ -11,3 +11,15 @@
   font-size: 0.85rem;
   color: rgb(158, 158, 158);
 }
+
+.image-preview {
+  font-size: 1rem;
+  color: rgb(105, 105, 105);
+  margin: 6px 0;
+  display: flex;
+}
+
+.image-preview img {
+  width: 350px;
+  margin: 0 12px;;
+}

@@ -178,9 +178,17 @@ const QuizForm = () => {
 						onTouchHandler={onTouchHandler}
 						isTouched={form.image && form.image.isTouched}
 						isValid={form.image && form.image.isValid}
-						inputErrorMessage={'You need to add an image link'}
+						inputErrorMessage={'You need to add an valid image link'}
 					/>
 				</div>
+				{
+					form.image.value && validate(form.image.value, 'image') && (
+						<div className='image-preview'>
+							<h3>Image preview:</h3>
+							<img src={form.image.value} />
+						</div>
+					)
+				}
 				<div className="main-form__input-container">
 					<Input
 						id={'difficultyLevel'}
