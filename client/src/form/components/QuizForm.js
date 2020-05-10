@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect} from 'react';
+import React, { useContext, useState, useEffect, Fragment} from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Button from '../../shared/components/FormElements/Button';
@@ -27,6 +27,11 @@ const QuizForm = () => {
 	const formInitialState = {
 		image: { value: '', isValid: false, isTouched: false },
 		answers: [{
+			answer: { value: '', isValid: false, isTouched: false },
+			translation: { value: '', isValid: false, isTouched: false },
+			isCorrect: false
+		},
+		{
 			answer: { value: '', isValid: false, isTouched: false },
 			translation: { value: '', isValid: false, isTouched: false },
 			isCorrect: false
@@ -120,7 +125,8 @@ const QuizForm = () => {
 		for(const input in form) {
 			if (input === "answers"){
 				let hasError = form[input].find(el => !el.answer.isValid || !el.translation.isValid);
-				if(hasError) {
+				let hasOneCorrect = form[input].find(el => el.isCorrect);
+				if(hasError || !hasOneCorrect) {
 					setFormHasError(true);
 					return;
 				}
@@ -260,9 +266,18 @@ const QuizForm = () => {
 				</div>
 				{
 					formHasError && (
+						<Fragment>
 						<p className="form-submit-error-message">
 							Please fill the form properly before submitting
 						</p>
+						{
+							!form.answers.find(el => el.isCorrect) && (
+								<p className="form-submit-error-message">
+									At least on answer should be correct
+								</p>
+							)
+						}
+						</Fragment>
 					)
 				}
 			</form>
