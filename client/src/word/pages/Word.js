@@ -50,11 +50,11 @@ const Word = () => {
     }
   }, [ redirect ]);
 
-  if(vocabularyToEdit) {
+  if(vocabularyToEdit && !success) {
     !redirect.toVocabularyForm && setRedirect({...redirect, toVocabularyForm: true});
   }
 
-  if(!currentVocabulary) {
+  if(!currentVocabulary && !success) {
     !redirect.toCoursePage && setRedirect({...redirect, toCoursePage: true});
   }
 

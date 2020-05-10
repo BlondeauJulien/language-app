@@ -23,7 +23,8 @@ import {
   EDIT_VOCABULARY_SUCCESS,
   DELETE_VOCABULARY_SUCCESS,
   CREATE_QUIZ,
-  SELECT_QUIZ
+  SELECT_QUIZ,
+  DELETE_QUIZ_SUCCESS
 } from '../types';
 
 const CourseState = (props) => {
@@ -232,6 +233,23 @@ const CourseState = (props) => {
     })
   }
 
+  const deleteQuiz = async (quizId, userToken) => {
+    setAuthToken(userToken)
+    setLoadingTo(true);
+    try {
+      const res = await axios.delete(`/api/quizzes/${quizId}`);
+			dispatch({
+				type: DELETE_QUIZ_SUCCESS,
+				payload: {
+          message: res.data.message,
+          quizId
+        }
+			});
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
+  }
+
   const setLoadingTo = value => {
     dispatch({
 			type: SET_COURSE_LOADING,
@@ -281,7 +299,8 @@ const CourseState = (props) => {
         deleteVocabulary,
         setCourseError,
         createQuiz,
-        selectQuiz
+        selectQuiz,
+        deleteQuiz
 			}}
 		>
 			{props.children}

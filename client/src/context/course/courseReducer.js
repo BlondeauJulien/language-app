@@ -17,7 +17,8 @@ import {
   EDIT_VOCABULARY_SUCCESS,
   DELETE_VOCABULARY_SUCCESS,
   CREATE_QUIZ,
-  SELECT_QUIZ
+  SELECT_QUIZ,
+  DELETE_QUIZ_SUCCESS
 } from '../types';
 
 export default (state, action) => {
@@ -167,6 +168,20 @@ export default (state, action) => {
         loading: false,
         error: null,
         success: null
+      };
+    case DELETE_QUIZ_SUCCESS:
+      return {
+        ...state,
+        currentCourse: {
+          ...state.currentCourse, 
+          quizzes: [...state.currentCourse.quizzes].filter(v => v._id !== action.payload.quizId)
+        },
+        currentVocabulary: null,
+        currentQuiz: null,
+        courseToEdit: null,
+        loading: false,
+        error: null,
+        success: {message: action.payload.message, for: 'delete'} 
       };
     case SET_COURSE_LOADING:
       return {
