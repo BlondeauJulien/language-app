@@ -20,7 +20,8 @@ const QuizForm = () => {
 	const { 
 		currentCourse,
 		error,
-		setCourseError
+		setCourseError,
+		loading
 	} = courseContext;
 	const { token } = authContext;
 
@@ -42,6 +43,10 @@ const QuizForm = () => {
 
 	const [ formHasError, setFormHasError ] = useState(false);
 	const [ form, setForm ] = useState(formInitialState);
+
+	const onClickBackCourse = () => {
+		history.push('/course');
+	}
 
 	const resetErrors = () => {
 		setFormHasError(false);
@@ -261,9 +266,21 @@ const QuizForm = () => {
 					isValid={form.tags && form.tags.isValid}
 					inputErrorMessage={'Each tag should have between 4 and 16 characters'}
         />
-				<div className="main-form__button-container">
-					<Button>Create</Button>
-				</div>
+				{
+					loading ? (
+						<Spinner />
+					) : (
+						<div className="main-form__button-container">
+							<Button type={'button'} onClick={onClickBackCourse}>
+								Back to course
+							</Button>
+							<Button type={'submit'} design={'green'} >
+								Create
+							</Button>
+						</div>
+
+					)
+				}
 				{
 					formHasError && (
 						<Fragment>
