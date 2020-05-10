@@ -21,6 +21,7 @@ const QuizForm = () => {
 		currentCourse,
 		error,
 		setCourseError,
+		createQuiz,
 		loading
 	} = courseContext;
 	const { token } = authContext;
@@ -159,6 +160,7 @@ const QuizForm = () => {
 		}
 
 		console.log(formToSend);
+		createQuiz(formToSend, token)
 /* 		{
 			vocabularyToEdit ? 
 			editVocabulary( vocabularyToEdit._id ,formToSend, token) : 

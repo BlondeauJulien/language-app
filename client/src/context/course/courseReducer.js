@@ -15,7 +15,8 @@ import {
   SELECT_VOCABULARY,
   SET_VOCABULARY_EDIT,
   EDIT_VOCABULARY_SUCCESS,
-  DELETE_VOCABULARY_SUCCESS
+  DELETE_VOCABULARY_SUCCESS,
+  CREATE_QUIZ
 } from '../types';
 
 export default (state, action) => {
@@ -143,6 +144,17 @@ export default (state, action) => {
         loading: false,
         error: null,
         success: null
+      };
+    case CREATE_QUIZ:
+      return {
+        ...state,
+        currentCourse: {...state.currentCourse, quizzes: [...state.currentCourse.quizzes, action.payload]},
+        currentVocabulary: null,
+        currentQuiz: action.payload,
+        courseToEdit: null,
+        loading: false,
+        error: null,
+        success: true
       };
     case SET_COURSE_LOADING:
       return {

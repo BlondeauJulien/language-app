@@ -21,7 +21,8 @@ import {
   SELECT_VOCABULARY,
   SET_VOCABULARY_EDIT,
   EDIT_VOCABULARY_SUCCESS,
-  DELETE_VOCABULARY_SUCCESS
+  DELETE_VOCABULARY_SUCCESS,
+  CREATE_QUIZ
 } from '../types';
 
 const CourseState = (props) => {
@@ -29,6 +30,7 @@ const CourseState = (props) => {
     courses: null,
     currentCourse: null,
     currentVocabulary: null,
+    currentQuiz: null,
     courseToEdit: null,
     vocabularyToEdit: null,
     loading: false,
@@ -209,6 +211,19 @@ const CourseState = (props) => {
 		}
   }
 
+  const createQuiz = async (formData, userToken) => {
+    setAuthToken(userToken)
+    try {
+      const res = await axios.post(`/api/quizzes`, formData, config);
+			dispatch({
+				type: CREATE_QUIZ,
+				payload: res.data
+			});
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
+  }
+
   const setLoadingTo = value => {
     dispatch({
 			type: SET_COURSE_LOADING,
@@ -235,6 +250,7 @@ const CourseState = (props) => {
         courses: state.courses,
         currentCourse: state.currentCourse,
         currentVocabulary: state.currentVocabulary,
+        currentQuiz: state.currentQuiz,
         courseToEdit: state.courseToEdit,
         vocabularyToEdit: state.vocabularyToEdit,
         loading: state.loading,
@@ -255,7 +271,8 @@ const CourseState = (props) => {
         setWordToEdit,
         editVocabulary,
         deleteVocabulary,
-        setCourseError
+        setCourseError,
+        createQuiz
 			}}
 		>
 			{props.children}
