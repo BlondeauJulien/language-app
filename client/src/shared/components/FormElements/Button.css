@@ -44,7 +44,13 @@
 
 .button--plain-text-danger {
   background-color: inherit;
-  color: rgb(255, 35, 35);;
+  color: rgb(255, 35, 35);
+  padding: 0;
+}
+
+.button--plain-text-warning {
+  background-color: inherit;
+  color: rgb(255, 166, 0);
   padding: 0;
 }
 

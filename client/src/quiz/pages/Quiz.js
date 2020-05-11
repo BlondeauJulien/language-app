@@ -31,7 +31,9 @@ const Quiz = () => {
     resetCourseSuccess, 
     error, 
     success, 
-    loading 
+    loading,
+    alwaysDisplayUnapprovedImage,
+    setAlwaysShowUnapprovedImage
   } = courseContext;
   const { user, token } = authContext;
   const [ redirect, setRedirect ] = useState({
@@ -81,7 +83,11 @@ const Quiz = () => {
             <BackNextContainer>
               <div className="quiz-main">
                 <QuizHeader />
-                <QuizImage quiz={currentQuiz}/>
+                <QuizImage 
+                  quiz={currentQuiz} 
+                  alwaysDisplayUnapprovedImage={alwaysDisplayUnapprovedImage}
+                  setAlwaysShowUnapprovedImage={setAlwaysShowUnapprovedImage}
+                />
                 <QuizAnswers quiz={currentQuiz}/>
                 <div className="quiz-button-container">
                   <Button type={'button'}>Check</Button>

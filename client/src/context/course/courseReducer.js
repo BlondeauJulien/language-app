@@ -20,7 +20,8 @@ import {
   SELECT_QUIZ,
   SET_QUIZ_EDIT,
   EDIT_QUIZ_SUCCESS,
-  DELETE_QUIZ_SUCCESS
+  DELETE_QUIZ_SUCCESS,
+  SET_SHOW_UNAPPROVED_IMAGE
 } from '../types';
 
 export default (state, action) => {
@@ -212,7 +213,12 @@ export default (state, action) => {
       return {
         ...state,
         success: null
-      }
+      };
+    case SET_SHOW_UNAPPROVED_IMAGE:
+      return {
+        ...state,
+        alwaysDisplayUnapprovedImage: action.payload
+      };
 		default:
 			return state;
 	}

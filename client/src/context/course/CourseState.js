@@ -27,6 +27,7 @@ import {
   SET_QUIZ_EDIT,
   EDIT_QUIZ_SUCCESS,
   DELETE_QUIZ_SUCCESS,
+  SET_SHOW_UNAPPROVED_IMAGE,
 } from '../types';
 
 const CourseState = (props) => {
@@ -40,7 +41,8 @@ const CourseState = (props) => {
     quizToEdit: null,
     loading: false,
     error: null,
-    success: null
+    success: null,
+    alwaysDisplayUnapprovedImage: false,
 	};
 
 	const config = {
@@ -291,7 +293,15 @@ const CourseState = (props) => {
 		dispatch({
 			type: RESET_COURSE_SUCCESS
 		});
-	};
+  };
+  
+  const setAlwaysShowUnapprovedImage = () => {
+
+    dispatch({
+      type: SET_SHOW_UNAPPROVED_IMAGE,
+      payload: true
+		});
+  }
 
 	return (
 		<CourseContext.Provider
@@ -306,6 +316,7 @@ const CourseState = (props) => {
         loading: state.loading,
         error: state.error,
         success: state.success,
+        alwaysDisplayUnapprovedImage: state.alwaysDisplayUnapprovedImage,
         createCourse,
         resetCourseSuccess,
         getCourses,
@@ -326,7 +337,8 @@ const CourseState = (props) => {
         selectQuiz,
         setQuizToEdit,
         editQuiz,
-        deleteQuiz
+        deleteQuiz,
+        setAlwaysShowUnapprovedImage
 			}}
 		>
 			{props.children}
