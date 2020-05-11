@@ -21,7 +21,18 @@ const Quiz = () => {
   const authContext = useContext(AuthContext);
   const history = useHistory();
 
-  const { currentCourse, currentQuiz, deleteQuiz, selectQuiz, resetCourseSuccess, error, success, loading } = courseContext;
+  const { 
+    currentCourse, 
+    currentQuiz, 
+    deleteQuiz, 
+    selectQuiz,
+    setQuizToEdit,
+    quizToEdit, 
+    resetCourseSuccess, 
+    error, 
+    success, 
+    loading 
+  } = courseContext;
   const { user, token } = authContext;
   const [ redirect, setRedirect ] = useState({
     toQuizForm: false,
@@ -40,17 +51,15 @@ const Quiz = () => {
     }
   }, [ redirect ]);
 
-/*   if(vocabularyToEdit && !success) {
-    !redirect.toVocabularyForm && setRedirect({...redirect, toVocabularyForm: true});
-  } */
+  if(quizToEdit && !success) {
+    !redirect.toQuizForm && setRedirect({...redirect, toQuizForm: true});
+  }
 
   if(!currentQuiz && !success) {
     !redirect.toCoursePage && setRedirect({...redirect, toCoursePage: true});
   }
 
-  const onClickEdit = () => {
-
-  }
+  const onClickEdit = () => setQuizToEdit(currentQuiz);
 
   const onClickDelete = () => deleteQuiz(currentQuiz._id,token);
 

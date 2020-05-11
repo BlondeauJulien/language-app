@@ -18,6 +18,8 @@ import {
   DELETE_VOCABULARY_SUCCESS,
   CREATE_QUIZ,
   SELECT_QUIZ,
+  SET_QUIZ_EDIT,
+  EDIT_QUIZ_SUCCESS,
   DELETE_QUIZ_SUCCESS
 } from '../types';
 
@@ -138,7 +140,7 @@ export default (state, action) => {
         loading: false,
         error: null,
         success: {message: action.payload.message, for: 'delete'} 
-      }
+      };
     case GET_COURSES_QUIZZES:
       return {
         ...state,
@@ -160,11 +162,23 @@ export default (state, action) => {
         success: true
       };
     case SELECT_QUIZ:
+    case EDIT_QUIZ_SUCCESS:
       return {
         ...state,
         currentVocabulary: null,
         currentQuiz: action.payload,
         courseToEdit: null,
+        loading: false,
+        error: null,
+        success: null
+      };
+    case SET_QUIZ_EDIT:
+      let currentQuiz = {...state.currentQuiz}
+      return {
+        ...state,
+        currentQuiz: action.payload || Object.keys(currentQuiz).length === 0 ? null : currentQuiz,
+        courseToEdit: null,
+        quizToEdit: action.payload,
         loading: false,
         error: null,
         success: null

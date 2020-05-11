@@ -77,7 +77,7 @@ const VocabularyForm = () => {
 				tags: {...form.tags, value: vocabularyToEdit.tags.join(', '), isValid: true},
 			});
 		}
-	}, [ vocabularyToEdit ])
+	}, [ vocabularyToEdit ]);
 
 	const onClickBackCourse = () => {
 		history.push('/course');

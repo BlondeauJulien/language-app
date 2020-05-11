@@ -20,6 +20,10 @@ const QuizForm = () => {
 	const { 
 		currentCourse,
 		currentQuiz,
+		selectQuiz,
+		setQuizToEdit,
+		quizToEdit,
+		editQuiz,
 		error,
 		success,
 		setCourseError,
@@ -53,13 +57,35 @@ const QuizForm = () => {
       resetCourseSuccess();
       history.push('/quiz');
 		}
-/* 		return () => {
-			setWordToEdit(null);
-		} */
+		return () => {
+			setQuizToEdit(null);
+		}
 	}, [ success, currentQuiz ]);
+
+	useEffect(() => {
+		if(quizToEdit) {
+			setForm({
+				...form,
+				image: {...form.image, value: quizToEdit.image, isValid: true},
+				answers: [...quizToEdit.answers].map(a => {
+					return {
+						answer: { value: a.answer, isValid: true, isTouched: false },
+						translation: { value: a.translation, isValid: true, isTouched: false },
+						isCorrect: a.isCorrect
+					}
+				}),
+				difficultyLevel: {...form.difficultyLevel, value: quizToEdit.difficultyLevel, isValid: true},
+				tags: {...form.tags, value: quizToEdit.tags.join(', '), isValid: true},
+			});
+		}
+	}, [ quizToEdit ]);
 
 	const onClickBackCourse = () => {
 		history.push('/course');
+	}
+
+	const onClickBackToQuiz = () => {
+		selectQuiz(quizToEdit);
 	}
 
 	const resetErrors = () => {
@@ -172,13 +198,11 @@ const QuizForm = () => {
 			})
 		}
 
-		console.log(formToSend);
-		createQuiz(formToSend, token)
-/* 		{
-			vocabularyToEdit ? 
-			editVocabulary( vocabularyToEdit._id ,formToSend, token) : 
-			createVocabulary(formToSend, token)
-		} */
+		{
+			quizToEdit ? 
+			editQuiz( quizToEdit._id ,formToSend, token) : 
+			createQuiz(formToSend, token)
+		}
 		
 	}
 
@@ -190,7 +214,9 @@ const QuizForm = () => {
 	return (
 		<div>
 			<form onSubmit={onSubmit}>
-				<h2 className="main-form__title">Quiz</h2>
+				<h2 className="main-form__title">
+					{quizToEdit ? 'Edit quiz' : `Add a quiz for: ${currentCourse.name}`}
+				</h2>
 				<div className="main-form__input-container">
 					<Input
 						id={'image'}
@@ -286,11 +312,11 @@ const QuizForm = () => {
 						<Spinner />
 					) : (
 						<div className="main-form__button-container">
-							<Button type={'button'} onClick={onClickBackCourse}>
-								Back to course
+							<Button type={'button'} onClick={quizToEdit ? onClickBackToQuiz : onClickBackCourse}>
+								{quizToEdit ? 'Back to Quiz' : 'Back to course'}
 							</Button>
 							<Button type={'submit'} design={'green'} >
-								Create
+								{quizToEdit ? 'Edit' : 'Create'}
 							</Button>
 						</div>
 
@@ -299,17 +325,24 @@ const QuizForm = () => {
 				{
 					formHasError && (
 						<Fragment>
-						<p className="form-submit-error-message">
-							Please fill the form properly before submitting
-						</p>
-						{
-							!form.answers.find(el => el.isCorrect) && (
-								<p className="form-submit-error-message">
-									At least on answer should be correct
-								</p>
-							)
-						}
+							<p className="form-submit-error-message">
+								Please fill the form properly before submitting
+							</p>
+							{
+								!form.answers.find(el => el.isCorrect) && (
+									<p className="form-submit-error-message">
+										At least on answer should be correct
+									</p>
+								)
+							}
 						</Fragment>
+					)
+				}
+				{ // backend error
+					error && (
+						<p className="form-submit-error-message">
+							{error}
+						</p>
 					)
 				}
 			</form>

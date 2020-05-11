@@ -24,7 +24,9 @@ import {
   DELETE_VOCABULARY_SUCCESS,
   CREATE_QUIZ,
   SELECT_QUIZ,
-  DELETE_QUIZ_SUCCESS
+  SET_QUIZ_EDIT,
+  EDIT_QUIZ_SUCCESS,
+  DELETE_QUIZ_SUCCESS,
 } from '../types';
 
 const CourseState = (props) => {
@@ -35,6 +37,7 @@ const CourseState = (props) => {
     currentQuiz: null,
     courseToEdit: null,
     vocabularyToEdit: null,
+    quizToEdit: null,
     loading: false,
     error: null,
     success: null
@@ -173,7 +176,6 @@ const CourseState = (props) => {
     setLoadingTo(true);
     try {
       const res = await axios.patch(`/api/vocabulary/${vocabID}`, formData, config);
-      console.log(res)
  			dispatch({
         type: EDIT_VOCABULARY_SUCCESS,
 				payload: res.data
@@ -233,6 +235,27 @@ const CourseState = (props) => {
     })
   }
 
+  const setQuizToEdit = quiz => {
+    dispatch({
+      type: SET_QUIZ_EDIT,
+      payload: quiz
+    });
+  }
+
+  const editQuiz = async (quizID, formData, userToken) => {
+    setAuthToken(userToken);
+    setLoadingTo(true);
+    try {
+      const res = await axios.patch(`/api/quizzes/${quizID}`, formData, config);
+ 			dispatch({
+        type: EDIT_QUIZ_SUCCESS,
+				payload: res.data
+			}); 
+		} catch (err) {
+			setCourseError(err.response.data.message);
+		}
+  }
+
   const deleteQuiz = async (quizId, userToken) => {
     setAuthToken(userToken)
     setLoadingTo(true);
@@ -279,6 +302,7 @@ const CourseState = (props) => {
         currentQuiz: state.currentQuiz,
         courseToEdit: state.courseToEdit,
         vocabularyToEdit: state.vocabularyToEdit,
+        quizToEdit: state.quizToEdit,
         loading: state.loading,
         error: state.error,
         success: state.success,
@@ -300,6 +324,8 @@ const CourseState = (props) => {
         setCourseError,
         createQuiz,
         selectQuiz,
+        setQuizToEdit,
+        editQuiz,
         deleteQuiz
 			}}
 		>
