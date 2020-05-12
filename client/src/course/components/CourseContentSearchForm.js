@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import './CourseContentSearchForm.css';
 import Button from '../../shared/components/FormElements/Button';
 import QuizSearch from './QuizSearch';
 import VocabularySearch from './VocabularySearch';
+import CourseContext from '../../context/course/courseContext';
 
 const CourseContentSearchForm = props => {
-  const { contentToDisplay, setContentToDisplay, setSearchContent} = props;
-  let initialFormState = {
-    difficultyLevel: '',
-    tags: ''
-  }
-  const [ form, setForm ] = useState(initialFormState);
+  const courseContext = useContext(CourseContext);
+
+  const { searchVocabulary, searchQuiz, setSearchContent } = courseContext;
+  const { contentToDisplay, setContentToDisplay} = props;
+  const [ form, setForm ] = useState(contentToDisplay === 'word' ? {...searchVocabulary} : {...searchQuiz});
 
   useEffect(() => {
+    console.log(form);
     if(contentToDisplay === 'word') {
-      setForm({...form, word: '', translation: ''})
+      setForm({...searchVocabulary})
     } else {
-      setForm(initialFormState);
+      setForm({...searchQuiz});
     }
   }, [contentToDisplay])
 

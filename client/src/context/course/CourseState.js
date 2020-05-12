@@ -30,6 +30,7 @@ import {
   SET_SHOW_UNAPPROVED_IMAGE,
   SET_VOCABULARY_SEARCH,
   SET_QUIZ_SEARCH,
+  CLEAR_SEARCH_CONTENT,
 } from '../types';
 
 const CourseState = (props) => {
@@ -295,6 +296,24 @@ const CourseState = (props) => {
 		});
   }
 
+  const clearSearchContent = () => {
+    dispatch({
+			type: CLEAR_SEARCH_CONTENT,
+			payload: {
+        searchVocabulary: {
+          word: '',
+          translation: '',
+          difficultyLevel: '',
+          tags: ''
+        },
+        searchQuiz: {
+          difficultyLevel: '',
+          tags: ''
+        }
+      }
+		});
+  }
+
   const setLoadingTo = value => {
     dispatch({
 			type: SET_COURSE_LOADING,
@@ -361,7 +380,8 @@ const CourseState = (props) => {
         editQuiz,
         deleteQuiz,
         setAlwaysShowUnapprovedImage,
-        setSearchContent
+        setSearchContent,
+        clearSearchContent
 			}}
 		>
 			{props.children}

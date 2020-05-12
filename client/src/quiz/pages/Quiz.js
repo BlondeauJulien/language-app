@@ -33,13 +33,24 @@ const Quiz = () => {
     success, 
     loading,
     alwaysDisplayUnapprovedImage,
-    setAlwaysShowUnapprovedImage
+    setAlwaysShowUnapprovedImage,
+    clearSearchContent
   } = courseContext;
   const { user, token } = authContext;
   const [ redirect, setRedirect ] = useState({
     toQuizForm: false,
     toCoursePage: false
   });
+
+  useEffect(() => {
+    return () => {
+      const regex = /course|quiz|word/gi;
+      const isMatch = regex.test(history.location.pathname);
+      if(!isMatch || /form/gi.test(history.location.pathname)) {
+        clearSearchContent();
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if(redirect.toQuizForm) {

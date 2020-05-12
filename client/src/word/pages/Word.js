@@ -29,7 +29,8 @@ const Word = () => {
     resetCourseSuccess, 
     setWordToEdit,
     vocabularyToEdit,
-    currentCourse
+    currentCourse,
+    clearSearchContent
   } = courseContext;
   const { user, token } = authContext;
   const [ displayWordInfos, setDisplayWordInfo ] = useState(false);
@@ -37,6 +38,16 @@ const Word = () => {
     toVocabularyForm: false,
     toCoursePage: false
   });
+
+  useEffect(() => {
+    return () => {
+      const regex = /course|quiz|word/gi;
+      const isMatch = regex.test(history.location.pathname);
+      if(!isMatch || /form/gi.test(history.location.pathname)) {
+        clearSearchContent();
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if(redirect.toVocabularyForm) {

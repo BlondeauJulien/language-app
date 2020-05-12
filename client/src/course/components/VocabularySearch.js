@@ -14,7 +14,7 @@ const VocabularySearch = props => {
       <div className="search-input-wrapper">
         <Input 
           id={'word'}
-          value={form.word}
+          value={form.word || ''}
           onChange={onChange}
           element={'input'}
           type={'text'} 
@@ -26,7 +26,7 @@ const VocabularySearch = props => {
       <div className="search-input-wrapper">
         <Input 
           id={'translation'}
-          value={form.translation}
+          value={form.translation || ''}
           onChange={onChange}
           element={'input'}
           type={'text'} 

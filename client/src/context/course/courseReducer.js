@@ -23,7 +23,8 @@ import {
   DELETE_QUIZ_SUCCESS,
   SET_SHOW_UNAPPROVED_IMAGE,
   SET_VOCABULARY_SEARCH,
-  SET_QUIZ_SEARCH
+  SET_QUIZ_SEARCH,
+  CLEAR_SEARCH_CONTENT
 } from '../types';
 
 export default (state, action) => {
@@ -213,6 +214,12 @@ export default (state, action) => {
         searchQuiz: {...state.searchQuiz, ...action.payload},
         loading: false,
         error: null,
+      };
+    case CLEAR_SEARCH_CONTENT:
+      return {
+        ...state,
+        searchVocabulary: { ...action.payload.searchVocabulary},
+        searchQuiz: {...action.payload.searchQuiz},
       };
     case SET_COURSE_LOADING:
       return {

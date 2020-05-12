@@ -26,9 +26,9 @@ const Course = () => {
     getCourseQuizzes,
     setCourseToEdit, 
     deleteCourse,
-    setSearchContent,
     searchVocabulary,
     searchQuiz, 
+    clearSearchContent,
     error, 
     success } = courseContext;
   const { user, token } = authContext;
@@ -41,9 +41,13 @@ const Course = () => {
     }
 
     return () => {
-      let regex = /vocabulary|quiz|word/gi
-      if(!regex.test(history.location.pathname)) {
+      const regex = /vocabulary|quiz|word/gi;
+      const isMatch = regex.test(history.location.pathname);
+      if(!isMatch) {
         selectCourse(null);
+      }
+      if(!isMatch || /form/gi.test(history.location.pathname)) {
+        clearSearchContent();
       }
     }
 	}, []);
@@ -127,7 +131,7 @@ const Course = () => {
                 )
               }
             </div>
-            <CourseContentSearcForm contentToDisplay={contentToDisplay} setContentToDisplay={setContentToDisplay} setSearchContent={setSearchContent}/>
+            <CourseContentSearcForm contentToDisplay={contentToDisplay} setContentToDisplay={setContentToDisplay}/>
           </div>
         )
       }
