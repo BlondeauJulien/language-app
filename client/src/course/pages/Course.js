@@ -25,7 +25,9 @@ const Course = () => {
     getCourseVocabulary, 
     getCourseQuizzes,
     setCourseToEdit, 
-    deleteCourse, 
+    deleteCourse,
+    setSearchContent,
+    searchVocabulary, 
     error, 
     success } = courseContext;
   const { user, token } = authContext;
@@ -75,6 +77,23 @@ const Course = () => {
     deleteCourse(currentCourse._id, token);
   }
 
+  const filterWord = word => {
+    let wordRegexp = new RegExp(searchVocabulary.word.trim(), 'i');
+    let translationRegexp = new RegExp(searchVocabulary.translation.trim(), 'i');
+    let difficultyLevelRegexp = new RegExp(searchVocabulary.difficultyLevel.trim(), 'i');
+    let tagRegexp = new RegExp(searchVocabulary.tags.trim(), 'i');
+    const tagsString = word.tags.join(' ');
+    if(
+      wordRegexp.test(word.word) &&
+      translationRegexp.test(word.translation) &&
+      tagRegexp.test(tagsString) &&
+      difficultyLevelRegexp.test(word.difficultyLevel.toString())
+    ) {
+      return true
+    }
+    return false
+  } 
+
 	return (
 		<MainPageContentContainer>
       {
@@ -94,13 +113,13 @@ const Course = () => {
                 )
               }
             </div>
-            <CourseContentSearcForm contentToDisplay={contentToDisplay} setContentToDisplay={setContentToDisplay} />
+            <CourseContentSearcForm contentToDisplay={contentToDisplay} setContentToDisplay={setContentToDisplay} setSearchContent={setSearchContent}/>
           </div>
         )
       }
       {error && <p className="form-submit-error-message">{error}</p>}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}
-			{contentToDisplay === 'word' && currentCourse  && currentCourse.vocabulary && <CardsContainer words={currentCourse.vocabulary} /> }
+			{contentToDisplay === 'word' && currentCourse  &&  currentCourse.vocabulary && <CardsContainer words={currentCourse.vocabulary.filter(filterWord)} /> }
 			{contentToDisplay === 'quiz' && currentCourse  && currentCourse.quizzes && <CardsContainer quizzes={currentCourse.quizzes} />}
       {success && success.for === 'delete' && (
         <SuccessMessage redirectTo={'/'} message={success.message} btnText={'Go back to home page'}/>

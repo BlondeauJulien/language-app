@@ -21,7 +21,9 @@ import {
   SET_QUIZ_EDIT,
   EDIT_QUIZ_SUCCESS,
   DELETE_QUIZ_SUCCESS,
-  SET_SHOW_UNAPPROVED_IMAGE
+  SET_SHOW_UNAPPROVED_IMAGE,
+  SET_VOCABULARY_SEARCH,
+  SET_QUIZ_SEARCH
 } from '../types';
 
 export default (state, action) => {
@@ -197,6 +199,13 @@ export default (state, action) => {
         loading: false,
         error: null,
         success: {message: action.payload.message, for: 'delete'} 
+      };
+    case SET_VOCABULARY_SEARCH:
+      return {
+        ...state,
+        searchVocabulary: {...state.searchVocabulary, ...action.payload},
+        loading: false,
+        error: null,
       };
     case SET_COURSE_LOADING:
       return {

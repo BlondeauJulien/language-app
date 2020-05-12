@@ -28,6 +28,8 @@ import {
   EDIT_QUIZ_SUCCESS,
   DELETE_QUIZ_SUCCESS,
   SET_SHOW_UNAPPROVED_IMAGE,
+  SET_VOCABULARY_SEARCH,
+  SET_QUIZ_SEARCH,
 } from '../types';
 
 const CourseState = (props) => {
@@ -43,6 +45,12 @@ const CourseState = (props) => {
     error: null,
     success: null,
     alwaysDisplayUnapprovedImage: false,
+    searchVocabulary: {
+			word: '',
+			translation: '',
+			difficultyLevel: '',
+			tags: ''
+		},
 	};
 
 	const config = {
@@ -275,6 +283,14 @@ const CourseState = (props) => {
 		}
   }
 
+  const setSearchContent = (form, contentType) => {
+    let type = contentType === 'word' ? SET_VOCABULARY_SEARCH : SET_QUIZ_SEARCH
+    dispatch({
+			type,
+			payload: form
+		});
+  }
+
   const setLoadingTo = value => {
     dispatch({
 			type: SET_COURSE_LOADING,
@@ -317,6 +333,7 @@ const CourseState = (props) => {
         error: state.error,
         success: state.success,
         alwaysDisplayUnapprovedImage: state.alwaysDisplayUnapprovedImage,
+        searchVocabulary: state.searchVocabulary,
         createCourse,
         resetCourseSuccess,
         getCourses,
@@ -338,7 +355,8 @@ const CourseState = (props) => {
         setQuizToEdit,
         editQuiz,
         deleteQuiz,
-        setAlwaysShowUnapprovedImage
+        setAlwaysShowUnapprovedImage,
+        setSearchContent
 			}}
 		>
 			{props.children}
