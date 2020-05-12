@@ -50,7 +50,11 @@ const CourseState = (props) => {
 			translation: '',
 			difficultyLevel: '',
 			tags: ''
-		},
+    },
+    searchQuiz: {
+      difficultyLevel: '',
+			tags: ''
+    }
 	};
 
 	const config = {
@@ -334,6 +338,7 @@ const CourseState = (props) => {
         success: state.success,
         alwaysDisplayUnapprovedImage: state.alwaysDisplayUnapprovedImage,
         searchVocabulary: state.searchVocabulary,
+        searchQuiz: state.searchQuiz,
         createCourse,
         resetCourseSuccess,
         getCourses,

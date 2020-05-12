@@ -23,7 +23,7 @@ const CourseContentSearchForm = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    setSearchContent(form, contentToDisplay)
+    setSearchContent(form, contentToDisplay);
   }
   
   return (
@@ -42,7 +42,7 @@ const CourseContentSearchForm = props => {
           contentToDisplay === 'word' ? (
             <VocabularySearch form={form} setForm={setForm}/>
           ) : (
-            <QuizSearch />
+            <QuizSearch form={form} setForm={setForm}/>
           )
         }
       </div>

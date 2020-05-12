@@ -207,6 +207,13 @@ export default (state, action) => {
         loading: false,
         error: null,
       };
+    case SET_QUIZ_SEARCH:
+      return {
+        ...state,
+        searchQuiz: {...state.searchQuiz, ...action.payload},
+        loading: false,
+        error: null,
+      };
     case SET_COURSE_LOADING:
       return {
         ...state,

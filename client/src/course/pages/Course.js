@@ -27,7 +27,8 @@ const Course = () => {
     setCourseToEdit, 
     deleteCourse,
     setSearchContent,
-    searchVocabulary, 
+    searchVocabulary,
+    searchQuiz, 
     error, 
     success } = courseContext;
   const { user, token } = authContext;
@@ -94,6 +95,19 @@ const Course = () => {
     return false
   } 
 
+  const filterQuiz = quiz => {
+    let difficultyLevelRegexp = new RegExp(searchQuiz.difficultyLevel.trim(), 'i');
+    let tagRegexp = new RegExp(searchQuiz.tags.trim(), 'i');
+    const tagsString = quiz.tags.join(' ');
+    if(
+      tagRegexp.test(tagsString) &&
+      difficultyLevelRegexp.test(quiz.difficultyLevel.toString())
+    ) {
+      return true
+    }
+    return false
+  }
+
 	return (
 		<MainPageContentContainer>
       {
@@ -120,7 +134,7 @@ const Course = () => {
       {error && <p className="form-submit-error-message">{error}</p>}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}
 			{contentToDisplay === 'word' && currentCourse  &&  currentCourse.vocabulary && <CardsContainer words={currentCourse.vocabulary.filter(filterWord)} /> }
-			{contentToDisplay === 'quiz' && currentCourse  && currentCourse.quizzes && <CardsContainer quizzes={currentCourse.quizzes} />}
+			{contentToDisplay === 'quiz' && currentCourse  && currentCourse.quizzes && <CardsContainer quizzes={currentCourse.quizzes.filter(filterQuiz)} />}
       {success && success.for === 'delete' && (
         <SuccessMessage redirectTo={'/'} message={success.message} btnText={'Go back to home page'}/>
       )}
