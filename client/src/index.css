@@ -60,3 +60,22 @@ input, textarea {
   text-align: center;
   margin: 6px 0;
 }
+
+.back-previous {
+  position: absolute;
+  left: 5%;
+  font-size: 44px;
+  color: rgb(216, 216, 216);
+}
+
+.back-previous {
+  position: absolute;
+  left: 5%;
+  font-size: 44px;
+  color: rgb(216, 216, 216);
+}
+
+.back-previous:hover {
+  color: var(--brand-color);
+  cursor: pointer;
+}

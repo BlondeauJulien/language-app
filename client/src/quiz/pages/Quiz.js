@@ -81,6 +81,9 @@ const Quiz = () => {
       {
         currentQuiz && (
           <Fragment>
+            <div className="back-previous" onClick={() => setRedirect({...redirect, toCoursePage: true})}>
+              <i className="fas fa-arrow-alt-circle-left"></i>
+            </div>
             {
               user && currentCourse.creator._id === user.id && (
                 <div className="vocab-creator-actions">
