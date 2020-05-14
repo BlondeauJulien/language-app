@@ -10,11 +10,10 @@ const CourseContentSearchForm = props => {
   const courseContext = useContext(CourseContext);
 
   const { searchVocabulary, searchQuiz, setSearchContent } = courseContext;
-  const { contentToDisplay, setContentToDisplay} = props;
+  const { contentToDisplay, setContentToDisplay, setCurrentPage} = props;
   const [ form, setForm ] = useState(contentToDisplay === 'word' ? {...searchVocabulary} : {...searchQuiz});
 
   useEffect(() => {
-    console.log(form);
     if(contentToDisplay === 'word') {
       setForm({...searchVocabulary})
     } else {
@@ -24,6 +23,7 @@ const CourseContentSearchForm = props => {
 
   const onSubmit = e => {
     e.preventDefault();
+    setCurrentPage(1)
     setSearchContent(form, contentToDisplay);
   }
   

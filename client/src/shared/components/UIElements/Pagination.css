@@ -1,0 +1,29 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-item {
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 26px;
+  font-weight: 900;
+  margin: 4px;
+  background-color: white;
+  color: var(--brand-color);
+  /* border: solid 1px var(--brand-color); */
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination-item-current {
+  background-color: var(--brand-color);
+  color: white;
+}
+
+.pagination-item:hover {
+  background-color: var(--brand-color);
+  color: white;
+}

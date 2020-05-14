@@ -34,6 +34,8 @@ const Course = () => {
   const { user, token } = authContext;
 
   const [ contentToDisplay, setContentToDisplay ] = useState('word');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(1);
 
 	useEffect(() => {
 		if (!currentCourse) {
@@ -53,6 +55,8 @@ const Course = () => {
 	}, []);
 
   useEffect(() => {
+    setCurrentPage(1);
+
     if(currentCourse) {
       if (!currentCourse.vocabulary && contentToDisplay === 'word') {
         getCourseVocabulary(currentCourse._id);
@@ -94,9 +98,9 @@ const Course = () => {
       tagRegexp.test(tagsString) &&
       difficultyLevelRegexp.test(word.difficultyLevel.toString())
     ) {
-      return true
+      return true;
     }
-    return false
+    return false;
   } 
 
   const filterQuiz = quiz => {
@@ -107,10 +111,14 @@ const Course = () => {
       tagRegexp.test(tagsString) &&
       difficultyLevelRegexp.test(quiz.difficultyLevel.toString())
     ) {
-      return true
+      return true;
     }
-    return false
+    return false;
   }
+
+  const paginate = pageNumber => {
+    setCurrentPage(pageNumber);
+  };
 
 	return (
 		<MainPageContentContainer>
@@ -131,14 +139,22 @@ const Course = () => {
                 )
               }
             </div>
-            <CourseContentSearcForm contentToDisplay={contentToDisplay} setContentToDisplay={setContentToDisplay}/>
+            <CourseContentSearcForm contentToDisplay={contentToDisplay} setContentToDisplay={setContentToDisplay} setCurrentPage={setCurrentPage}/>
           </div>
         )
       }
       {error && <p className="form-submit-error-message">{error}</p>}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}
-			{contentToDisplay === 'word' && currentCourse  &&  currentCourse.vocabulary && <CardsContainer words={currentCourse.vocabulary.filter(filterWord)} /> }
-			{contentToDisplay === 'quiz' && currentCourse  && currentCourse.quizzes && <CardsContainer quizzes={currentCourse.quizzes.filter(filterQuiz)} />}
+			{contentToDisplay === 'word' && currentCourse  &&  currentCourse.vocabulary && (
+        <CardsContainer 
+          words={currentCourse.vocabulary.filter(filterWord)} 
+          paginate={paginate}
+          postsPerPage={postsPerPage}
+          currentPage={currentPage}
+          totalItems={currentCourse.vocabulary.filter(filterWord).length}
+        />
+      )}
+			{contentToDisplay === 'quiz' && currentCourse && currentCourse.quizzes && <CardsContainer quizzes={currentCourse.quizzes.filter(filterQuiz)} />}
       {success && success.for === 'delete' && (
         <SuccessMessage redirectTo={'/'} message={success.message} btnText={'Go back to home page'}/>
       )}
