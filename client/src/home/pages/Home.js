@@ -18,6 +18,10 @@ const Home = props => {
 
   useEffect(() => {
     getCourses({username: 'julienbbb123456'});
+
+    return () => {
+      resetCourses();
+    }
   }, []);
 
   useEffect(() => {

@@ -15,8 +15,11 @@ const UserProfile = () => {
 	const authContext = useContext(AuthContext);
 
 	const { logout, user, deleteUser, loading, editProfile, error, setAuthError, success, resetSuccess } = authContext;
-  const history = useHistory();
-  const [ isEditMode, setIsEditMode ] = useState(false);
+	const history = useHistory();
+	const [ componentToDisplay, setComponentToDisplay ] = useState('profile');
+	const [ isEditMode, setIsEditMode ] = useState(false);
+	const [ currentPage, setCurrentPage ] = useState(1);
+  const [ postsPerPage ] = useState(1);
 
 	useEffect(() => {
     if (!user) {
@@ -60,33 +63,57 @@ const UserProfile = () => {
 			}
 		}
 	];
+
+	const paginate = pageNumber => {
+    setCurrentPage(pageNumber);
+	};
+	
 	return (
 		<MainPageContentContainer>
 			{user && (
 				<Fragment>
-					<ProfileNav setIsEditMode={setIsEditMode}/>
-					{/* <CardsContainer courses={courses}/>  */}
-					<div className="profile-container">
-            {
-              isEditMode ? (
-                <ProfileForm 
-                  user={user} 
-                  editProfile={editProfile} 
-                  error={error} 
-                  setIsEditMode={setIsEditMode}
-                  setAuthError={setAuthError}
-                />
-              ) : (
-                <ProfileInfos 
-                  logout={logout} 
-                  deleteUser={deleteUser} 
-                  loading={loading} 
-                  user={user} 
-                  setIsEditMode={setIsEditMode}
-                />
-              )
-            }
-					</div>
+					<ProfileNav 
+						setIsEditMode={setIsEditMode} 
+						componentToDisplay={componentToDisplay}
+						setComponentToDisplay={setComponentToDisplay}
+						userRole={user.role}
+					/>
+					{
+						componentToDisplay === 'courses' && (
+							<CardsContainer 
+								courses={courses}
+								paginate={paginate}
+								postsPerPage={postsPerPage}
+								currentPage={currentPage}
+								totalItems={courses.length}
+							/> 
+						)
+					}
+					{
+						componentToDisplay === 'profile' && (
+							<div className="profile-container">
+								{
+									isEditMode ? (
+										<ProfileForm 
+											user={user} 
+											editProfile={editProfile} 
+											error={error} 
+											setIsEditMode={setIsEditMode}
+											setAuthError={setAuthError}
+										/>
+									) : (
+										<ProfileInfos 
+											logout={logout} 
+											deleteUser={deleteUser} 
+											loading={loading} 
+											user={user} 
+											setIsEditMode={setIsEditMode}
+										/>
+									)
+								}
+							</div>
+						)
+					}
 					{/* <ItemsList /> */}
 				</Fragment>
 			)}
