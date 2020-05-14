@@ -74,7 +74,12 @@ const updateUserInfos = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({userId: updatedUser._id, username : updatedUser.username, email: updatedUser.email});
+  const updatedUserInfos = {userId: updatedUser._id, username : updatedUser.username, email: updatedUser.email}
+  if(updatedUser.role === 'admin' || updatedUser.role === 'moderator') {
+    updatedUserInfos.role = updatedUser.role;
+  } 
+
+  res.status(200).json(updatedUserInfos);
 }
 
 module.exports = updateUserInfos;

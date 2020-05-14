@@ -45,7 +45,12 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({userId: user._id, username : user.username, email, token});
+  const userInfos = {userId: user._id, username : user.username, email, token};
+  if(user.role === 'admin' || user.role === 'moderator') {
+    userInfos.role = user.role;
+  } 
+
+  res.json(userInfos);
 }
 
 module.exports = login;

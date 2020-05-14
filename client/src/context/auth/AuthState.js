@@ -12,10 +12,12 @@ import {
 	SET_AUTH_ERROR,
 	DELETE_USER,
 	EDIT_USER,
-	RESET_SUCCESS
+	RESET_SUCCESS,
+	SET_USER_COURSES,
+	CLEAR_USER_COURSES
 } from '../types';
 
-const AuthState = (props) => {
+const AuthState = props => {
 	const initialState = {
 		token: localStorage.getItem('auth-token-learnapp'),
 		user: null,
@@ -116,7 +118,26 @@ const AuthState = (props) => {
 		}
 	};
 
-	const setLoadingTo = (value) => {
+	const getUserCourses = async userId => {
+		setLoadingTo(true);
+		try {
+			const res = await axios.get(`/api/users/${userId}/courses`);
+			dispatch({
+				type: SET_USER_COURSES,
+				payload: res.data
+			});
+		} catch (err) {
+			setAuthError(err.response.data.message);
+		}
+	}
+
+	const clearUserCourses = () => {
+		dispatch({
+			type: CLEAR_USER_COURSES
+		});
+	}
+
+	const setLoadingTo = value => {
 		dispatch({
 			type: SET_AUTH_LOADING,
 			payload: value
@@ -144,7 +165,9 @@ const AuthState = (props) => {
 				editProfile,
 				deleteUser,
 				setAuthError,
-				resetSuccess
+				resetSuccess,
+				getUserCourses,
+				clearUserCourses
 			}}
 		>
 			{props.children}

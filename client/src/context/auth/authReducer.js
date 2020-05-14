@@ -7,7 +7,9 @@ import {
   SET_AUTH_ERROR,
   DELETE_USER,
   EDIT_USER,
-  RESET_SUCCESS
+  RESET_SUCCESS,
+  CLEAR_USER_COURSES,
+  SET_USER_COURSES
 } from '../types';
 
 export default (state, action) => {
@@ -22,7 +24,8 @@ export default (state, action) => {
 				user: {
 					id: action.payload.userId,
 					username: action.payload.username,
-					email: action.payload.email,
+          email: action.payload.email,
+          ...action.payload.role && { role: action.payload.role },
 				},
 				loading: false,
 				error: null
@@ -34,6 +37,7 @@ export default (state, action) => {
             id: action.payload.userId,
             username: action.payload.username,
             email: action.payload.email,
+            ...action.payload.role && { role: action.payload.role },
           },
           loading: false,
           error: null,
@@ -55,6 +59,29 @@ export default (state, action) => {
           ...state,
           token: null,
           user: null,
+          loading: false,
+          error: null
+        };
+      case SET_USER_COURSES:
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            courses: [
+              ...action.payload.user.courseCreated,
+            ].map(c => {
+              return {...c, creator: {_id: state.user.id, username: state.user.username }}
+            })
+          },
+          loading: false,
+          error: null
+        };
+      case CLEAR_USER_COURSES:
+        const userInfos = {...state.user};
+        delete userInfos.courses;
+        return {
+          ...state,
+          user: userInfos,
           loading: false,
           error: null
         };

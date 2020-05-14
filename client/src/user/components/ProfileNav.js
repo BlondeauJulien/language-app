@@ -39,14 +39,26 @@ const ProfileNav = props => {
         {
           userRole === "moderator" || userRole === "admin" && (
             <li className={`profile-navigation__li${componentToDisplay === 'review' ? '-selected' : ''}`}>
-              <Button type={'button'} design={'plain-text'}>To Review</Button>
+              <Button 
+                type={'button'} 
+                design={'plain-text'}
+                onClick={() => onClickNavLink('review')}
+              >
+                To Review
+              </Button>
             </li>
           )
         }
         {
           userRole === "admin" && (
             <li className={`profile-navigation__li${componentToDisplay === 'users' ? '-selected' : ''}`}>
-              <Button type={'button'} design={'plain-text'}>Users</Button>
+              <Button 
+                type={'button'} 
+                design={'plain-text'}
+                onClick={() => onClickNavLink('users')}
+              >
+                Users
+              </Button>
             </li>
           )
         }

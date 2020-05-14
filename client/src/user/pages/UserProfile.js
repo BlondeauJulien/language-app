@@ -14,12 +14,38 @@ import './UserProfile.css';
 const UserProfile = () => {
 	const authContext = useContext(AuthContext);
 
-	const { logout, user, deleteUser, loading, editProfile, error, setAuthError, success, resetSuccess } = authContext;
+	const {
+		logout, 
+		user, 
+		deleteUser, 
+		loading, 
+		editProfile, 
+		error, 
+		setAuthError, 
+		success, 
+		resetSuccess, 
+		getUserCourses, 
+		clearUserCourses
+	} = authContext;
 	const history = useHistory();
 	const [ componentToDisplay, setComponentToDisplay ] = useState('profile');
 	const [ isEditMode, setIsEditMode ] = useState(false);
 	const [ currentPage, setCurrentPage ] = useState(1);
-  const [ postsPerPage ] = useState(1);
+	const [ postsPerPage ] = useState(1);
+
+	useEffect(() => {
+		return () => {
+			if(user && user.courses) {
+				clearUserCourses();
+			}
+		}
+	})
+	
+	useEffect(() => {
+    if (user && componentToDisplay === 'courses' && !user.courses) {
+      getUserCourses(user.id);
+		}
+  }, [ componentToDisplay ]);
 
 	useEffect(() => {
     if (!user) {
@@ -79,13 +105,13 @@ const UserProfile = () => {
 						userRole={user.role}
 					/>
 					{
-						componentToDisplay === 'courses' && (
+						componentToDisplay === 'courses' && user.courses && (
 							<CardsContainer 
-								courses={courses}
+								courses={user.courses}
 								paginate={paginate}
 								postsPerPage={postsPerPage}
 								currentPage={currentPage}
-								totalItems={courses.length}
+								totalItems={user.courses.length}
 							/> 
 						)
 					}
