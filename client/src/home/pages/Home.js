@@ -41,7 +41,12 @@ const Home = props => {
         { error && <p>{error}</p> }
         {
           coursesToDisplay && (
-            <CardsContainer courses={coursesToDisplay}/>
+            <CardsContainer 
+              courses={coursesToDisplay}
+              postsPerPage={coursesToDisplay.length}
+              currentPage={1}
+              totalItems={coursesToDisplay.length}
+            />
           )
         }
       </MainPageContentContainer>

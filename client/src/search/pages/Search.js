@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import MainPageContentContainer from '../../shared/components/UIElements/MainPageContentContainer';
 import CardsContainer from '../../shared/components/UIElements/CardsContainer';
@@ -11,12 +11,18 @@ import './Search.css'
 const Search = () => {
   const courseContext = useContext(CourseContext);
   const { courses, loading, error, resetCourses, getCourses } = courseContext;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(1);
   
   useEffect(() => {
     return () => {
       resetCourses();
     }
   }, []);
+
+  const paginate = pageNumber => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <MainPageContentContainer>
@@ -31,7 +37,13 @@ const Search = () => {
             {error}
           </p>
         ) : courses ? (
-          <CardsContainer courses={courses}/>
+          <CardsContainer 
+            courses={courses}
+            paginate={paginate}
+            postsPerPage={postsPerPage}
+            currentPage={currentPage}
+            totalItems={courses.length}
+          />
         ) : null
       }
     </MainPageContentContainer>

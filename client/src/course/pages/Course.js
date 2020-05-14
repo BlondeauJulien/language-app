@@ -154,7 +154,15 @@ const Course = () => {
           totalItems={currentCourse.vocabulary.filter(filterWord).length}
         />
       )}
-			{contentToDisplay === 'quiz' && currentCourse && currentCourse.quizzes && <CardsContainer quizzes={currentCourse.quizzes.filter(filterQuiz)} />}
+			{contentToDisplay === 'quiz' && currentCourse && currentCourse.quizzes && (
+        <CardsContainer 
+          quizzes={currentCourse.quizzes.filter(filterQuiz)} 
+          paginate={paginate}
+          postsPerPage={postsPerPage}
+          currentPage={currentPage}
+          totalItems={currentCourse.quizzes.filter(filterQuiz).length}
+        />
+      )}
       {success && success.for === 'delete' && (
         <SuccessMessage redirectTo={'/'} message={success.message} btnText={'Go back to home page'}/>
       )}

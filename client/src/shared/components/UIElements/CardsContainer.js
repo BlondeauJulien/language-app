@@ -23,7 +23,7 @@ const CardsContainer = props => {
     <Fragment>
       <div className="cards-container">
         {props.courses ? 
-          props.courses.map(course => {
+          props.courses.slice(indexOfFirstItem, indexOfLastItem).map(course => {
             return (<CourseCard course={course}/>)
           }) 
           : props.words ?
@@ -31,7 +31,7 @@ const CardsContainer = props => {
             return (<VocabularyCard word={word}/>)
           })
           : props.quizzes ?
-          props.quizzes.map(quiz => {
+          props.quizzes.slice(indexOfFirstItem, indexOfLastItem).map(quiz => {
             return (<QuizCard quiz={quiz}/>)
           })
           :
@@ -45,7 +45,7 @@ const CardsContainer = props => {
           (<p className="empty-result-message">Nothing to display / no result</p>) : null
         }
       </div>
-      {totalItems && totalItems > postsPerPage && (<Pagination
+      {totalItems > 0 && totalItems > postsPerPage && (<Pagination
         postsPerPage={postsPerPage}
         currentPage={currentPage}
         totalItems={totalItems}
