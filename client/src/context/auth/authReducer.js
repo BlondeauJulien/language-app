@@ -9,7 +9,8 @@ import {
   EDIT_USER,
   RESET_SUCCESS,
   CLEAR_USER_COURSES,
-  SET_USER_COURSES
+  SET_USER_COURSES,
+  SET_USERS
 } from '../types';
 
 export default (state, action) => {
@@ -82,6 +83,18 @@ export default (state, action) => {
         return {
           ...state,
           user: state.user ? userInfos : null,
+          loading: false,
+          error: null
+        };
+      case SET_USERS:
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            users: [
+              ...action.payload.users,
+            ]
+          },
           loading: false,
           error: null
         };

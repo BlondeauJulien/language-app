@@ -5,17 +5,20 @@ import ImageToReview from './ImageToReview';
 
 import './ItemsList.css';
 
-const ItemsList = () => {
+const ItemsList = props => {
+  const { itemsFor, items} = props;
   return (
     <div className="users-list">
-      <UserItem />
-      <UserItem />
-      <UserItem />
-      <UserItem />
-{/*       <ImageToReview />
-      <ImageToReview />
-      <ImageToReview />
-      <ImageToReview /> */}
+      {
+        items.map((item, i) => {
+          if(itemsFor === 'users') {
+            return <UserItem key={item._id} user={item}/>
+          }
+          if(itemsFor === 'review') {
+            return <ImageToReview key={'image' + i} image={item}/>
+          }
+        })
+      }
     </div>
   )
 }

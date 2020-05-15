@@ -14,7 +14,8 @@ import {
 	EDIT_USER,
 	RESET_SUCCESS,
 	SET_USER_COURSES,
-	CLEAR_USER_COURSES
+	CLEAR_USER_COURSES,
+	SET_USERS
 } from '../types';
 
 const AuthState = props => {
@@ -137,6 +138,20 @@ const AuthState = props => {
 		});
 	}
 
+	const getUsers = async () => {
+		setLoadingTo(true);
+		setAuthToken(state.token);
+		try {
+			const res = await axios.get(`/api/users`);
+			dispatch({
+				type: SET_USERS,
+				payload: res.data
+			});
+		} catch (err) {
+			setAuthError(err.response.data.message);
+		}
+	}
+
 	const setLoadingTo = value => {
 		dispatch({
 			type: SET_AUTH_LOADING,
@@ -167,7 +182,8 @@ const AuthState = props => {
 				setAuthError,
 				resetSuccess,
 				getUserCourses,
-				clearUserCourses
+				clearUserCourses,
+				getUsers
 			}}
 		>
 			{props.children}

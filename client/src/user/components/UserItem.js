@@ -5,13 +5,14 @@ import Button from '../../shared/components/FormElements/Button';
 import './UserItem.css';
 
 const UserItem = props => {
+  const { user } = props;
   return (
     <div className="user-item">
       <div className="user-item__infos">
-        <span className="user-item__username">Julien</span>
-        <span className="user-item__email">email@email.email</span>
-        <span className="user-item__role">user</span>
-        <span className="user-item__status">banned</span>
+        <span className="user-item__username">{user.username}</span>
+        <span className="user-item__email">{user.email}</span>
+        <span className="user-item__role">{user.role}</span>
+        <span className="user-item__status">{user.status}</span>
       </div>
       <div className="user-item__actions">
         <Button type={'button'}>Change Role</Button>

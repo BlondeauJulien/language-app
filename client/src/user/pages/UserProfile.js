@@ -26,7 +26,8 @@ const UserProfile = () => {
 		success, 
 		resetSuccess, 
 		getUserCourses, 
-		clearUserCourses
+		clearUserCourses,
+		getUsers
 	} = authContext;
 	const history = useHistory();
 	const [ componentToDisplay, setComponentToDisplay ] = useState('profile');
@@ -39,6 +40,11 @@ const UserProfile = () => {
     if (user && componentToDisplay === 'courses' && !user.courses) {
       getUserCourses(user.id);
 		}
+
+		if (user && componentToDisplay === 'users' && !user.users) {
+      getUsers();
+		}
+
   }, [ componentToDisplay ]);
 
 	useEffect(() => {
@@ -109,7 +115,8 @@ const UserProfile = () => {
 							</div>
 						)
 					}
-					{/* <ItemsList /> */}
+					{ componentToDisplay === 'users' && user.users && <ItemsList itemsFor={componentToDisplay} items={user.users}/>}
+					{ componentToDisplay === 'review' && user.review && <ItemsList itemsFor={componentToDisplay} items={user.review}/>}
 					{
 						loading && componentToDisplay !== 'profile' && (
 							<div className="profile-spinner-container">
