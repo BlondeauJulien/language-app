@@ -81,7 +81,7 @@ export default (state, action) => {
         delete userInfos.courses;
         return {
           ...state,
-          user: userInfos,
+          user: state.user ? userInfos : null,
           loading: false,
           error: null
         };

@@ -109,6 +109,7 @@ const UserProfile = () => {
 							</div>
 						)
 					}
+					{/* <ItemsList /> */}
 					{
 						loading && componentToDisplay !== 'profile' && (
 							<div className="profile-spinner-container">
@@ -116,7 +117,6 @@ const UserProfile = () => {
 							</div>
 						)
 					}
-					{/* <ItemsList /> */}
 				</Fragment>
 			)}
 		</MainPageContentContainer>
