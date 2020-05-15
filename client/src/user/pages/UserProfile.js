@@ -10,6 +10,7 @@ import ItemsList from '../components/ItemsList';
 import AuthContext from '../../context/auth/authContext';
 
 import './UserProfile.css';
+import Spinner from '../../shared/SVGImages/Spinner';
 
 const UserProfile = () => {
 	const authContext = useContext(AuthContext);
@@ -32,16 +33,9 @@ const UserProfile = () => {
 	const [ isEditMode, setIsEditMode ] = useState(false);
 	const [ currentPage, setCurrentPage ] = useState(1);
 	const [ postsPerPage ] = useState(1);
-
-	useEffect(() => {
-		return () => {
-			if(user && user.courses) {
-				clearUserCourses();
-			}
-		}
-	})
 	
 	useEffect(() => {
+		paginate(1);
     if (user && componentToDisplay === 'courses' && !user.courses) {
       getUserCourses(user.id);
 		}
@@ -50,7 +44,12 @@ const UserProfile = () => {
 	useEffect(() => {
     if (!user) {
       history.push('/');
-    }
+		}
+		return () => {
+			if(user && user.courses) {
+				clearUserCourses();
+			}
+		}
   }, [ user ]);
     
   useEffect(() => {
@@ -59,36 +58,6 @@ const UserProfile = () => {
       setIsEditMode(false);
     }
   }, [ success ]);
-
-	let courses = [
-		{
-			name: 'Learn Norwegian colours',
-			countryFlag: 'NO',
-			language: 'Norwegian',
-			learningFrom: 'French',
-			creator: {
-				username: 'julien'
-			}
-		},
-		{
-			name: 'Learn Norwegian colours',
-			countryFlag: 'NO',
-			language: 'Norwegian',
-			learningFrom: 'French',
-			creator: {
-				username: 'julien123456789'
-			}
-		},
-		{
-			name: 'Learn Norwegian colours Learn Norwegian colours',
-			countryFlag: 'NO',
-			language: 'Norwegian',
-			learningFrom: 'French',
-			creator: {
-				username: 'julien'
-			}
-		}
-	];
 
 	const paginate = pageNumber => {
     setCurrentPage(pageNumber);
@@ -137,6 +106,13 @@ const UserProfile = () => {
 										/>
 									)
 								}
+							</div>
+						)
+					}
+					{
+						loading && componentToDisplay !== 'profile' && (
+							<div className="profile-spinner-container">
+								<Spinner />
 							</div>
 						)
 					}
