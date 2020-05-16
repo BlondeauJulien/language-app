@@ -56,6 +56,8 @@ router.patch('/:id', [
   ]
 ], quizzesControllers.updateQuiz);
 
+router.patch('/:id/approve', authentication, quizzesControllers.approveQuizImage);
+
 router.delete('/:id', authentication, quizzesControllers.deleteQuiz);
 
 const checkIfAtLeastOneTrue = (array) => {

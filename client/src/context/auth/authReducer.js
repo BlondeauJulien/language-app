@@ -10,7 +10,8 @@ import {
   RESET_SUCCESS,
   CLEAR_USER_COURSES,
   SET_USER_COURSES,
-  SET_USERS
+  SET_USERS,
+  APPROVE_QUIZ_SUCCESS
 } from '../types';
 
 export default (state, action) => {
@@ -96,6 +97,16 @@ export default (state, action) => {
           users: [
             ...action.payload.users,
           ]
+        },
+        loading: false,
+        error: null
+      };
+    case APPROVE_QUIZ_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user, 
+          imageToReview: [...state.user.imageToReview].filter(img => img._id !== action.payload.quizId)
         },
         loading: false,
         error: null

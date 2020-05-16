@@ -15,7 +15,8 @@ import {
 	RESET_SUCCESS,
 	SET_USER_COURSES,
 	CLEAR_USER_COURSES,
-	SET_USERS
+	SET_USERS,
+	APPROVE_QUIZ_SUCCESS
 } from '../types';
 
 const AuthState = props => {
@@ -152,6 +153,23 @@ const AuthState = props => {
 		}
 	}
 
+	const approveQuizImage = async (quizId, userToken) => {
+    setAuthToken(userToken)
+    setLoadingTo(true);
+    try {
+      const res = await axios.patch(`/api/quizzes/${quizId}/approve`);
+			dispatch({
+				type: APPROVE_QUIZ_SUCCESS,
+				payload: {
+          message: res.data.message,
+          quizId
+        }
+			});
+		} catch (err) {
+			setAuthError(err.response.data.message);
+		}
+  }
+
 	const setLoadingTo = value => {
 		dispatch({
 			type: SET_AUTH_LOADING,
@@ -183,7 +201,8 @@ const AuthState = props => {
 				resetSuccess,
 				getUserCourses,
 				clearUserCourses,
-				getUsers
+				getUsers,
+				approveQuizImage
 			}}
 		>
 			{props.children}
