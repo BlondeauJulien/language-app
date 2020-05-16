@@ -9,7 +9,7 @@ const login = async (req, res, next) => {
 
   let user;
   try {
-    user = await User.findOne({ email });
+    user = await User.findOne({ email }).populate('imageToReview');
   } catch (err) {
     const error = new HttpError('Login failed, please try again.', 500);
     return next(error);
@@ -48,6 +48,7 @@ const login = async (req, res, next) => {
   const userInfos = {userId: user._id, username : user.username, email, token};
   if(user.role === 'admin' || user.role === 'moderator') {
     userInfos.role = user.role;
+    userInfos.imageToReview = user.imageToReview;
   } 
 
   res.json(userInfos);
