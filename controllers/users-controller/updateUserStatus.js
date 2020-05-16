@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const HttpError = require('../../models/http-error');
 const User = require('../../models/user');
+const Course = require('../../models/course');
 
 const updateUserRole = async (req, res, next) => {
   const errors = validationResult(req);
@@ -53,8 +54,25 @@ const updateUserRole = async (req, res, next) => {
     const error = new HttpError('The user you try to update does not exist.', 404);
     return next(error);
   }
+  
+  if(req.body.status === 'banned') {
+    try {
+      for(const courseId of userToUpdate.courseCreated) {
+        const course = await Course.findById(courseId);
+        await course.remove();
+      }
+    } catch (err) {
+      const error = new HttpError('An error occured when deleting user courses.', 500);
+      return next(error);
+    }
+  }
 
-  userToUpdate.set({status: req.body.status});
+  const toSet = {status: req.body.status};
+  if(req.body.status === 'banned') {
+    toSet.courses = [];
+  }
+
+  userToUpdate.set(toSet);
 
   let updatedUser;
   try {

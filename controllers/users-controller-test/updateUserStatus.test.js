@@ -99,7 +99,7 @@ describe('PATCH - /api/users/:id/status', () => {
   }); 
 
 
-  it('should let an admin change an user status', async done => {
+  it('should let an admin change an user status to banned', async done => {
     const admin = await request.post('/api/users/login')
     .send({email: process.env.DEFAULT_ADMIN_EMAIL, password: process.env.DEFAULT_ADMIN_PASSWORD});
 
@@ -114,6 +114,7 @@ describe('PATCH - /api/users/:id/status', () => {
       status: 'banned',
       password: process.env.DEFAULT_ADMIN_PASSWORD
     }).set('Authorization', `Bearer ${admin.body.token}`);
+    console.log(updatedUserResponse.body.message);
 
     expect(updatedUserResponse.status).toBe(200);
     expect(updatedUserResponse.body.message).toMatch(/Successfully updated status for/i);
@@ -127,7 +128,7 @@ describe('PATCH - /api/users/:id/status', () => {
     done();
   }); 
 
-  it('should let an admin change an user status', async done => {
+  it('should let an admin change an user status to active', async done => {
     const moderator = await request.post('/api/users/login')
     .send({email: 'testing4@gmail.com', password: '123456'});
 
@@ -142,8 +143,6 @@ describe('PATCH - /api/users/:id/status', () => {
       status: 'active',
       password: '123456'
     }).set('Authorization', `Bearer ${moderator.body.token}`);
-    
-    //console.log(updatedUserResponse);
 
     expect(updatedUserResponse.status).toBe(200);
     expect(updatedUserResponse.body.message).toMatch(/Successfully updated status for/i);
@@ -156,7 +155,4 @@ describe('PATCH - /api/users/:id/status', () => {
 
     done();
   }); 
-  
-
-  
 });
