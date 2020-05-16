@@ -14,11 +14,6 @@ const ProfileInfos = props => {
     password: ''
   });
 
-  const onCancelDelete = () => {
-    setDeleteForm({...deleteForm, password: ''})
-    setOpenDeleteForm(false);
-  }
-
   const onSubmit = e => {
     e.preventDefault();
     props.deleteUser(deleteForm);
@@ -36,7 +31,7 @@ const ProfileInfos = props => {
           <div className="profil-infos-buttons">
             <Button type="button" onClick={() => props.setIsEditMode(true)}>EDIT</Button>
             <Button type="button" design={'danger'} onClick={props.logout}>LOG OUT</Button>
-            <Button type="button" design={'plain-text-danger'}  onClick={() => {setOpenDeleteForm(true)}}>DELETE ACCOUNT</Button>
+            <Button type="button" design={'plain-text-danger'}  onClick={() => setOpenDeleteForm(true)}>DELETE ACCOUNT</Button>
           </div>
         )
       )}

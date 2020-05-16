@@ -12,6 +12,7 @@ import {
 	SET_AUTH_ERROR,
 	DELETE_USER,
 	EDIT_USER,
+	BAN_USER_SUCCESS,
 	RESET_SUCCESS,
 	SET_USER_COURSES,
 	CLEAR_USER_COURSES,
@@ -153,6 +154,30 @@ const AuthState = props => {
 		}
 	}
 
+	const banUser = async (userId, userToken, password, courseId, quizId) => {
+    setAuthToken(userToken)
+		setLoadingTo(true);
+		
+		try {
+			if(courseId) {
+				const course = await axios.get(`/api/courses/${courseId}`);
+				userId = course.data.course.creator._id
+			}
+			const res = await axios.patch(`/api/users/${userId}/status`, {status: 'banned', password}, config);
+
+			dispatch({
+				type: BAN_USER_SUCCESS,
+				payload: {
+					message: res.data.message,
+					quizId,
+					userId
+        }
+			});
+		} catch (err) {
+			setAuthError(err.response.data.message);
+		}
+	}
+
 	const approveQuizImage = async (quizId, userToken) => {
     setAuthToken(userToken)
     setLoadingTo(true);
@@ -197,6 +222,7 @@ const AuthState = props => {
 				logout,
 				editProfile,
 				deleteUser,
+				banUser,
 				setAuthError,
 				resetSuccess,
 				getUserCourses,

@@ -7,6 +7,7 @@ import {
   SET_AUTH_ERROR,
   DELETE_USER,
   EDIT_USER,
+  BAN_USER_SUCCESS,
   RESET_SUCCESS,
   CLEAR_USER_COURSES,
   SET_USER_COURSES,
@@ -63,6 +64,26 @@ export default (state, action) => {
         ...state,
         token: null,
         user: null,
+        loading: false,
+        error: null
+      };
+    case BAN_USER_SUCCESS:
+      let imageToReview = [...state.user.imageToReview]
+      if(action.payload.quizId) {
+        imageToReview = [...state.user.imageToReview].filter(img => img._id !== action.payload.quizId);
+      }
+      return {
+        ...state,
+        user: {
+          ...state.user, 
+          users: [...state.user.users].map(user => {
+            if(user._id === action.payload.userId) {
+              user.status = 'banned';
+            }
+            return user;
+          }),
+          imageToReview
+        },
         loading: false,
         error: null
       };
