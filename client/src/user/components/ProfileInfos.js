@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import InfoElement from './InfoElement';
 import Button from '../../shared/components/FormElements/Button';
 import Spinner from '../../shared/SVGImages/Spinner';
-import Input from '../../shared/components/FormElements/Input';
+import PasswordForm from '../../shared/components/FormElements/PasswordForm';
+
 
 import './ProfileInfos.css';
 
@@ -26,7 +27,6 @@ const ProfileInfos = props => {
   return (
     <div className="profile-infos-container">
       <h3>hello, {props.user.username}</h3>
-      {/* A mettre en place, should pass to edit mode if click on infoelement */}
       <InfoElement title={'USERNAME'} infoValue={props.user.username} setIsEditMode={props.setIsEditMode}/>
       <InfoElement title={'EMAIL'} infoValue={props.user.email} setIsEditMode={props.setIsEditMode}/>
       {props.loading ? (
@@ -42,20 +42,12 @@ const ProfileInfos = props => {
       )}
 
       {openDeleteForm && (
-        <form onSubmit={onSubmit} className="user-infos__form-delete">
-          <Input 
-            element={'input'}
-            type={'password'}
-            id={'password'}
-            value={deleteForm.password}
-            onChange={e => setDeleteForm({...deleteForm, password: e.target.value})}
-            placeholder={'password'}
-            label={'Enter password to confirm.'}
-            htmlFor={'password'}
-          />
-          <Button type={'submit'}>DELETE</Button>
-          <Button type={'button'} onClick={onCancelDelete}>Cancel</Button>
-        </form>
+        <PasswordForm 
+          onSubmit={onSubmit}
+          onCancel={() => setOpenDeleteForm(false)}
+          onChange={e => setDeleteForm({...deleteForm, password: e.target.value})}
+          value={deleteForm.password}
+        />
       )}
     </div>
 
