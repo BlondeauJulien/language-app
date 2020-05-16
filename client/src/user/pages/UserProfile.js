@@ -116,7 +116,7 @@ const UserProfile = () => {
 						)
 					}
 					{ componentToDisplay === 'users' && user.users && <ItemsList itemsFor={componentToDisplay} items={user.users}/>}
-					{ componentToDisplay === 'review' && user.review && <ItemsList itemsFor={componentToDisplay} items={user.review}/>}
+					{ componentToDisplay === 'review' && user.imageToReview && <ItemsList itemsFor={componentToDisplay} items={user.imageToReview}/>}
 					{
 						loading && componentToDisplay !== 'profile' && (
 							<div className="profile-spinner-container">

@@ -15,7 +15,7 @@ const ItemsList = props => {
             return <UserItem key={item._id} user={item}/>
           }
           if(itemsFor === 'review') {
-            return <ImageToReview key={'image' + i} image={item}/>
+            return <ImageToReview key={item._id} image={item}/>
           }
         })
       }

@@ -4,11 +4,12 @@ import Button from '../../shared/components/FormElements/Button';
 
 import './ImageToReview.css';
 
-const ImageToReview = () => {
+const ImageToReview = props => {
+  const { image } = props;
   return (
     <div className="image-review-item">
       <div className="image-review-item__image">
-        <img src="https://images.radio-canada.ca/q_auto,w_960/v1/ici-premiere/16x9/forrest-gump-pluson.jpg" alt="to review" />
+        <img src={image.image} alt="to review" />
       </div>
       <div className="image-review-item__actions">
         <Button type={'button'}>Approve</Button>
