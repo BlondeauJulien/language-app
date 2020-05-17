@@ -100,12 +100,8 @@ const CourseState = (props) => {
     });
   }
 
-  const selectCourse = courseId => {
+  const selectCourse = (course = null) => {
     // Call this function without param to reset selected course to null
-    let course = null;
-    if(courseId) {
-      course = state.courses.find(course => course._id === courseId);
-    }
     dispatch({
       type: SELECT_COURSE,
       payload: course
