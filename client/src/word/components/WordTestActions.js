@@ -3,7 +3,8 @@ import React from 'react';
 import './WordTestActions.css';
 import Button from '../../shared/components/FormElements/Button';
 
-const WordTestActions = () => {
+const WordTestActions = props => {
+	const {onClickTestAction } = props;
 	return (
 		<div className="word-test-actions">
 			<div className="word-test-actions-title">
@@ -11,19 +12,19 @@ const WordTestActions = () => {
 			</div>
 			<div className="word-test-actions-buttons">
 				<div className="button-word-test-1">
-					<Button type="button">well</Button>
+					<Button type="button" onClick={() => onClickTestAction('well')}>well</Button>
 				</div>
 				<div className="button-word-test-2">
-					<Button type="button">decently</Button>
+					<Button type="button" onClick={() => onClickTestAction('decently')}>decently</Button>
 				</div>
 				<div className="button-word-test-3">
-					<Button type="button">somewhat</Button>
+					<Button type="button" onClick={() => onClickTestAction('somewhat')}>somewhat</Button>
 				</div>
 				<div className="button-word-test-4">
-					<Button type="button">poorly</Button>
+					<Button type="button" onClick={() => onClickTestAction('poorly')}>poorly</Button>
 				</div>
 				<div className="button-word-test-5">
-					<Button type="button">bad</Button>
+					<Button type="button" onClick={() => onClickTestAction('bad')}>bad</Button>
 				</div>
 			</div>
 		</div>

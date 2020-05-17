@@ -38,8 +38,24 @@ const Word = () => {
     toVocabularyForm: false,
     toCoursePage: false
   });
+  const [wordSeen, setWordSeen ] = useState({
+    index: 0,
+    list: []
+  });
 
   useEffect(() => {
+    if(currentCourse && !localStorage.getItem(currentCourse._id)) {
+      localStorage.setItem(currentCourse._id, JSON.stringify({
+        well: {},
+        decently: {},
+        somewhat: {},
+        poorly: {},
+        bad: {},
+      }))
+    }
+    if(currentVocabulary) {
+      setWordSeen({...wordSeen, index: 0, list : [currentVocabulary._id]})
+    }
     return () => {
       const regex = /course|quiz|word/gi;
       const isMatch = regex.test(history.location.pathname);
@@ -72,6 +88,60 @@ const Word = () => {
   const onClickEdit = () => setWordToEdit(currentVocabulary);
   const onClickDelete = () => deleteVocabulary(currentVocabulary._id, token);
 
+  const onClickNextWord = () => {
+    setDisplayWordInfo(false);
+    const randomNbr = Math.floor(Math.random() * 100) + 1;
+
+    let nextWillBeFrom;
+    if(randomNbr <= 50 ) nextWillBeFrom = 'all';
+    if(randomNbr > 50 && randomNbr <= 70 ) nextWillBeFrom = 'bad';
+    if(randomNbr > 70 && randomNbr <= 85 ) nextWillBeFrom = 'poorly';
+    if(randomNbr > 85 && randomNbr <= 95 ) nextWillBeFrom = 'somewhat';
+    if(randomNbr > 95 ) nextWillBeFrom = 'decently';
+
+    let nextWord;
+    if(nextWillBeFrom === 'all') {
+      let randomIndex = Math.floor(Math.random() * currentCourse.vocabulary.length);
+      nextWord = currentCourse.vocabulary[randomIndex];
+      selectVocabulary(nextWord);
+    } else {
+      let difficultiesObj = JSON.parse(localStorage.getItem(currentCourse._id))
+      let wordsListObj = difficultiesObj[nextWillBeFrom];
+      let wordsListArr = Object.keys(wordsListObj)
+
+      if(!wordsListArr.length) {
+        onClickNextWord();
+      } else {
+        let randomIndex = Math.floor(Math.random() * wordsListArr.length);
+        let nextWordId = wordsListArr[randomIndex];
+        nextWord = currentCourse.vocabulary.find(w => w._id === nextWordId);
+        if(!nextWord) {
+          delete wordsListObj[nextWordId];
+          localStorage.setItem(currentCourse._id, JSON.stringify(difficultiesObj))
+          onClickNextWord();
+        } else {
+          selectVocabulary(nextWord);
+        }
+      }
+    }
+  }
+
+  const onClickPreviousWord = () => {
+    
+  }
+
+  const onClickTestAction = actionValue => {
+    let wordDifficultyObj = JSON.parse(localStorage.getItem(currentCourse._id));
+    for (const difficulty in wordDifficultyObj) {
+      if(wordDifficultyObj[difficulty][currentVocabulary._id]) {
+        delete wordDifficultyObj[difficulty][currentVocabulary._id];
+      }
+    }
+    wordDifficultyObj[actionValue][currentVocabulary._id] = currentVocabulary._id;
+    localStorage.setItem(currentCourse._id, JSON.stringify(wordDifficultyObj));
+    onClickNextWord();
+  }
+
   return (
     <MainPageContentContainer>
       {
@@ -90,7 +160,7 @@ const Word = () => {
                 </div>
               )
             }
-            <BackNextContainer>
+            <BackNextContainer onClickNext={onClickNextWord}>
               <div className="word-main">
                 <WordHeader word={currentVocabulary.word} displayWordInfos={displayWordInfos} setDisplayWordInfo={setDisplayWordInfo}/>
                 {
@@ -102,7 +172,7 @@ const Word = () => {
         )
       }
       {
-        displayWordInfos && <WordTestActions />
+        displayWordInfos && <WordTestActions onClickTestAction={onClickTestAction}/>
       }
       {error && <p className="form-submit-error-message">{error}</p>}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}

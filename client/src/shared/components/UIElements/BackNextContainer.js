@@ -12,7 +12,7 @@ const BackNextContainer = props => {
         {props.children}
       </div>
 			<div>
-				<i className="fas fa-chevron-right chevron-large" />
+				<i className="fas fa-chevron-right chevron-large" onClick={props.onClickNext}/>
 			</div>
 		</div>
 	);
