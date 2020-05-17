@@ -17,7 +17,19 @@ const CourseForm = () => {
   const authContext = useContext(AuthContext);
   const history = useHistory();
 
-  const { createCourse, loading, success, resetCourseSuccess, setCourseError, error, courseToEdit, editCourse } = courseContext;
+  const { 
+    createCourse, 
+    loading, 
+    success, 
+    resetCourseSuccess, 
+    setCourseError, 
+    error, 
+    courseToEdit, 
+    editCourse,
+    clearCourseToEdit, 
+    currentCourse, 
+    selectCourse 
+  } = courseContext;
   const { token } = authContext;
 
   const formInitialState = {
@@ -31,11 +43,11 @@ const CourseForm = () => {
   const [ countryFlag, setCountryFlag ] = useState({ value: '', isValid: false });
 
   useEffect(() => {
-    if(success) {
+    if(success || currentCourse) {
       resetCourseSuccess();
       history.push('/course');
     }
-  }, [ success ]);
+  }, [ success, currentCourse ]);
 
   useEffect(() => {
     if(courseToEdit) {
@@ -48,6 +60,9 @@ const CourseForm = () => {
       setCountryFlag({...countryFlag, value: courseToEdit.countryFlag, isValid: true});
     }
 
+    return () => {
+      clearCourseToEdit()
+    }
   }, [ courseToEdit ])
 
   useEffect(() => {
@@ -62,6 +77,10 @@ const CourseForm = () => {
       clearTimeout(errorTimer);
     }
   }, [error]);
+
+  const onClickBackToCourse = () => {
+    selectCourse(courseToEdit)
+  }
 
   const onChange = e => {
     const id = e.target.id;
@@ -176,7 +195,10 @@ const CourseForm = () => {
           <Spinner />
         ) : (
           <div className="main-form__button-container">
-            <Button type={'submit'}>{courseToEdit ? 'Edit' : 'Create'}</Button>
+            {courseToEdit && (
+              <Button type={'button'} onClick={onClickBackToCourse}>Back to course</Button>
+            )}
+            <Button type={'submit'} design={'green'}>{courseToEdit ? 'Edit' : 'Create'}</Button>
           </div>
         )
       }

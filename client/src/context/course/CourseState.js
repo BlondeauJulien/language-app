@@ -16,6 +16,7 @@ import {
   RESET_COURSES,
   DELETE_COURSES_SUCCESS,
   SET_COURSE_EDIT,
+  CLEAR_COURSE_EDIT,
   EDIT_COURSES_SUCCESS,
   CREATE_VOCABULARY,
   SELECT_VOCABULARY,
@@ -112,6 +113,12 @@ const CourseState = (props) => {
     dispatch({
       type: SET_COURSE_EDIT,
       payload: course
+    });
+  }
+
+  const clearCourseToEdit = () => {
+    dispatch({
+      type: CLEAR_COURSE_EDIT,
     });
   }
 
@@ -363,6 +370,7 @@ const CourseState = (props) => {
         resetCourses,
         deleteCourse,
         setCourseToEdit,
+        clearCourseToEdit,
         editCourse,
         createVocabulary,
         selectVocabulary,

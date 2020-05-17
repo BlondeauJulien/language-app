@@ -10,6 +10,7 @@ import {
   RESET_COURSES,
   DELETE_COURSES_SUCCESS,
   SET_COURSE_EDIT,
+  CLEAR_COURSE_EDIT,
   EDIT_COURSES_SUCCESS,
   CREATE_VOCABULARY,
   SELECT_VOCABULARY,
@@ -72,6 +73,14 @@ export default (state, action) => {
         loading: false,
         error: null,
         success: null
+      };
+    case CLEAR_COURSE_EDIT:
+      return {
+        ...state,
+        courseToEdit: null,
+        loading: false,
+        error: null,
+        success: false
       };
     case EDIT_COURSES_SUCCESS:
       return {
