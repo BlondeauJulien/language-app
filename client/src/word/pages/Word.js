@@ -9,6 +9,7 @@ import WordInfos from '../components/WordInfos';
 import Spinner from '../../shared/SVGImages/Spinner';
 import UserContentActionsButtons from '../../shared/components/FormElements/UserContentActionsButtons';
 import SuccessMessage from '../../shared/components/UIElements/SuccessMessage';
+import { getNextWordLocation, nextWordExist, getNextWord } from '../util/wordGameFunctions';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -88,72 +89,55 @@ const Word = () => {
   const onClickEdit = () => setWordToEdit(currentVocabulary);
   const onClickDelete = () => deleteVocabulary(currentVocabulary._id, token);
 
+  const setWordSeenHelper = (newIndex, wordId) => {
+    let changes = {index : newIndex};
+    if(wordId) {
+      changes.list = [...wordSeen.list, wordId];
+    }
+    setWordSeen({...wordSeen, ...changes});
+  }
+
   const onClickNextWord = () => {
     setDisplayWordInfo(false);
-    if(wordSeen.index < wordSeen.list.length - 1) {
-      let nextWordId = wordSeen.list[wordSeen.index + 1];
-      let nextWord = currentCourse.vocabulary.find(w => w._id === nextWordId);
-      setWordSeen({
-        ...wordSeen, 
-        index: wordSeen.index + 1,
-      });
+
+    let nextWord = nextWordExist(wordSeen, currentCourse.vocabulary, setWordSeen);
+    if(nextWord) {
+      setWordSeenHelper(wordSeen.index + 1);
       selectVocabulary(nextWord);
       return;
     }
-    const randomNbr = Math.floor(Math.random() * 100) + 1;
 
-    let nextWillBeFrom;
-    if(randomNbr <= 50 ) nextWillBeFrom = 'all';
-    if(randomNbr > 50 && randomNbr <= 70 ) nextWillBeFrom = 'bad';
-    if(randomNbr > 70 && randomNbr <= 85 ) nextWillBeFrom = 'poorly';
-    if(randomNbr > 85 && randomNbr <= 95 ) nextWillBeFrom = 'somewhat';
-    if(randomNbr > 95 ) nextWillBeFrom = 'decently';
+    let nextWordLocation = getNextWordLocation();
+    if(nextWordLocation === 'all') {
+      nextWord = getNextWord(currentCourse.vocabulary);
 
-    let nextWord;
-    if(nextWillBeFrom === 'all') {
-      let randomIndex = Math.floor(Math.random() * currentCourse.vocabulary.length);
-      nextWord = currentCourse.vocabulary[randomIndex];
-      setWordSeen({
-        ...wordSeen, 
-        index: wordSeen.index + 1, 
-        list: [...wordSeen.list, nextWord._id]
-      });
-      selectVocabulary(nextWord);
     } else {
-      let difficultiesObj = JSON.parse(localStorage.getItem(currentCourse._id))
-      let wordsListObj = difficultiesObj[nextWillBeFrom];
-      let wordsListArr = Object.keys(wordsListObj)
+      let difficultiesObj = JSON.parse(localStorage.getItem(currentCourse._id));
+      let wordsListObj = difficultiesObj[nextWordLocation];
+      let wordsListArr = Object.keys(wordsListObj);
 
       if(!wordsListArr.length) {
-        onClickNextWord();
+        nextWord = getNextWord(currentCourse.vocabulary);
+
       } else {
-        let randomIndex = Math.floor(Math.random() * wordsListArr.length);
-        let nextWordId = wordsListArr[randomIndex];
-        nextWord = currentCourse.vocabulary.find(w => w._id === nextWordId);
+        nextWord = getNextWord(currentCourse.vocabulary, wordsListArr);
         if(!nextWord) {
-          delete wordsListObj[nextWordId];
+          delete wordsListObj[nextWord.id];
           localStorage.setItem(currentCourse._id, JSON.stringify(difficultiesObj))
-          onClickNextWord();
-        } else {
-          setWordSeen({
-            ...wordSeen, 
-            index: wordSeen.index + 1, 
-            list: [...wordSeen.list, nextWord._id]
-          });
-          selectVocabulary(nextWord);
+          nextWord = getNextWord(currentCourse.vocabulary); 
         }
       }
     }
+    setWordSeenHelper(wordSeen.index + 1, nextWord.value._id);
+    selectVocabulary(nextWord.value);
   }
 
   const onClickPreviousWord = () => {
     if(wordSeen.list[wordSeen.index - 1]) {
       let nextWordId = wordSeen.list[wordSeen.index - 1];
       let nextWord = currentCourse.vocabulary.find(w => w._id === nextWordId);
-      setWordSeen({
-        ...wordSeen, 
-        index: wordSeen.index - 1
-      });
+      setWordSeenHelper(wordSeen.index - 1)
+
       selectVocabulary(nextWord);
     } 
   }
