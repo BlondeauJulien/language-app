@@ -90,6 +90,16 @@ const Word = () => {
 
   const onClickNextWord = () => {
     setDisplayWordInfo(false);
+    if(wordSeen.index < wordSeen.list.length - 1) {
+      let nextWordId = wordSeen.list[wordSeen.index + 1];
+      let nextWord = currentCourse.vocabulary.find(w => w._id === nextWordId);
+      setWordSeen({
+        ...wordSeen, 
+        index: wordSeen.index + 1,
+      });
+      selectVocabulary(nextWord);
+      return;
+    }
     const randomNbr = Math.floor(Math.random() * 100) + 1;
 
     let nextWillBeFrom;
@@ -103,6 +113,11 @@ const Word = () => {
     if(nextWillBeFrom === 'all') {
       let randomIndex = Math.floor(Math.random() * currentCourse.vocabulary.length);
       nextWord = currentCourse.vocabulary[randomIndex];
+      setWordSeen({
+        ...wordSeen, 
+        index: wordSeen.index + 1, 
+        list: [...wordSeen.list, nextWord._id]
+      });
       selectVocabulary(nextWord);
     } else {
       let difficultiesObj = JSON.parse(localStorage.getItem(currentCourse._id))
@@ -120,6 +135,11 @@ const Word = () => {
           localStorage.setItem(currentCourse._id, JSON.stringify(difficultiesObj))
           onClickNextWord();
         } else {
+          setWordSeen({
+            ...wordSeen, 
+            index: wordSeen.index + 1, 
+            list: [...wordSeen.list, nextWord._id]
+          });
           selectVocabulary(nextWord);
         }
       }
@@ -127,7 +147,15 @@ const Word = () => {
   }
 
   const onClickPreviousWord = () => {
-    
+    if(wordSeen.list[wordSeen.index - 1]) {
+      let nextWordId = wordSeen.list[wordSeen.index - 1];
+      let nextWord = currentCourse.vocabulary.find(w => w._id === nextWordId);
+      setWordSeen({
+        ...wordSeen, 
+        index: wordSeen.index - 1
+      });
+      selectVocabulary(nextWord);
+    } 
   }
 
   const onClickTestAction = actionValue => {
@@ -160,7 +188,7 @@ const Word = () => {
                 </div>
               )
             }
-            <BackNextContainer onClickNext={onClickNextWord}>
+            <BackNextContainer onClickNext={onClickNextWord} onClickPrevious={onClickPreviousWord}>
               <div className="word-main">
                 <WordHeader word={currentVocabulary.word} displayWordInfos={displayWordInfos} setDisplayWordInfo={setDisplayWordInfo}/>
                 {
