@@ -142,14 +142,14 @@ const Word = () => {
     } 
   }
 
-  const onClickTestAction = actionValue => {
+  const onClickTestAction = difficultyListName => {
     let wordDifficultyObj = JSON.parse(localStorage.getItem(currentCourse._id));
-    for (const difficulty in wordDifficultyObj) {
-      if(wordDifficultyObj[difficulty][currentVocabulary._id]) {
-        delete wordDifficultyObj[difficulty][currentVocabulary._id];
+    for (const listName in wordDifficultyObj) {
+      if(wordDifficultyObj[listName][currentVocabulary._id]) {
+        delete wordDifficultyObj[listName][currentVocabulary._id];
       }
     }
-    wordDifficultyObj[actionValue][currentVocabulary._id] = currentVocabulary._id;
+    wordDifficultyObj[difficultyListName][currentVocabulary._id] = currentVocabulary._id;
     localStorage.setItem(currentCourse._id, JSON.stringify(wordDifficultyObj));
     onClickNextWord();
   }
