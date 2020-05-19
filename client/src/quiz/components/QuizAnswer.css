@@ -7,19 +7,13 @@
   margin: 12px;
   padding: 8px 12px;
   cursor: pointer;
-  transition: 0.7s;
+/*   transition: 0.7s; */
 }
 
 .answer-unselected {
   border: 2px solid rgba(4,143,255,1);
   background-color: inherit;
   color: rgba(4,143,255,1);
-}
-
-.quiz-answer-item:hover {
-  border: 2px solid rgba(4,143,255,1);
-  background: rgba(4,143,255,1);
-  color: white;
 }
 
 .quiz-answer-item span {
@@ -30,5 +24,18 @@
 .answer-selected {
   border: 2px solid rgba(4,143,255,1);
   background: rgba(4,143,255,1);
+  color: white;
+}
+
+.answer-correct {
+  border: 2px solid rgb(0, 179, 0);
+  background: rgb(0, 179, 0);
+  color: white;
+}
+
+
+.answer-uncorrect {
+  border: 2px solid rgb(255, 0, 0);
+  background: rgb(255, 0, 0);
   color: white;
 }

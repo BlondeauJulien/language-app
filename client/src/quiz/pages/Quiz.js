@@ -39,6 +39,7 @@ const Quiz = () => {
   const { user, token } = authContext;
   const [ selectedAnswers, setSelectedAnswers ] = useState([]);
   const [ checkResult, setCheckResult ] = useState(false);
+  const [ displaySelectionEmptyMessage, setDisplaySelectionEmptyMessage ] = useState(false);
   const [ redirect, setRedirect ] = useState({
     toQuizForm: false,
     toCoursePage: false
@@ -53,6 +54,12 @@ const Quiz = () => {
       }
     }
   }, []);
+
+/*   useEffect(() => {
+    setCheckResult(false);
+    setDisplaySelectionEmptyMessage(false);
+    setSelectedAnswers([]);
+  }, [ currentQuiz ]) */
 
   useEffect(() => {
     if(redirect.toQuizForm) {
@@ -74,11 +81,18 @@ const Quiz = () => {
     !redirect.toCoursePage && setRedirect({...redirect, toCoursePage: true});
   }
 
+  const resetStates = () => {
+    setCheckResult(false);
+    setDisplaySelectionEmptyMessage(false);
+    setSelectedAnswers([]);
+  }
+
   const onClickEdit = () => setQuizToEdit(currentQuiz);
 
   const onClickDelete = () => deleteQuiz(currentQuiz._id,token);
 
   const onClickNextQuiz = () => {
+    resetStates();
     const quizzesArr = currentCourse.quizzes;
     const quizIndex = quizzesArr.findIndex(quiz => quiz._id === currentQuiz._id);
     let nextQuiz = quizzesArr[quizIndex + 1] ? quizzesArr[quizIndex + 1] : quizzesArr[0];
@@ -86,6 +100,7 @@ const Quiz = () => {
   }
 
   const onClickPrevousQuiz = () => {
+    resetStates();
     const quizzesArr = currentCourse.quizzes;
     const quizIndex = quizzesArr.findIndex(quiz => quiz._id === currentQuiz._id);
     let previousQuiz = quizzesArr[quizIndex - 1] ? quizzesArr[quizIndex - 1] : quizzesArr[quizzesArr.length - 1];
@@ -93,6 +108,7 @@ const Quiz = () => {
   }
 
   const onClickAnswer = answerId => {
+    setDisplaySelectionEmptyMessage(false);
     const answerIndex = selectedAnswers.findIndex(answer => answer === answerId);
     if(answerIndex >= 0) {
       let newSelectedAnswers = [...selectedAnswers];
@@ -100,6 +116,14 @@ const Quiz = () => {
       setSelectedAnswers(newSelectedAnswers);
     } else {
       setSelectedAnswers([...selectedAnswers, answerId]);
+    }
+  }
+
+  const onClickCheckResult = () => {
+    if(!selectedAnswers.length) {
+      setDisplaySelectionEmptyMessage(true);
+    } else {
+      setCheckResult(true);
     }
   }
 
@@ -129,16 +153,26 @@ const Quiz = () => {
                   alwaysDisplayUnapprovedImage={alwaysDisplayUnapprovedImage}
                   setAlwaysShowUnapprovedImage={setAlwaysShowUnapprovedImage}
                 />
-                <QuizAnswers quiz={currentQuiz} onClickAnswer={onClickAnswer} selectedAnswers={selectedAnswers}/>
-                <div className="quiz-button-container">
-                  <Button type={'button'}>Check</Button>
-                </div>
+                <QuizAnswers 
+                  quiz={currentQuiz} 
+                  onClickAnswer={onClickAnswer} 
+                  selectedAnswers={selectedAnswers}
+                  checkResult={checkResult}
+                />
+                {
+                  !checkResult && (
+                    <div className="quiz-button-container">
+                      <Button type={'button'} onClick={onClickCheckResult}>Check</Button>
+                    </div>
+                  )
+                }
               </div>
             </BackNextContainer>
           </Fragment>
         )
       }
       {error && <p className="form-submit-error-message">{error}</p>}            
+      {displaySelectionEmptyMessage && <p className="form-submit-error-message">Select at least one answer</p>}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}
       {success && success.for === 'delete' && (
         <SuccessMessage redirectTo={'/course'} message={success.message} btnText={'Go back to course'}/>
