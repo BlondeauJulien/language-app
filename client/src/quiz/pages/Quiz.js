@@ -37,6 +37,8 @@ const Quiz = () => {
     clearSearchContent
   } = courseContext;
   const { user, token } = authContext;
+  const [ selectedAnswers, setSelectedAnswers ] = useState([]);
+  const [ checkResult, setCheckResult ] = useState(false);
   const [ redirect, setRedirect ] = useState({
     toQuizForm: false,
     toCoursePage: false
@@ -90,6 +92,17 @@ const Quiz = () => {
     selectQuiz(previousQuiz)
   }
 
+  const onClickAnswer = answerId => {
+    const answerIndex = selectedAnswers.findIndex(answer => answer === answerId);
+    if(answerIndex >= 0) {
+      let newSelectedAnswers = [...selectedAnswers];
+      newSelectedAnswers.splice(answerIndex, 1);
+      setSelectedAnswers(newSelectedAnswers);
+    } else {
+      setSelectedAnswers([...selectedAnswers, answerId]);
+    }
+  }
+
   return (
     <MainPageContentContainer>
       {
@@ -116,7 +129,7 @@ const Quiz = () => {
                   alwaysDisplayUnapprovedImage={alwaysDisplayUnapprovedImage}
                   setAlwaysShowUnapprovedImage={setAlwaysShowUnapprovedImage}
                 />
-                <QuizAnswers quiz={currentQuiz}/>
+                <QuizAnswers quiz={currentQuiz} onClickAnswer={onClickAnswer} selectedAnswers={selectedAnswers}/>
                 <div className="quiz-button-container">
                   <Button type={'button'}>Check</Button>
                 </div>

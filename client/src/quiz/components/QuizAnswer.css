@@ -3,8 +3,6 @@
   align-self: stretch;
   text-align: center;
   width: 300px;
-  border: 2px solid rgba(4,143,255,1);
-  color: rgba(4,143,255,1);
   border-radius: 6px;
   margin: 12px;
   padding: 8px 12px;
@@ -12,7 +10,14 @@
   transition: 0.7s;
 }
 
+.answer-unselected {
+  border: 2px solid rgba(4,143,255,1);
+  background-color: inherit;
+  color: rgba(4,143,255,1);
+}
+
 .quiz-answer-item:hover {
+  border: 2px solid rgba(4,143,255,1);
   background: rgba(4,143,255,1);
   color: white;
 }
@@ -20,4 +25,10 @@
 .quiz-answer-item span {
   font-size: 1rem;
   line-height: 1.1rem;
+}
+
+.answer-selected {
+  border: 2px solid rgba(4,143,255,1);
+  background: rgba(4,143,255,1);
+  color: white;
 }

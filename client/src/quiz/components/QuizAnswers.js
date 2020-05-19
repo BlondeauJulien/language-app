@@ -5,10 +5,16 @@ import QuizAnswer from './QuizAnswer';
 import './QuizAnswers.css';
 
 const QuizAnswers = props => {
+  const { quiz, onClickAnswer, selectedAnswers} = props;
   return (
     <div className="quiz-answers-container">
-      {props.quiz.answers.map((answer,i) => (
-        <QuizAnswer key={`answer-${i}`} answer={answer}/>
+      {quiz.answers.map(answer => (
+        <QuizAnswer 
+          key={answer._id} 
+          answer={answer} 
+          onClickAnswer={onClickAnswer} 
+          isSelected={selectedAnswers.some(a => a === answer._id)}
+        />
       ))}
     </div>
   )
