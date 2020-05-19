@@ -76,6 +76,20 @@ const Quiz = () => {
 
   const onClickDelete = () => deleteQuiz(currentQuiz._id,token);
 
+  const onClickNextQuiz = () => {
+    const quizzesArr = currentCourse.quizzes;
+    const quizIndex = quizzesArr.findIndex(quiz => quiz._id === currentQuiz._id);
+    let nextQuiz = quizzesArr[quizIndex + 1] ? quizzesArr[quizIndex + 1] : quizzesArr[0];
+    selectQuiz(nextQuiz)
+  }
+
+  const onClickPrevousQuiz = () => {
+    const quizzesArr = currentCourse.quizzes;
+    const quizIndex = quizzesArr.findIndex(quiz => quiz._id === currentQuiz._id);
+    let previousQuiz = quizzesArr[quizIndex - 1] ? quizzesArr[quizIndex - 1] : quizzesArr[quizzesArr.length - 1];
+    selectQuiz(previousQuiz)
+  }
+
   return (
     <MainPageContentContainer>
       {
@@ -94,7 +108,7 @@ const Quiz = () => {
                 </div>
               )
             }
-            <BackNextContainer>
+            <BackNextContainer onClickNext={onClickNextQuiz} onClickPrevious={onClickPrevousQuiz}>
               <div className="quiz-main">
                 <QuizHeader />
                 <QuizImage 
