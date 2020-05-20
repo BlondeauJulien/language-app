@@ -28,3 +28,18 @@
 .nav-link-text {
   margin-left: 8px;
 }
+
+@media (max-width: 550px) {
+  .nav-links {
+    margin-right: 18px;
+  }
+
+  .nav-links > li {
+    margin-left: 30px;
+  }
+
+  .nav-link-text {
+    display: none;
+  }
+
+}

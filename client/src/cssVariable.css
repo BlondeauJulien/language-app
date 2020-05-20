@@ -5,3 +5,9 @@
 
   --default-font-regular: DINNextRoundedLTPro-Regular;
 }
+
+@media (max-width: 1150px) {
+  :root {
+    --max-width-main-content: 95%;
+  }
+}

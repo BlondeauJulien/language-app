@@ -85,3 +85,10 @@ header {
 .auth-buttons * {
   margin-right: 8px;
 }
+
+@media (max-width: 340px) {
+  .brand-name-container h1 {
+    display: none;
+  }
+
+}
