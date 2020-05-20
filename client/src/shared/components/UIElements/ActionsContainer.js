@@ -79,7 +79,7 @@ const ActionsContainer = props => {
         </div>
       </div>
       <div className="action-container">
-        <div className="action-image">
+        <div className="action-image action-image-create-logo">
           <CreateLogo />
         </div>
         <div className="action-content">

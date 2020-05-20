@@ -73,3 +73,9 @@ label {
   text-align: center;
   margin: 6px 0;
 }
+
+@media (max-width: 900px) {
+  .input-wrapper-search input{
+    width: 74%;
+  }
+}

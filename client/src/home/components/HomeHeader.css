@@ -21,3 +21,13 @@
 ._1LLPZ {
   margin: 0 3.2rem;
 }
+
+@media (max-width: 720px) {
+  ._1LLPZ {
+    display: none;
+  }
+
+  .home-header--title {
+    text-align: center;
+  }
+}

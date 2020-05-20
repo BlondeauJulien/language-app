@@ -26,3 +26,9 @@
 .cards-container-header {
   font-size: 1.6em;
 }
+
+@media (max-width: 550px) {
+  .cards-container-header *{
+    margin-bottom: 8px;
+  }
+}

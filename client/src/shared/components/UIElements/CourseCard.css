@@ -36,3 +36,9 @@
   margin-top: 6px;
   color: rgb(180, 180, 180)
 }
+
+@media (max-width: 1110px) {
+  .courseCard {
+    margin: 12px 8px;
+  }
+}

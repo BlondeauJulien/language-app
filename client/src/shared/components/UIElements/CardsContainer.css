@@ -9,3 +9,9 @@
 .empty-result-message {
   margin: auto;
 }
+
+@media (max-width: 1110px) {
+  .cards-container {
+    justify-content: center;
+  }
+}

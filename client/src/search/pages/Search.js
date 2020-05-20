@@ -12,7 +12,7 @@ const Search = () => {
   const courseContext = useContext(CourseContext);
   const { courses, loading, error, resetCourses, getCourses } = courseContext;
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(1);
+  const [postsPerPage] = useState(3);
   
   useEffect(() => {
     return () => {
