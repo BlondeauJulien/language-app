@@ -58,3 +58,15 @@
 .delete-cross i:hover {
   color: red;
 }
+
+@media (max-width: 725px) {
+  .delete-cross {
+    width: 92%;
+  }
+}
+
+@media (max-width: 550px) {
+  .delete-cross {
+    width: 90%;
+  }
+}

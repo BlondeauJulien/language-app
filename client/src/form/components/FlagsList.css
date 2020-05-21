@@ -56,3 +56,19 @@
   text-align: center;
   margin: 12px;
 }
+
+@media (max-width: 730px) {
+  .flags-container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .flags-list-search {
+    margin: 12px 12px;
+  }
+
+  .flag-container {  
+    width: 110px;
+  }
+}
