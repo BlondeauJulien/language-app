@@ -75,7 +75,25 @@ label {
 }
 
 @media (max-width: 900px) {
-  .input-wrapper-search input{
-    width: 74%;
+  .input-small input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .input-mid {
+    width: 300px;
+  }
+}
+
+@media (max-width: 580px) {
+  .input-mid {
+    width: 300px;
+  }
+}
+
+@media (max-width: 350px) {
+  .input-mid {
+    width: 250px;
   }
 }
