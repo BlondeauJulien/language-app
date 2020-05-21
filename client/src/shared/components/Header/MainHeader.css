@@ -82,8 +82,19 @@ header {
   margin: 0.72rem 0;
 }
 
+.mobile-text-complement {
+  display: none;
+}
+
 .auth-buttons * {
   margin-right: 8px;
+}
+
+@media (max-width: 550px) {
+  .mobile-text-complement {
+    display: inline;
+  }
+
 }
 
 @media (max-width: 340px) {

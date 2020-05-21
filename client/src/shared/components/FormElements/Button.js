@@ -19,7 +19,7 @@ const Button = props => {
 
   return (
     <button
-      className={`button button--${props.design || 'primary-bg'} ${props.size || ''}`}
+      className={`button button--${props.design || 'primary-bg'} ${props.size || ''} ${props.className || ''}`}
       type={props.type}
       onClick={props.onClick}
     >

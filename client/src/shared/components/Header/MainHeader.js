@@ -41,6 +41,7 @@ const MainHeader = props => {
                 onClick={() => setAuthForm({...authForm, show: true, component: 'login'})} 
                 type={'button'} 
                 design={'primary-bg'}
+                className={'hide-under-550'}
               >
                 LOG IN TO YOUR ACCOUNT
               </Button>
@@ -50,6 +51,7 @@ const MainHeader = props => {
                 design={'primary-txt-white-bg'}
               >
                 SIGN UP
+                <span className="mobile-text-complement">/IN</span>
               </Button>
             </div>
           )}
