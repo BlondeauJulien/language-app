@@ -29,7 +29,7 @@ const CourseContentSearchForm = props => {
   
   return (
     <form onSubmit={onSubmit} className="form-search-course-content">
-      <div className="search-coourse-content-header">
+      <div className="search-course-content-header">
         <span className={`${contentToDisplay !== 'word' ? 'button-course-unselected' : ''}`}>
           <Button type={'button'} design={'plain-text'} onClick={() => setContentToDisplay('word')}>Words</Button>
         </span>
