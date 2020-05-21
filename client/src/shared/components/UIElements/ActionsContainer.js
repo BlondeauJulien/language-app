@@ -67,6 +67,7 @@ const ActionsContainer = props => {
           <form onSubmit={onSubmitQuickSearch}>
             <Input 
               id={'name'}
+              className={'input-container-with-logo'}
               value={form.name}
               onChange={onChange}
               element={'input'}

@@ -33,7 +33,7 @@ const Input = props => {
   return (
     <Fragment>
       {props.label && <label htmlFor={props.id} className={`label-${props.labelDesign || 'default'}`}>{props.label}</label>}
-      <div className={`input-wrapper-${props.wrapperDesign || 'search'} ${props.size ? props.size : ''}`}>
+      <div className={`input-wrapper-${props.wrapperDesign || 'search'} ${props.size ? props.size : ''} ${props.className ? props.className : ''}`}>
         {props.logo}
         {element}
       </div>

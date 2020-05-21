@@ -5,7 +5,7 @@
   border-radius: 6px;
 }
 
-.input-wrapper-search input{
+.input-container-with-logo input{
   width: 85%;
 }
 
@@ -89,6 +89,10 @@ label {
 @media (max-width: 580px) {
   .input-mid {
     width: 300px;
+  }
+
+  .input-container-with-logo input{
+    width: 75%;
   }
 }
 
