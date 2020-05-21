@@ -1,5 +1,6 @@
 footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   width: var(--max-width-main-content);
   margin: auto;
@@ -9,4 +10,11 @@ footer {
 
 footer a {
   color: rgb(180, 180, 180)!important;
+  margin: 4px 6px; 
+}
+
+@media (max-width: 550px) {
+  footer {
+    justify-content: center;
+  }
 }
