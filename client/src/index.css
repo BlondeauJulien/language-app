@@ -13,13 +13,13 @@
 }
 
 @font-face {
-	font-family: "DINNextRoundedLTPro-Bold";
-	src: url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.eot");
-	src: url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.eot?#iefix") format("embedded-opentype"),
-		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.woff2") format("woff2"),
-		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.woff") format("woff"),
-		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.ttf") format("truetype"),
-		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.svg#DINNextRoundedLTPro-Bold") format("svg");
+	font-family: "DINNextRoundedLTPro-Regular";
+	src: url("//db.onlinewebfonts.com/t/5c47a750b2d4cc65134ef9e6ed0cfc2d.eot");
+	src: url("//db.onlinewebfonts.com/t/5c47a750b2d4cc65134ef9e6ed0cfc2d.eot?#iefix") format("embedded-opentype"),
+		url("//db.onlinewebfonts.com/t/5c47a750b2d4cc65134ef9e6ed0cfc2d.woff2") format("woff2"),
+		url("//db.onlinewebfonts.com/t/5c47a750b2d4cc65134ef9e6ed0cfc2d.woff") format("woff"),
+		url("//db.onlinewebfonts.com/t/5c47a750b2d4cc65134ef9e6ed0cfc2d.ttf") format("truetype"),
+		url("//db.onlinewebfonts.com/t/5c47a750b2d4cc65134ef9e6ed0cfc2d.svg#DINNextRoundedLTPro-Regular") format("svg");
 }
 
 * {
