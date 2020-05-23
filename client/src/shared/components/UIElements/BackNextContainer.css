@@ -32,12 +32,11 @@
 @media (max-width: 900px) {
   .back-next-arrows-container {
     display: grid;
-    grid-template-columns: 5% 90% 5%;
+    grid-template-columns: 1fr 18fr 1fr;
     grid-template-rows: 1fr;
-    gap: 1px 10px;
+    gap: 1px 1px;
     grid-template-areas: ". . .";
 
-    width: 95%;
-    margin: auto;
+    width: 100%;
   }
 }

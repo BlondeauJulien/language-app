@@ -25,4 +25,13 @@
     margin-right: 12px;
   }
 
+  .word-infos {
+    padding-left: 50px;
+  }
+}
+
+@media (max-width: 550px) {
+  .word-infos {
+    padding-left: 10px;
+  }
 }

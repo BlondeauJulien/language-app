@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import './BackNextContainer.css';
 
@@ -9,9 +9,9 @@ const BackNextContainer = props => {
 			<div>
 				<i className="fas fa-chevron-left chevron-large" onClick={onClickPrevious}/>
 			</div>
-      <div>
+      <Fragment>
         {props.children}
-      </div>
+      </Fragment>
 			<div>
 				<i className="fas fa-chevron-right chevron-large" onClick={onClickNext}/>
 			</div>
