@@ -28,3 +28,9 @@
 .auth-submit-btn-container {
   padding: 12px;
 }
+
+@media (max-width: 550px) {
+  .auth-form {
+    width: 260px;
+  }
+}

@@ -56,3 +56,15 @@
 .modal__close-cross button i {
   color: #c4c4c4;
 }
+
+@media (max-width: 550px) {
+  .modal {
+    padding: 10px;
+  }
+
+  .modal__close-cross {
+    position: relative;
+    top: -6px;
+    left: 95%;
+  }
+}
