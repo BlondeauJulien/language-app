@@ -68,14 +68,19 @@ input, textarea {
   color: rgb(216, 216, 216);
 }
 
-.back-previous {
-  position: absolute;
-  left: 5%;
-  font-size: 44px;
-  color: rgb(216, 216, 216);
-}
-
 .back-previous:hover {
   color: var(--brand-color);
   cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .back-previous {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 550px) {
+  .hide-under-550 {
+    display: none;
+  }
 }

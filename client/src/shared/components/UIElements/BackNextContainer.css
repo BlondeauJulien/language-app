@@ -28,3 +28,16 @@
   cursor: pointer;
   color: var(--brand-color)
 }
+
+@media (max-width: 900px) {
+  .back-next-arrows-container {
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+    grid-template-rows: 1fr;
+    gap: 1px 10px;
+    grid-template-areas: ". . .";
+
+    width: 95%;
+    margin: auto;
+  }
+}

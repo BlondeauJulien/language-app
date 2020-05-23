@@ -13,3 +13,9 @@
   right: 5%
 }
 
+
+@media (max-width: 900px) {
+  .word-main {
+    width: 100%;
+  }
+}

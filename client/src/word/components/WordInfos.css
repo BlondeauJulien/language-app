@@ -18,3 +18,11 @@
 .word-conjugation-link:hover {
   color: var(--brand-color);
 }
+
+@media (max-width: 900px) {
+  .word-info-title {
+    font-size: 1.35rem;
+    margin-right: 12px;
+  }
+
+}

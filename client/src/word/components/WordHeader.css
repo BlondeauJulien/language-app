@@ -13,3 +13,17 @@
   color: var(--brand-color);
   margin: 24px 4px;
 }
+
+@media (max-width: 900px) {
+  .word-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .word-open-infos * {
+    font-size: 1rem;
+  }
+
+  .word-header-margin-top {
+    margin-top: 36px;
+  }
+}

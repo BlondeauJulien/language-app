@@ -174,7 +174,12 @@ const Word = () => {
             }
             <BackNextContainer onClickNext={onClickNextWord} onClickPrevious={onClickPreviousWord}>
               <div className="word-main">
-                <WordHeader word={currentVocabulary.word} displayWordInfos={displayWordInfos} setDisplayWordInfo={setDisplayWordInfo}/>
+                <WordHeader 
+                  word={currentVocabulary.word} 
+                  displayWordInfos={displayWordInfos} 
+                  setDisplayWordInfo={setDisplayWordInfo}
+                  isUserWord={user && currentCourse.creator._id === user.id}
+                />
                 {
                   displayWordInfos && <WordInfos word={currentVocabulary} />
                 }
