@@ -1,86 +1,107 @@
 @import './cssVariable.css';
 @import './resetcss.css';
 @import url(//db.onlinewebfonts.com/c/5c47a750b2d4cc65134ef9e6ed0cfc2d?family=DINNextRoundedLTPro-Regular);
-@import url(//db.onlinewebfonts.com/c/6f1a075af8afe852f3e3c8a75e49bc31?family=DINNextRoundedLTPro-Bold);
+/* @import url(//db.onlinewebfonts.com/c/6f1a075af8afe852f3e3c8a75e49bc31?family=DINNextRoundedLTPro-Bold); */
+@font-face {
+	font-family: "DINNextRoundedLTPro-Bold";
+	src: url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.eot");
+	src: url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.eot?#iefix") format("embedded-opentype"),
+		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.woff2") format("woff2"),
+		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.woff") format("woff"),
+		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.ttf") format("truetype"),
+		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.svg#DINNextRoundedLTPro-Bold") format("svg");
+}
+
+@font-face {
+	font-family: "DINNextRoundedLTPro-Bold";
+	src: url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.eot");
+	src: url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.eot?#iefix") format("embedded-opentype"),
+		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.woff2") format("woff2"),
+		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.woff") format("woff"),
+		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.ttf") format("truetype"),
+		url("//db.onlinewebfonts.com/t/6f1a075af8afe852f3e3c8a75e49bc31.svg#DINNextRoundedLTPro-Bold") format("svg");
+}
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html {
-  font-family: 'Open Sans', sans-serif;
-  font-family: DINNextRoundedLTPro-Bold, sans-serif;
-  color: #5c5c5c;
+	font-family: 'Open Sans', sans-serif;
+	font-family: DINNextRoundedLTPro-Bold, sans-serif;
+	color: #5c5c5c;
 }
 
 body {
-  margin: 0;
-  background: #f7f7f7;
+	margin: 0;
+	background: #f7f7f7;
 }
 
 a {
-  color: inherit;
-  text-decoration: none; /* no underline */
+	color: inherit;
+	text-decoration: none; /* no underline */
 }
 
-input, textarea {
-  font-family: DINNextRoundedLTPro-Bold, sans-serif;
-  font-size: 1rem;
-  padding: 0;
-  border: none;
-  background-color: inherit;
-  color: #777777;
+input,
+textarea {
+	font-family: DINNextRoundedLTPro-Bold, sans-serif;
+	font-size: 1rem;
+	padding: 0;
+	border: none;
+	background-color: inherit;
+	color: #777777;
 }
 
 ::-webkit-input-placeholder {
-  color: #898989;
+	color: #898989;
 }
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #898989;
+:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: #898989;
 }
 ::placeholder {
-  color: #898989;
+	color: #898989;
 }
 
 .separator {
-  border-right: solid 1px rgb(190, 190, 190);
+	border-right: solid 1px rgb(190, 190, 190);
 }
 
 .tags-container {
-  display: flex;
+	display: flex;
 }
 
 .tags-container * {
-  margin-right: 8px;
+	margin-right: 8px;
 }
 
 .form-submit-error-message {
-  font-size: 1rem;
-  color: rgb(255, 0, 0);
-  text-align: center;
-  margin: 6px 0;
+	font-size: 1rem;
+	color: rgb(255, 0, 0);
+	text-align: center;
+	margin: 6px 0;
 }
 
 .back-previous {
-  position: absolute;
-  left: 5%;
-  font-size: 44px;
-  color: rgb(216, 216, 216);
+	position: absolute;
+	left: 5%;
+	font-size: 44px;
+	color: rgb(216, 216, 216);
 }
 
 .back-previous:hover {
-  color: var(--brand-color);
-  cursor: pointer;
+	color: var(--brand-color);
+	cursor: pointer;
 }
 
 @media (max-width: 900px) {
-  .back-previous {
-    font-size: 36px;
-  }
+	.back-previous {
+		font-size: 36px;
+	}
 }
 
 @media (max-width: 550px) {
-  .hide-under-550 {
-    display: none;
-  }
+	.hide-under-550 {
+		display: none;
+	}
 }
