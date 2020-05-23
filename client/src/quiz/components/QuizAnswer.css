@@ -7,7 +7,6 @@
   margin: 12px;
   padding: 8px 12px;
   cursor: pointer;
-/*   transition: 0.7s; */
 }
 
 .answer-unselected {
@@ -38,4 +37,10 @@
   border: 2px solid rgb(255, 0, 0);
   background: rgb(255, 0, 0);
   color: white;
+}
+
+@media (max-width: 900px) {
+  .quiz-answer-item {
+    width: 200px;
+  }
 }

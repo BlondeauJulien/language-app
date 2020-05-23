@@ -147,7 +147,7 @@ const Quiz = () => {
             }
             <BackNextContainer onClickNext={onClickNextQuiz} onClickPrevious={onClickPrevousQuiz}>
               <div className="quiz-main">
-                <QuizHeader />
+                <QuizHeader isUserWord={user && currentCourse.creator._id === user.id}/>
                 <QuizImage 
                   quiz={currentQuiz} 
                   alwaysDisplayUnapprovedImage={alwaysDisplayUnapprovedImage}

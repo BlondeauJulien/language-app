@@ -34,3 +34,10 @@
 .unaproved-image-actions-buttons button {
   margin: 12px 0;
 }
+
+@media (max-width: 900px) {
+  .quiz-image-container img {
+    max-width: 100%;
+    max-height: 300px;
+  }
+}

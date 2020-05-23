@@ -21,3 +21,10 @@
   width: 700px;
   margin: 32px 12px;
 }
+
+@media (max-width: 900px) {
+  .quiz-answers-container { 
+    width: 100%;
+    margin: 32px 12px;
+  }
+}
