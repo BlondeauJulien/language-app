@@ -13,7 +13,7 @@ footer a {
   margin: 4px 6px; 
 }
 
-@media (max-width: 550px) {
+@media (max-width: 560px) {
   footer {
     justify-content: center;
   }

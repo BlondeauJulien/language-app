@@ -41,7 +41,7 @@ const MainHeader = props => {
                 onClick={() => setAuthForm({...authForm, show: true, component: 'login'})} 
                 type={'button'} 
                 design={'primary-bg'}
-                className={'hide-under-550'}
+                className={'hide-under-560'}
               >
                 LOG IN TO YOUR ACCOUNT
               </Button>

@@ -13,7 +13,7 @@ const WordHeader = props => {
 					<div className="word-open-infos">
 						<i className="fas fa-caret-down" />
 						<Button type="button" onClick={() => props.setDisplayWordInfo(true)} design={'plain-text'}>
-							<span className='hide-under-550'>Know it? Forgot it?</span>Check word infos
+							<span className='hide-under-560'>Know it? Forgot it?</span>Check word infos
 						</Button>
 						<i className="fas fa-caret-down" />
 					</div>

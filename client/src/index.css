@@ -100,8 +100,8 @@ textarea {
 	}
 }
 
-@media (max-width: 550px) {
-	.hide-under-550 {
+@media (max-width: 560px) {
+	.hide-under-560 {
 		display: none;
 	}
 }

@@ -57,7 +57,7 @@
   color: #c4c4c4;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 560px) {
   .modal {
     padding: 10px;
   }

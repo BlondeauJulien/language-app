@@ -29,7 +29,7 @@
   padding: 12px;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 560px) {
   .auth-form {
     width: 260px;
   }

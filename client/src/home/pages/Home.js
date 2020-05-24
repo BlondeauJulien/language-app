@@ -17,7 +17,7 @@ const Home = props => {
   const [coursesToDisplay, setCoursesToDisplay] = useState(null);
 
   useEffect(() => {
-    getCourses({username: 'julienbbb123456'});
+    getCourses({userId: '5ea8482a0d76a3170c642b6c'});
 
     return () => {
       resetCourses();
@@ -42,7 +42,7 @@ const Home = props => {
         />
         <CardsContainerHeader title={'Trending Courses'}/>
         { loading && <Spinner /> }
-        { error && <p>{error}</p> }
+        { error && <p className="form-submit-error-message">{error}</p> }
         {
           coursesToDisplay && (
             <CardsContainer 

@@ -27,7 +27,7 @@
   font-size: 1.6em;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 560px) {
   .cards-container-header *{
     margin-bottom: 8px;
   }

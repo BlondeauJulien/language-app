@@ -35,7 +35,7 @@ const CardsContainer = props => {
             return (<QuizCard quiz={quiz}/>)
           })
           :
-          (<p>An error occured or there is nothing to display</p>)
+          (<p className="form-submit-error-message">An error occured or there is nothing to display</p>)
         }
 
         {

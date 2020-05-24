@@ -90,11 +90,10 @@ header {
   margin-right: 8px;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 560px) {
   .mobile-text-complement {
     display: inline;
   }
-
 }
 
 @media (max-width: 340px) {
