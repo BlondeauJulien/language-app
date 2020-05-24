@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import './Pagination.css';
 
@@ -14,9 +14,16 @@ const Pagination = props => {
   return (
     <nav>
       <ul className='pagination'>
-        <a onClick={() => paginate(1)} href="#main-cont"><li className='pagination-item'>
-          <i className="fas fa-step-backward"></i></li>
-        </a>
+        {
+          pageNumbers[0] !== 1 && (
+            <Fragment>
+              <a onClick={() => paginate(1)} href="#main-cont">
+                <li className='pagination-item'>1</li>
+              </a>
+              <li><span className='paginate-filler-item'>...</span></li>
+            </Fragment>
+          )
+        }
         {pageNumbers.map(number => (
           <a key={number}  onClick={() => paginate(number)} href="#main-cont">
             <li className={currentPage === number ? 'pagination-item pagination-item-current' : "pagination-item"}>  
@@ -24,9 +31,16 @@ const Pagination = props => {
             </li>
           </a>
         ))}
-        <a onClick={() => paginate(Math.ceil(totalItems / postsPerPage))} href="#main-cont">
-          <li className='pagination-item'><i className="fas fa-step-forward"></i></li>
-        </a>
+        {
+          pageNumbers[pageNumbers.length -1] !== Math.ceil(totalItems / postsPerPage) && (
+            <Fragment>
+              <li><span className='paginate-filler-item'>...</span></li>
+              <a onClick={() => paginate(Math.ceil(totalItems / postsPerPage))} href="#main-cont">
+                <li className='pagination-item'>{Math.ceil(totalItems / postsPerPage)}</li>
+              </a>
+            </Fragment>
+          )
+        }
       </ul>
     </nav>
   );
