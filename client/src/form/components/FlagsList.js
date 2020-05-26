@@ -17,7 +17,7 @@ const FlagsList = props => {
       if(!displayAllFlags && i === 8) break;
 
       let content = (
-        <div className="flag-container" onClick={() => props.pickFlagHandler(Flags[i].code)}>
+        <div key={Flags[i].code} className="flag-container" onClick={() => props.pickFlagHandler(Flags[i].code)}>
           <Flag countryCode={Flags[i].code} countryName={Flags[i].name} />
           <span>{Flags[i].name}</span>
         </div>
