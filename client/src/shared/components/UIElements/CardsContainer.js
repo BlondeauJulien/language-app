@@ -25,15 +25,15 @@ const CardsContainer = props => {
       <div className="cards-container">
         {props.courses ? 
           props.courses.slice(indexOfFirstItem, indexOfLastItem).map(course => {
-            return (<CourseCard course={course}/>)
+            return (<CourseCard key={course._id} course={course}/>)
           }) 
           : props.words ?
           props.words.slice(indexOfFirstItem, indexOfLastItem).map(word => {
-            return (<VocabularyCard word={word}/>)
+            return (<VocabularyCard key={word._id} word={word}/>)
           })
           : props.quizzes ?
           props.quizzes.slice(indexOfFirstItem, indexOfLastItem).map(quiz => {
-            return (<QuizCard quiz={quiz}/>)
+            return (<QuizCard key={quiz._id} quiz={quiz}/>)
           })
           :
           (<p className="form-submit-error-message">An error occured or there is nothing to display</p>)

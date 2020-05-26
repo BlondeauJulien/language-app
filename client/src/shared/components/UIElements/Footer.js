@@ -10,8 +10,8 @@ const Footer = () => {
   return (
     <footer>
       {
-        buttonsText.map(txt => (
-          <Button to="dummy" design={"plain-text"}>{txt}</Button>
+        buttonsText.map((txt, i) => (
+          <Button key={`footer-btn-${i}`} to="dummy" design={"plain-text"}>{txt}</Button>
         ))
       }
     </footer>
