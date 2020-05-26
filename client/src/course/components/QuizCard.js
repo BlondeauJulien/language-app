@@ -71,7 +71,7 @@ const QuizCard = props => {
 
 	return (
     <div className="quiz-card" onClick={onSelectQuiz}>
-      <img className="image-card" id={quiz._id} src={quiz.image} />
+      <img className="image-card" id={quiz._id} src={quiz.image} alt="quiz card visual"/>
     </div>
 	);
 };

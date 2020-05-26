@@ -10,7 +10,7 @@ const QuizImage = props => {
     <div className="quiz-image-container">
       {
         props.quiz.imageIsApprouved || userWantToSeeImage || props.alwaysDisplayUnapprovedImage ? (
-          <img src={props.quiz.image} alt="quiz image" />
+          <img src={props.quiz.image} alt="" />
         ) : (
           <Fragment>
             <p>The image had not been approved by a moderator yet.</p>

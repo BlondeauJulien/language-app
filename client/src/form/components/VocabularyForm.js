@@ -243,12 +243,9 @@ const VocabularyForm = () => {
 			})
 		}
 
-		{
-			vocabularyToEdit ? 
-			editVocabulary( vocabularyToEdit._id ,formToSend, token) : 
-			createVocabulary(formToSend, token)
-		}
-		
+		vocabularyToEdit ? 
+		editVocabulary( vocabularyToEdit._id ,formToSend, token) : 
+		createVocabulary(formToSend, token)
 	}
 
 	if(!currentCourse) {

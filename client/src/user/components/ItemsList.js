@@ -17,6 +17,7 @@ const ItemsList = props => {
           if(itemsFor === 'review') {
             return <ImageToReview key={item._id} image={item}/>
           }
+          return null;
         })
       }
     </div>

@@ -200,12 +200,9 @@ const QuizForm = () => {
 			})
 		}
 
-		{
-			quizToEdit ? 
-			editQuiz( quizToEdit._id ,formToSend, token) : 
-			createQuiz(formToSend, token)
-		}
-		
+		quizToEdit ? 
+		editQuiz( quizToEdit._id ,formToSend, token) : 
+		createQuiz(formToSend, token)
 	}
 
 	if(!currentCourse) {
@@ -239,7 +236,7 @@ const QuizForm = () => {
 					form.image.value && validate(form.image.value, 'image') && (
 						<div className='image-preview'>
 							<h3>Image preview:</h3>
-							<img src={form.image.value} />
+							<img src={form.image.value} alt="preview"/>
 						</div>
 					)
 				}
