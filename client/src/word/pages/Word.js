@@ -64,6 +64,7 @@ const Word = () => {
         clearSearchContent();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -76,6 +77,7 @@ const Word = () => {
       selectVocabulary(null);
       resetCourseSuccess();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ redirect ]);
 
   if(vocabularyToEdit && !success) {

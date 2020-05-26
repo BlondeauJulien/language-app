@@ -37,7 +37,7 @@ const ProfileNav = props => {
 
         }
         {
-          userRole === "moderator" || userRole === "admin" && (
+          (userRole === "moderator" || userRole === "admin") && (
             <li className={`profile-navigation__li${componentToDisplay === 'review' ? '-selected' : ''}`}>
               <Button 
                 type={'button'} 

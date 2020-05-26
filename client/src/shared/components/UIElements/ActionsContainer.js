@@ -25,6 +25,7 @@ const ActionsContainer = props => {
     if(!authForm.show && redirect.redirect) {
       setRedirect({...redirect, redirect: false, to: ''});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, redirect, authForm]);
 
   const onClickCreate = () => {

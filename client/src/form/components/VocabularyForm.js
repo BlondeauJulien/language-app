@@ -55,6 +55,7 @@ const VocabularyForm = () => {
 		return () => {
 			setWordToEdit(null);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ success, currentVocabulary ]);
 	
 	useEffect(() => {
@@ -77,6 +78,7 @@ const VocabularyForm = () => {
 				tags: {...form.tags, value: vocabularyToEdit.tags.join(', '), isValid: true},
 			});
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ vocabularyToEdit ]);
 
 	const onClickBackCourse = () => {

@@ -19,6 +19,7 @@ const CourseContentSearchForm = props => {
     } else {
       setForm({...searchQuiz});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contentToDisplay])
 
   const onSubmit = e => {

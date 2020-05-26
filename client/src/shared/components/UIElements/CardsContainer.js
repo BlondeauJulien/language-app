@@ -17,6 +17,7 @@ const CardsContainer = props => {
     let indexFirstItem = indexLastItem - postsPerPage
     setIndexLastItem(indexLastItem);
     setIndexOfFirstItem(indexFirstItem);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ currentPage ]);
 
   return (

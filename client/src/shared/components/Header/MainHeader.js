@@ -18,6 +18,7 @@ const MainHeader = props => {
     if(!user && tokenLS) {
       logUser(tokenLS);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
 

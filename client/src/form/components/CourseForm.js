@@ -47,6 +47,7 @@ const CourseForm = () => {
       resetCourseSuccess();
       history.push('/course');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ success, currentCourse ]);
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const CourseForm = () => {
     return () => {
       clearCourseToEdit()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ courseToEdit ])
 
   useEffect(() => {
@@ -76,6 +78,7 @@ const CourseForm = () => {
     return () => {
       clearTimeout(errorTimer);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
 
   const onClickBackToCourse = () => {

@@ -60,6 +60,7 @@ const QuizForm = () => {
 		return () => {
 			setQuizToEdit(null);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ success, currentQuiz ]);
 
 	useEffect(() => {
@@ -78,6 +79,7 @@ const QuizForm = () => {
 				tags: {...form.tags, value: quizToEdit.tags.join(', '), isValid: true},
 			});
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ quizToEdit ]);
 
 	const onClickBackCourse = () => {

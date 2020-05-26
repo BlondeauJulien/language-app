@@ -18,6 +18,7 @@ const VocabularyCard = props => {
     if(currentVocabulary) {
       history.push('/word');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentVocabulary])
 
   const onSeeWholeCard = () => {

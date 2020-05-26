@@ -52,6 +52,7 @@ const Course = () => {
         clearSearchContent();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const Course = () => {
         getCourseQuizzes(currentCourse._id);
       }
     }
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ contentToDisplay, currentCourse ]);
 
   const onCLickCreateContent = () => {

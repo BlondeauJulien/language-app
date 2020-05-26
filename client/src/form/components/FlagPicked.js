@@ -6,28 +6,26 @@ import Flag from '../../shared/components/UIElements/Flag';
 import './FlagPicked.css';
 import Button from '../../shared/components/FormElements/Button';
 
-const FlagPicked = (props) => {
+const FlagPicked = props => {
 	const [ flag, setFlag ] = useState(null);
 
-	useEffect(
-		() => {
-			for (const flag of Flags) {
-				if (flag.code === props.flag) {
-					const flagToDisplay = (
-						<div className="flag-container">
-							<Flag countryCode={flag.code} countryName={flag.name} />
-							<span>{flag.name}</span>
-              <div className="flag-picked-change-btn">
-							  <Button type="button" design={'plain-text'} onClick={props.resetFlag}>CHANGE</Button>
-              </div>
+	useEffect(() => {
+		for (const flag of Flags) {
+			if (flag.code === props.flag) {
+				const flagToDisplay = (
+					<div className="flag-container">
+						<Flag countryCode={flag.code} countryName={flag.name} />
+						<span>{flag.name}</span>
+						<div className="flag-picked-change-btn">
+							<Button type="button" design={'plain-text'} onClick={props.resetFlag}>CHANGE</Button>
 						</div>
-					);
-					setFlag(flagToDisplay);
-				}
+					</div>
+				);
+				setFlag(flagToDisplay);
 			}
-		},
-		[ ]
-	);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return <div>{flag}</div>;
 };

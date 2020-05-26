@@ -22,12 +22,14 @@ const Home = props => {
     return () => {
       resetCourses();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if(courses && !error && !loading) {
       setCoursesToDisplay(courses)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ courses, error, loading ]);
 
   return (

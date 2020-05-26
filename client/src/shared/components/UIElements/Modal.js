@@ -16,6 +16,7 @@ export const Modal = props => {
       document.removeEventListener('click', onCloseModal);
       document.removeEventListener('click', onCloseModal);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onCloseModal = e => {

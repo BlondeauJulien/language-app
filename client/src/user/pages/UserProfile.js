@@ -44,7 +44,7 @@ const UserProfile = () => {
 		if (user && componentToDisplay === 'users' && !user.users) {
       getUsers();
 		}
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ componentToDisplay ]);
 
 	useEffect(() => {
@@ -56,13 +56,15 @@ const UserProfile = () => {
 				clearUserCourses();
 			}
 		}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ user ]);
     
   useEffect(() => {
     if (success === 'edit-profile') {
       resetSuccess();
       setIsEditMode(false);
-    }
+		}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ success ]);
 
 	const paginate = pageNumber => {

@@ -17,6 +17,7 @@ const QuizCard = props => {
     if(currentQuiz) {
       history.push('/quiz');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuiz])
 
   useEffect(() => {
@@ -61,7 +62,8 @@ const QuizCard = props => {
       window.removeEventListener('mouseover', handleHoverImage);
       window.removeEventListener('mouseout', handleLeaveImageHover);
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onSelectQuiz = () => {
     selectQuiz(quiz);

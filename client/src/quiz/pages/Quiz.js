@@ -53,13 +53,8 @@ const Quiz = () => {
         clearSearchContent();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-/*   useEffect(() => {
-    setCheckResult(false);
-    setDisplaySelectionEmptyMessage(false);
-    setSelectedAnswers([]);
-  }, [ currentQuiz ]) */
 
   useEffect(() => {
     if(redirect.toQuizForm) {
@@ -71,6 +66,7 @@ const Quiz = () => {
       selectQuiz(null);
       resetCourseSuccess();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ redirect ]);
 
   if(quizToEdit && !success) {

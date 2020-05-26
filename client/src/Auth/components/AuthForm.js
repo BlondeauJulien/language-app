@@ -26,6 +26,7 @@ const AuthForm = (props) => {
     if(user) {
       setAuthForm({ ...authForm, show: false });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
 	useEffect(() => {
@@ -38,6 +39,7 @@ const AuthForm = (props) => {
 
       setForm(formSignin);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[ authForm ]);
   
   useEffect(() => {
@@ -51,6 +53,7 @@ const AuthForm = (props) => {
     return () => {
       clearTimeout(errorTimer);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
 
 	const onTouchHandler = e => {
