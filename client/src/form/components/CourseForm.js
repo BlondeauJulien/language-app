@@ -43,7 +43,7 @@ const CourseForm = () => {
   const [ countryFlag, setCountryFlag ] = useState({ value: '', isValid: false });
 
   useEffect(() => {
-    if(success || currentCourse) {
+    if(success && currentCourse) {
       resetCourseSuccess();
       history.push('/course');
     }
