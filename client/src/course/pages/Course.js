@@ -35,7 +35,7 @@ const Course = () => {
 
   const [ contentToDisplay, setContentToDisplay ] = useState('word');
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(1);
+  const [postsPerPage] = useState(6);
 
 	useEffect(() => {
 		if (!currentCourse) {

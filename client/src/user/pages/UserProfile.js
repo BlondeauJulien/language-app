@@ -33,7 +33,7 @@ const UserProfile = () => {
 	const [ componentToDisplay, setComponentToDisplay ] = useState('profile');
 	const [ isEditMode, setIsEditMode ] = useState(false);
 	const [ currentPage, setCurrentPage ] = useState(1);
-	const [ postsPerPage ] = useState(1);
+	const [ postsPerPage ] = useState(6);
 	
 	useEffect(() => {
 		paginate(1);
