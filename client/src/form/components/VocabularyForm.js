@@ -11,6 +11,7 @@ import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
 import validate from '../../shared/util/inputValidation';
 import { vocabularyInitialFormState } from '../util/formInitialStates';
+import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './VocabularyForm.css';
 
@@ -80,18 +81,11 @@ const VocabularyForm = () => {
 		selectVocabulary(vocabularyToEdit);
 	}
 
-	const resetErrors = () => {
-		setFormHasError(false);
-    if(error) {
-      setCourseError(false);
-    }
-	} 
-
 	const onChange = e => {
     const id = e.target.id;
     const value = e.target.value;
 
-		resetErrors();
+		resetFormErrors(setFormHasError, setCourseError, error);
 
 		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
 	}
@@ -101,7 +95,7 @@ const VocabularyForm = () => {
 		const position = e.target.id.split('-')[1];
 		const value = e.target.value;
 
-		resetErrors();
+		resetFormErrors(setFormHasError, setCourseError, error);
 
 		setForm({...form, [id]: [...form[id].map((el, i) => {
 			if(i.toString() === position) {
@@ -150,7 +144,7 @@ const VocabularyForm = () => {
 		const position = e.target.id.split('-')[2];
 		const value = e.target.value;
 
-		resetErrors();
+		resetFormErrors(setFormHasError, setCourseError, error);
 
 		setForm({...form, [id]: [...form[id].map((el, i) => {
 			if(i.toString() === position) {

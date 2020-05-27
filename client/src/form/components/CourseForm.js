@@ -10,6 +10,7 @@ import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import validate from '../../shared/util/inputValidation';
 import { courseInitialFormState } from '../util/formInitialStates';
+import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './CourseForm.css';
 
@@ -84,15 +85,14 @@ const CourseForm = () => {
     const id = e.target.id;
     const value = e.target.value;
 
-    setFormHasError(false);
-    if(error) {
-      setCourseError(false);
-    }
+    resetFormErrors(setFormHasError, setCourseError, error);
+    
     setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
   }
 
   const pickFlagHandler = flagCode => {
-    setFormHasError(false)
+    resetFormErrors(setFormHasError, setCourseError, error);
+
     setCountryFlag({...countryFlag, value: flagCode, isValid: validate(flagCode, 'countryFlag')})
   }
 

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
 import validate from '../../shared/util/inputValidation';
+import resetFormErrors from '../../shared/util/resetFormErrors';
+
 
 import './ProfileForm.css';
 
@@ -21,10 +23,7 @@ const ProfileForm = props => {
     const id = e.target.id;
     const value = e.target.value;
 
-    setFormHasError(false);
-    if(props.error) {
-      props.setAuthError(false);
-    }
+		resetFormErrors(setFormHasError, props.setAuthError, props.error);
 		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
   }
 
