@@ -10,6 +10,7 @@ import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
 import validate from '../../shared/util/inputValidation';
+import { vocabularyInitialFormState } from '../util/formInitialStates';
 
 import './VocabularyForm.css';
 
@@ -34,18 +35,8 @@ const VocabularyForm = () => {
 	} = courseContext;
 	const { token } = authContext;
 
-	const formInitialState = {
-		word: { value: '', isValid: false, isTouched: false },
-		translation: [{ value: '', isValid: false, isTouched: false }],
-		phrases: [],
-		conjugationLink: { value: '', isValid: true, isTouched: false },
-		personalNote: { value: '', isValid: true, isTouched: false },
-		difficultyLevel: { value: '', isValid: false, isTouched: false },
-		tags: { value: '', isValid: true, isTouched: false }
-	}
-
 	const [ formHasError, setFormHasError ] = useState(false);
-	const [ form, setForm ] = useState(formInitialState);
+	const [ form, setForm ] = useState(vocabularyInitialFormState);
 	
 	useEffect(() => {
     if(currentVocabulary) {

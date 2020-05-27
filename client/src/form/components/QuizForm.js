@@ -9,6 +9,7 @@ import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
 import validate from '../../shared/util/inputValidation';
+import { quizInitialFormState } from '../util/formInitialStates';
 
 import './QuizForm.css';
 
@@ -33,24 +34,8 @@ const QuizForm = () => {
 	} = courseContext;
 	const { token } = authContext;
 
-	const formInitialState = {
-		image: { value: '', isValid: false, isTouched: false },
-		answers: [{
-			answer: { value: '', isValid: false, isTouched: false },
-			translation: { value: '', isValid: false, isTouched: false },
-			isCorrect: false
-		},
-		{
-			answer: { value: '', isValid: false, isTouched: false },
-			translation: { value: '', isValid: false, isTouched: false },
-			isCorrect: false
-		}],
-		difficultyLevel: { value: '', isValid: false, isTouched: false },
-		tags: { value: '', isValid: true, isTouched: false }
-	}
-
 	const [ formHasError, setFormHasError ] = useState(false);
-	const [ form, setForm ] = useState(formInitialState);
+	const [ form, setForm ] = useState(quizInitialFormState);
 
 	useEffect(() => {
     if(currentQuiz) {

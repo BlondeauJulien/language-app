@@ -7,6 +7,9 @@ export default (value, id) => {
   if(id === 'email') return validator.isEmail(value);
   if(id === 'password') return validator.isLength(value, {min: 6});
 
+  //For form needing password confirmation
+  if(id === 'currentPassword') return validator.isLength(value, {min: 1});
+
   // Course
   if(id === 'name') return validator.isLength(value, {min: 4, max: 40});
   if(id === 'language') return validator.isLength(value, {min: 2, max: 24});

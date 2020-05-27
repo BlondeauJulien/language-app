@@ -16,7 +16,6 @@ const MainForm = () => {
       <div className="main-form-container">
         {formType === 'course' ? (
           <CourseForm />
-
         ) : formType === 'quiz' ? (
           <QuizForm />
         ) : formType === 'vocabulary' ? (

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
+import validate from '../../shared/util/inputValidation';
 
 import './ProfileForm.css';
-import validator from 'validator';
 
 const ProfileForm = props => {
   const formInitialState = {
@@ -30,13 +30,6 @@ const ProfileForm = props => {
 
   const onTouchHandler = e => {
     setForm({...form, [e.target.id]: {...form[e.target.id], isTouched: true}});
-  }
-
-  const validate = (value, id) => {
-    if(id === 'username') return validator.isLength(value, {min: 4, max: 16});
-    if(id === 'email') return validator.isEmail(value);
-    if(id === 'password') return validator.isLength(value, {min: 6}) || validator.isEmpty(value);
-    if(id === 'currentPassword') return validator.isLength(value, {min: 1});
   }
 
   const onSubmit = e => {
@@ -128,7 +121,7 @@ const ProfileForm = props => {
       {
         formHasError && (
           <p className="form-submit-error-message">
-            Please fill the form properly before submitting. Don't forgot to fill your current password.
+            Please fill the form properly before submitting. Don't forgot your current password.
           </p>
         )
       }
