@@ -191,7 +191,7 @@ const Word = () => {
         )
       }
       {
-        displayWordInfos && <WordTestActions onClickTestAction={onClickTestAction}/>
+        displayWordInfos && !success && <WordTestActions onClickTestAction={onClickTestAction}/>
       }
       {error && <p className="form-submit-error-message">{error}</p>}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}
