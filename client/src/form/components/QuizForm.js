@@ -9,7 +9,7 @@ import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
 import validate from '../../shared/util/inputValidation';
-import { quizInitialFormState } from '../util/formInitialStates';
+import { createQuizInitialFormState } from '../util/formInitialStates';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './QuizForm.css';
@@ -36,7 +36,7 @@ const QuizForm = () => {
 	const { token } = authContext;
 
 	const [ formHasError, setFormHasError ] = useState(false);
-	const [ form, setForm ] = useState(quizInitialFormState);
+	const [ form, setForm ] = useState(createQuizInitialFormState());
 
 	useEffect(() => {
     if(currentQuiz) {

@@ -10,7 +10,7 @@ import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
 import validate from '../../shared/util/inputValidation';
-import { vocabularyInitialFormState } from '../util/formInitialStates';
+import { createVocabularyInitialFormState } from '../util/formInitialStates';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './VocabularyForm.css';
@@ -37,7 +37,7 @@ const VocabularyForm = () => {
 	const { token } = authContext;
 
 	const [ formHasError, setFormHasError ] = useState(false);
-	const [ form, setForm ] = useState(vocabularyInitialFormState);
+	const [ form, setForm ] = useState(createVocabularyInitialFormState());
 	
 	useEffect(() => {
     if(currentVocabulary) {

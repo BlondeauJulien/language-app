@@ -9,7 +9,7 @@ import Spinner from '../../shared/SVGImages/Spinner';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import validate from '../../shared/util/inputValidation';
-import { courseInitialFormState } from '../util/formInitialStates';
+import { createCourseInitialFormState } from '../util/formInitialStates';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './CourseForm.css';
@@ -35,7 +35,7 @@ const CourseForm = () => {
   const { token } = authContext;
 
   const [ formHasError, setFormHasError ] = useState(false);
-  const [ form, setForm ] = useState(courseInitialFormState);
+  const [ form, setForm ] = useState(createCourseInitialFormState());
   const [ countryFlag, setCountryFlag ] = useState({ value: '', isValid: false });
 
   useEffect(() => {

@@ -1,31 +1,37 @@
-export const courseInitialFormState = {
-  name: { value: '', isValid: false, isTouched: false },
-  language: { value: '', isValid: false, isTouched: false },
-  learningFrom: { value: '', isValid: false, isTouched: false }
+const inputEl = { value: '', isValid: false, isTouched: false }
+
+export const createCourseInitialFormState = () => {
+  return {
+    name: { ...inputEl },
+    language: { ...inputEl },
+    learningFrom: { ...inputEl }
+  }
 }
 
-export const vocabularyInitialFormState = {
-  word: { value: '', isValid: false, isTouched: false },
-  translation: [{ value: '', isValid: false, isTouched: false }],
-  phrases: [],
-  conjugationLink: { value: '', isValid: true, isTouched: false },
-  personalNote: { value: '', isValid: true, isTouched: false },
-  difficultyLevel: { value: '', isValid: false, isTouched: false },
-  tags: { value: '', isValid: true, isTouched: false }
+export const createVocabularyInitialFormState = () => {
+  return {
+    word: { ...inputEl },
+    translation: [{ ...inputEl }],
+    phrases: [],
+    conjugationLink: { ...inputEl, isValid: true },
+    personalNote: { ...inputEl, isValid: true },
+    difficultyLevel: { ...inputEl },
+    tags: { ...inputEl, isValid: true }
+  }
 }
 
-export const quizInitialFormState = {
-  image: { value: '', isValid: false, isTouched: false },
-  answers: [{
-    answer: { value: '', isValid: false, isTouched: false },
-    translation: { value: '', isValid: false, isTouched: false },
-    isCorrect: false
-  },
-  {
-    answer: { value: '', isValid: false, isTouched: false },
-    translation: { value: '', isValid: false, isTouched: false },
-    isCorrect: false
-  }],
-  difficultyLevel: { value: '', isValid: false, isTouched: false },
-  tags: { value: '', isValid: true, isTouched: false }
+export const createQuizInitialFormState = () => {
+  const createAnswerEl = () => {
+    return {
+      answer: { ...inputEl },
+      translation: { ...inputEl },
+      isCorrect: false
+    }
+  }
+  return {
+    image: { ...inputEl },
+    answers: [createAnswerEl(), createAnswerEl()],
+    difficultyLevel: { ...inputEl },
+    tags: { ...inputEl, isValid: true }
+  }
 }
