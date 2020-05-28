@@ -4,7 +4,7 @@ import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
-import validate from '../../shared/util/inputValidation';
+import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './AuthForm.css';
@@ -62,12 +62,8 @@ const AuthForm = (props) => {
   };
   
   const onChange = e => {
-    const id = e.target.id;
-    const value = e.target.value;
-
-		resetFormErrors(setFormHasError, setAuthError, error);
-
-		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
+    resetFormErrors(setFormHasError, setAuthError, error);
+    defaultOnChangeWithValidation(e.target.id, e.target.value, form, setForm);
   }
 
 	const onSubmit = (e) => {

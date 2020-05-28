@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
-import validate from '../../shared/util/inputValidation';
+import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 
@@ -20,11 +20,8 @@ const ProfileForm = props => {
   const [ form, setForm ] = useState(formInitialState);
 
   const onChange = e => {
-    const id = e.target.id;
-    const value = e.target.value;
-
 		resetFormErrors(setFormHasError, props.setAuthError, props.error);
-		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
+    defaultOnChangeWithValidation(e.target.id, e.target.value, form, setForm);
   }
 
   const onTouchHandler = e => {

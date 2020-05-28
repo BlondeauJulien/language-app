@@ -9,6 +9,7 @@ import Spinner from '../../shared/SVGImages/Spinner';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import validate from '../../shared/util/inputValidation';
+import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import { createCourseInitialFormState } from '../util/formInitialStates';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
@@ -82,12 +83,8 @@ const CourseForm = () => {
   }
 
   const onChange = e => {
-    const id = e.target.id;
-    const value = e.target.value;
-
     resetFormErrors(setFormHasError, setCourseError, error);
-    
-    setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
+    defaultOnChangeWithValidation(e.target.id, e.target.value, form, setForm);
   }
 
   const pickFlagHandler = flagCode => {

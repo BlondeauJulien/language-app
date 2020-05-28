@@ -9,6 +9,7 @@ import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
 import validate from '../../shared/util/inputValidation';
+import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import { createQuizInitialFormState } from '../util/formInitialStates';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
@@ -77,12 +78,8 @@ const QuizForm = () => {
 	} 
 
 	const onChange = e => {
-    const id = e.target.id;
-    const value = e.target.value;
-
 		resetFormErrors(setFormHasError, setCourseError, error);
-
-		setForm({...form, [id]: {...form[id], value: value, isValid: validate(value, id)}});
+    defaultOnChangeWithValidation(e.target.id, e.target.value, form, setForm);
 	}
 
 	const onTouchHandler = e => {
