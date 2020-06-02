@@ -15,7 +15,6 @@ const Home = props => {
   const { authForm, setAuthForm} = props;
   const { getCourses, courses, loading, error, resetCourses } = courseContext;
   const [coursesToDisplay, setCoursesToDisplay] = useState(null);
-
   useEffect(() => {
     getCourses({userId: '5ea8482a0d76a3170c642b6c'});
 
