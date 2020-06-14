@@ -28,14 +28,4 @@ describe("home component", () => {
     expect(quickSearchInput.value).toBe('test text');
   })
 
-  it('222', () => { 
-    const { getByPlaceholderText } = renderHome();
-    
-    const quickSearchInput = getByPlaceholderText(/e\.g/i);
-    expect(quickSearchInput.value).toBe('');
-
-  })
-
-  
-
 })
