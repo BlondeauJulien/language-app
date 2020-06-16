@@ -12,7 +12,7 @@ import Spinner from '../../shared/SVGImages/Spinner';
 import validate from '../../shared/util/inputValidation';
 import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
-import { createVocabularyInitialFormState } from '../util/formInitialStates';
+import { createVocabularyInitialFormState, fillFormWithWordToEdit } from '../util/formInitialStates';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './VocabularyForm.css';
@@ -54,23 +54,7 @@ const VocabularyForm = () => {
 	
 	useEffect(() => {
 		if(vocabularyToEdit) {
-			setForm({
-				...form,
-				word: {...form.word, value: vocabularyToEdit.word, isValid: true},
-				translation: [...vocabularyToEdit.translation].map(t => {
-					return { value: t, isValid: true, isTouched: false}
-				}),
-				phrases: [...vocabularyToEdit.phrases].map(p => {
-					return {
-						origin: { value: p.origin, isValid: true, isTouched: false},
-						translation: { value: p.translation, isValid: true, isTouched: false}
-					}
-				}),
-				conjugationLink: {...form.conjugationLink, value: vocabularyToEdit.conjugationLink || '', isValid: true},
-				personalNote: {...form.personalNote, value: vocabularyToEdit.personalNote || '', isValid: true},
-				difficultyLevel: {...form.difficultyLevel, value: vocabularyToEdit.difficultyLevel, isValid: true},
-				tags: {...form.tags, value: vocabularyToEdit.tags.join(', '), isValid: true},
-			});
+			setForm(fillFormWithWordToEdit(form, vocabularyToEdit));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ vocabularyToEdit ]);

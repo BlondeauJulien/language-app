@@ -11,7 +11,7 @@ import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import validate from '../../shared/util/inputValidation';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
-import { createCourseInitialFormState } from '../util/formInitialStates';
+import { createCourseInitialFormState, fillFormWithCourseToEdit } from '../util/formInitialStates';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './CourseForm.css';
@@ -50,12 +50,7 @@ const CourseForm = () => {
 
   useEffect(() => {
     if(courseToEdit) {
-      setForm({
-        ...form,
-        name: {...form.name, value: courseToEdit.name, isValid: true},
-        language: {...form.language, value: courseToEdit.language, isValid: true},
-        learningFrom: {...form.learningFrom, value: courseToEdit.learningFrom, isValid: true}
-      });
+      setForm(fillFormWithCourseToEdit(form, courseToEdit));
       setCountryFlag({...countryFlag, value: courseToEdit.countryFlag, isValid: true});
     }
 

@@ -11,7 +11,7 @@ import Spinner from '../../shared/SVGImages/Spinner';
 import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import validate from '../../shared/util/inputValidation';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
-import { createQuizInitialFormState } from '../util/formInitialStates';
+import { createQuizInitialFormState, fillFormWithQuizToEdit } from '../util/formInitialStates';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './QuizForm.css';
@@ -53,19 +53,7 @@ const QuizForm = () => {
 
 	useEffect(() => {
 		if(quizToEdit) {
-			setForm({
-				...form,
-				image: {...form.image, value: quizToEdit.image, isValid: true},
-				answers: [...quizToEdit.answers].map(a => {
-					return {
-						answer: { value: a.answer, isValid: true, isTouched: false },
-						translation: { value: a.translation, isValid: true, isTouched: false },
-						isCorrect: a.isCorrect
-					}
-				}),
-				difficultyLevel: {...form.difficultyLevel, value: quizToEdit.difficultyLevel, isValid: true},
-				tags: {...form.tags, value: quizToEdit.tags.join(', '), isValid: true},
-			});
+			setForm(fillFormWithQuizToEdit(form, quizToEdit));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ quizToEdit ]);
