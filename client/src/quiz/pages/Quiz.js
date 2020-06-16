@@ -11,6 +11,7 @@ import Button from '../../shared/components/FormElements/Button';
 import UserContentActionsButtons from '../../shared/components/FormElements/UserContentActionsButtons';
 import Spinner from '../../shared/SVGImages/Spinner';
 import SuccessMessage from '../../shared/components/UIElements/SuccessMessage';
+import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -167,8 +168,8 @@ const Quiz = () => {
           </Fragment>
         )
       }
-      {error && <p className="form-submit-error-message">{error}</p>}            
-      {displaySelectionEmptyMessage && <p className="form-submit-error-message">Select at least one answer</p>}            
+      {error && <FormErrorMessage message={error} />}            
+      {displaySelectionEmptyMessage && <FormErrorMessage message={'Select at least one answer'} />}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}
       {success && success.for === 'delete' && (
         <SuccessMessage redirectTo={'/course'} message={success.message} btnText={'Go back to course'}/>

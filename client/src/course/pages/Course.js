@@ -8,6 +8,7 @@ import CardsContainer from '../../shared/components/UIElements/CardsContainer';
 import Spinner from '../../shared/SVGImages/Spinner';
 import UserContentActionsButtons from '../../shared/components/FormElements/UserContentActionsButtons';
 import SuccessMessage from '../../shared/components/UIElements/SuccessMessage';
+import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -144,7 +145,7 @@ const Course = () => {
           </div>
         )
       }
-      {error && <p className="form-submit-error-message">{error}</p>}            
+      {error && <FormErrorMessage message={error} />}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}
 			{contentToDisplay === 'word' && currentCourse  &&  currentCourse.vocabulary && (
         <CardsContainer 

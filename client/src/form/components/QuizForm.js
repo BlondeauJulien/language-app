@@ -8,6 +8,7 @@ import TagsInput from './TagsInput';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
+import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import validate from '../../shared/util/inputValidation';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import { createQuizInitialFormState } from '../util/formInitialStates';
@@ -301,14 +302,10 @@ const QuizForm = () => {
 				{
 					formHasError && (
 						<Fragment>
-							<p className="form-submit-error-message">
-								Please fill the form properly before submitting
-							</p>
+							<FormErrorMessage/>
 							{
 								!form.answers.find(el => el.isCorrect) && (
-									<p className="form-submit-error-message">
-										At least on answer should be correct
-									</p>
+									<FormErrorMessage message={'At least on answer should be correct'}/>
 								)
 							}
 						</Fragment>
@@ -316,9 +313,7 @@ const QuizForm = () => {
 				}
 				{ // backend error
 					error && (
-						<p className="form-submit-error-message">
-							{error}
-						</p>
+						<FormErrorMessage message={error}/>
 					)
 				}
 			</form>

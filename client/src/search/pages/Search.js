@@ -4,6 +4,7 @@ import MainPageContentContainer from '../../shared/components/UIElements/MainPag
 import CardsContainer from '../../shared/components/UIElements/CardsContainer';
 import SearchForm from '../components/SearchForm';
 import Spinner from '../../shared/SVGImages/Spinner';
+import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import CourseContext from '../../context/course/courseContext';
 
 import './Search.css'
@@ -34,9 +35,7 @@ const Search = () => {
         loading ? (
           <Spinner />
         ) : error ? (
-          <p className="form-submit-error-message">
-            {error}
-          </p>
+          <FormErrorMessage message={error} />
         ) : courses ? (
           <CardsContainer 
             courses={courses}

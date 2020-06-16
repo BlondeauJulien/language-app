@@ -3,6 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import CourseCard from './CourseCard';
 import VocabularyCard from '../../../course/components/VocabularyCard';
 import QuizCard from '../../../course/components/QuizCard';
+import FormErrorMessage from '../FormElements/FormErrorMessage';
 import Pagination from './Pagination';
 
 import './CardsContainer.css';
@@ -36,7 +37,7 @@ const CardsContainer = props => {
             return (<QuizCard key={quiz._id} quiz={quiz}/>)
           })
           :
-          (<p className="form-submit-error-message">An error occured or there is nothing to display</p>)
+          (<FormErrorMessage message={'An error occured or there is nothing to display'}/>)
         }
 
         {

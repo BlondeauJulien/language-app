@@ -6,6 +6,7 @@ import Input from '../../shared/components/FormElements/Input';
 import FlagsList from './FlagsList';
 import FlagPicked from './FlagPicked';
 import Spinner from '../../shared/SVGImages/Spinner';
+import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import validate from '../../shared/util/inputValidation';
@@ -201,17 +202,15 @@ const CourseForm = () => {
 
       {
         formHasError && (
-          <p className="form-submit-error-message">
-            Please fill the form properly before submitting, don't forgot to pick a flag
-          </p>
+          <FormErrorMessage 
+            message={'Please fill the form properly before submitting, don\'t forgot to pick a flag'} 
+          />
         )
       }
 
       { // backend error
         error && (
-          <p className="form-submit-error-message">
-            {error}
-          </p>
+          <FormErrorMessage message={error} />
         )
       }
 		</form>

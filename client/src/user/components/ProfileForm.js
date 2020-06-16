@@ -4,7 +4,7 @@ import Button from '../../shared/components/FormElements/Button';
 import Input from '../../shared/components/FormElements/Input';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import resetFormErrors from '../../shared/util/resetFormErrors';
-
+import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 
 import './ProfileForm.css';
 
@@ -116,17 +116,15 @@ const ProfileForm = props => {
 
       {
         formHasError && (
-          <p className="form-submit-error-message">
-            Please fill the form properly before submitting. Don't forgot your current password.
-          </p>
+          <FormErrorMessage
+            message={'Please fill the form properly before submitting. Don\'t forgot your current password.'}
+          />
         )
       }
 
       { // backend error
         props.error && (
-          <p className="form-submit-error-message">
-            {props.error}
-          </p>
+          <FormErrorMessage message={props.error} />
         )
       }
 		</form>

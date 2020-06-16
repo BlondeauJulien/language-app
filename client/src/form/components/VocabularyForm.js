@@ -10,6 +10,7 @@ import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
 import validate from '../../shared/util/inputValidation';
+import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import { createVocabularyInitialFormState } from '../util/formInitialStates';
 import resetFormErrors from '../../shared/util/resetFormErrors';
@@ -385,19 +386,15 @@ const VocabularyForm = () => {
 				)
 			}
 
-			{
+{
         formHasError && (
-          <p className="form-submit-error-message">
-            Please fill the form properly before submitting
-          </p>
+          <FormErrorMessage />
         )
       }
 
-			{ // backend error
+      { // backend error
         error && (
-          <p className="form-submit-error-message">
-            {error}
-          </p>
+          <FormErrorMessage message={error} />
         )
       }
 		</form>

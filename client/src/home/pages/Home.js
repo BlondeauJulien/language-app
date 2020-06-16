@@ -6,6 +6,7 @@ import ActionsContainer from '../../shared/components/UIElements/ActionsContaine
 import CardsContainer from '../../shared/components/UIElements/CardsContainer';
 import CardsContainerHeader from '../../shared/components/UIElements/CardsContainerHeader';
 import Spinner from '../../shared/SVGImages/Spinner';
+import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 
 import CourseContext from '../../context/course/courseContext';
 
@@ -43,7 +44,7 @@ const Home = props => {
         />
         <CardsContainerHeader title={'Trending Courses'}/>
         { loading && <Spinner /> }
-        { error && <p className="form-submit-error-message">{error}</p> }
+        { error && <FormErrorMessage message={error}/> }
         {
           coursesToDisplay && (
             <CardsContainer 

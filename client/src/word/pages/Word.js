@@ -14,6 +14,7 @@ import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 
 import './Word.css';
+import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 
 const Word = () => {
   const courseContext = useContext(CourseContext);
@@ -193,7 +194,7 @@ const Word = () => {
       {
         displayWordInfos && !success && <WordTestActions onClickTestAction={onClickTestAction}/>
       }
-      {error && <p className="form-submit-error-message">{error}</p>}            
+      {error && <FormErrorMessage message={error} />}            
       {loading && <div className="course-page__spinner-container"><Spinner /></div>}
       {success && success.for === 'delete' && (
         <SuccessMessage redirectTo={'/course'} message={success.message} btnText={'Go back to course'}/>

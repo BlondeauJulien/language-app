@@ -6,6 +6,7 @@ import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import resetFormErrors from '../../shared/util/resetFormErrors';
+import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 
 import './AuthForm.css';
 
@@ -160,17 +161,13 @@ const AuthForm = (props) => {
 
       {
         formHasError && (
-          <p className="form-submit-error-message">
-            Please fill the form properly before submitting
-          </p>
+          <FormErrorMessage />
         )
       }
 
       { // backend error
         error && (
-          <p className="form-submit-error-message">
-            {error}
-          </p>
+          <FormErrorMessage message={error}/>
         )
       }
 		</form>
