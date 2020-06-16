@@ -13,6 +13,7 @@ import validate from '../../shared/util/inputValidation';
 import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import { createVocabularyInitialFormState, fillFormWithWordToEdit } from '../util/formInitialStates';
+import { createWordFormToSend } from '../util/createFormToSend';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './VocabularyForm.css';
@@ -191,24 +192,7 @@ const VocabularyForm = () => {
 			}
     }
 
-     const formToSend = {
-			word: form.word.value,
-			translation: form.translation.map(t => t.value),
-			difficultyLevel: form.difficultyLevel.value,
-			course: currentCourse._id
-		} 
-		if(form.phrases.length) {
-			formToSend.phrases = form.phrases.map(p => {
-				return {origin: p.origin.value, translation: p.translation.value};
-			})
-		}
-		if(form.conjugationLink.value) formToSend.conjugationLink = form.conjugationLink.value;
-		if(form.personalNote.value) formToSend.personalNote = form.personalNote.value;
-		if(form.tags.value) {
-			formToSend.tags = form.tags.value.split(',').map(t => {
-				return t.trim();
-			})
-		}
+     const formToSend = createWordFormToSend(form, currentCourse._id);
 
 		vocabularyToEdit ? 
 		editVocabulary( vocabularyToEdit._id ,formToSend, token) : 

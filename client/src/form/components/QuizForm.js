@@ -12,6 +12,7 @@ import FormErrorMessage from '../../shared/components/FormElements/FormErrorMess
 import validate from '../../shared/util/inputValidation';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import { createQuizInitialFormState, fillFormWithQuizToEdit } from '../util/formInitialStates';
+import { createQuizFormToSend } from '../util/createFormToSend';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './QuizForm.css';
@@ -151,20 +152,7 @@ const QuizForm = () => {
 			}
     }
 
-    const formToSend = {
-			image: form.image.value,
-			difficultyLevel: form.difficultyLevel.value,
-			answers: form.answers.map(a => {
-				return {answer: a.answer.value, translation: a.translation.value, isCorrect: a.isCorrect};
-			}),
-			course: currentCourse._id
-		} 
-
-		if(form.tags.value) {
-			formToSend.tags = form.tags.value.split(',').map(t => {
-				return t.trim();
-			})
-		}
+		const formToSend = createQuizFormToSend(form, currentCourse._id)
 
 		quizToEdit ? 
 		editQuiz( quizToEdit._id ,formToSend, token) : 

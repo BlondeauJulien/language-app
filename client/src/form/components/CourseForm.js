@@ -12,6 +12,7 @@ import AuthContext from '../../context/auth/authContext';
 import validate from '../../shared/util/inputValidation';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import { createCourseInitialFormState, fillFormWithCourseToEdit } from '../util/formInitialStates';
+import { createCourseFormToSend } from '../util/createFormToSend';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './CourseForm.css';
@@ -107,12 +108,7 @@ const CourseForm = () => {
       return
     }
 
-    const formToSend = {
-      name: form.name.value,
-      language: form.language.value,
-      learningFrom: form.learningFrom.value,
-      countryFlag: countryFlag.value
-    }
+    const formToSend = createCourseFormToSend(form, countryFlag);
 
     courseToEdit ? 
     editCourse(courseToEdit._id, formToSend, token) 
