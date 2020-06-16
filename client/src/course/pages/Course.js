@@ -9,6 +9,7 @@ import Spinner from '../../shared/SVGImages/Spinner';
 import UserContentActionsButtons from '../../shared/components/FormElements/UserContentActionsButtons';
 import SuccessMessage from '../../shared/components/UIElements/SuccessMessage';
 import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
+import { filterWordMethod, filterQuizMethod } from '../util/filterMethods';
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -88,35 +89,9 @@ const Course = () => {
     deleteCourse(currentCourse._id, token);
   }
 
-  const filterWord = word => {
-    let wordRegexp = new RegExp(searchVocabulary.word.trim(), 'i');
-    let translationRegexp = new RegExp(searchVocabulary.translation.trim(), 'i');
-    let difficultyLevelRegexp = new RegExp(searchVocabulary.difficultyLevel.trim(), 'i');
-    let tagRegexp = new RegExp(searchVocabulary.tags.trim(), 'i');
-    const tagsString = word.tags.join(' ');
-    if(
-      wordRegexp.test(word.word) &&
-      translationRegexp.test(word.translation) &&
-      tagRegexp.test(tagsString) &&
-      difficultyLevelRegexp.test(word.difficultyLevel.toString())
-    ) {
-      return true;
-    }
-    return false;
-  } 
+  const filterWord = word => filterWordMethod(word, searchVocabulary);
 
-  const filterQuiz = quiz => {
-    let difficultyLevelRegexp = new RegExp(searchQuiz.difficultyLevel.trim(), 'i');
-    let tagRegexp = new RegExp(searchQuiz.tags.trim(), 'i');
-    const tagsString = quiz.tags.join(' ');
-    if(
-      tagRegexp.test(tagsString) &&
-      difficultyLevelRegexp.test(quiz.difficultyLevel.toString())
-    ) {
-      return true;
-    }
-    return false;
-  }
+  const filterQuiz = quiz => filterQuizMethod(quiz, searchQuiz);
 
   const paginate = pageNumber => {
     setCurrentPage(pageNumber);
