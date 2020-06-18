@@ -13,6 +13,7 @@ import validate from '../../shared/util/inputValidation';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import { createCourseInitialFormState, fillFormWithCourseToEdit } from '../util/formInitialStates';
 import { createCourseFormToSend } from '../util/createFormToSend';
+import { formIsInvalid } from '../util/formError';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './CourseForm.css';
@@ -97,15 +98,9 @@ const CourseForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    for(const input in form) {
-      if(!form[input].isValid) {
-        setFormHasError(true);
-        return;
-      }
-    }
-    if(!countryFlag.isValid){
+    if(formIsInvalid(form, countryFlag)) {
       setFormHasError(true);
-      return
+      return;
     }
 
     const formToSend = createCourseFormToSend(form, countryFlag);

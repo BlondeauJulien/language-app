@@ -13,6 +13,7 @@ import validate from '../../shared/util/inputValidation';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import { createQuizInitialFormState, fillFormWithQuizToEdit } from '../util/formInitialStates';
 import { createQuizFormToSend } from '../util/createFormToSend';
+import { formIsInvalid } from '../util/formError';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './QuizForm.css';
@@ -136,20 +137,9 @@ const QuizForm = () => {
 
 	const onSubmit = e => {
 		e.preventDefault();
-		for(const input in form) {
-			if (input === "answers"){
-				let hasError = form[input].find(el => !el.answer.isValid || !el.translation.isValid);
-				let hasOneCorrect = form[input].find(el => el.isCorrect);
-				if(hasError || !hasOneCorrect) {
-					setFormHasError(true);
-					return;
-				}
-			} else {
-				if(!form[input].isValid) {
-					setFormHasError(true);
-					return;
-				}
-			}
+    if(formIsInvalid(form)) {
+      setFormHasError(true);
+      return;
     }
 
 		const formToSend = createQuizFormToSend(form, currentCourse._id)

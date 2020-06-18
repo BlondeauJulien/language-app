@@ -14,6 +14,7 @@ import FormErrorMessage from '../../shared/components/FormElements/FormErrorMess
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
 import { createVocabularyInitialFormState, fillFormWithWordToEdit } from '../util/formInitialStates';
 import { createWordFormToSend } from '../util/createFormToSend';
+import { formIsInvalid } from '../util/formError';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './VocabularyForm.css';
@@ -171,28 +172,13 @@ const VocabularyForm = () => {
 
 	const onSubmit = e => {
 		e.preventDefault();
-		for(const input in form) {
-			if(input === "translation") {
-				let hasError = form[input].find(el => !el.isValid);
-				if(hasError) {
-					setFormHasError(true);
-					return;
-				}
-			} else if (input === "phrases"){
-				let hasError = form[input].find(el => !el.origin.isValid || !el.translation.isValid);
-				if(hasError) {
-					setFormHasError(true);
-					return;
-				}
-			} else {
-				if(!form[input].isValid) {
-					setFormHasError(true);
-					return;
-				}
-			}
+    if(formIsInvalid(form)) {
+			setFormHasError(true);
+			console.log('here')
+      return;
     }
 
-     const formToSend = createWordFormToSend(form, currentCourse._id);
+    const formToSend = createWordFormToSend(form, currentCourse._id);
 
 		vocabularyToEdit ? 
 		editVocabulary( vocabularyToEdit._id ,formToSend, token) : 
