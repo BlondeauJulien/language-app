@@ -9,12 +9,12 @@ import TagsInput from './TagsInput'
 import CourseContext from '../../context/course/courseContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
-import validate from '../../shared/util/inputValidation';
 import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
-import { createVocabularyInitialFormState, fillFormWithWordToEdit } from '../util/formInitialStates';
+import { createVocabularyInitialFormState, fillFormWithWordToEdit, defaultInputEl } from '../util/formInitialStates';
 import { createWordFormToSend } from '../util/createFormToSend';
 import { formIsInvalid } from '../util/formError';
+import { changeDualInput, addPhrase, deleteDualInputEl, changeInputForMulti, deleteInputForMultiEl, addTranslation, touchHandlerInputForMulti } from '../util/formEvents';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './VocabularyForm.css';
@@ -75,35 +75,21 @@ const VocabularyForm = () => {
 	}
 
 	const onChangeInputForMulti = e => {
-    const id = e.target.id.split('-')[0];
-		const position = e.target.id.split('-')[1];
-		const value = e.target.value;
-
 		resetFormErrors(setFormHasError, setCourseError, error);
+		const changedForm = changeInputForMulti(e, form);
 
-		setForm({...form, [id]: [...form[id].map((el, i) => {
-			if(i.toString() === position) {
-				el.value = value;
-				el.isValid = validate(value, id);
-			}
-			return el;
-		})]});
+		setForm(changedForm);
 	}
 
 	const onDeleteInputForMulti = element => {
-		const id = element.split('-')[0];
-		const position = element.split('-')[1];
-
-		setForm({...form, [id]: [...form[id].filter((el, i) => {
-			return i.toString() !== position;
-		})]});
+		const changedForm = deleteInputForMultiEl(element, form);
+		setForm(changedForm);
 	}
 
 	const onClickAddTranslation = () => {
 		if(form.translation.length >= 8 ) return;
-		const id = 'translation';
-    const value = { value: '', isValid: false, isTouched: false };
-		setForm({...form, [id]: [...form[id], value]});
+		const changedForm = addTranslation(form);
+		setForm(changedForm);
 	}
 	
 	const onTouchHandler = e => {
@@ -111,63 +97,31 @@ const VocabularyForm = () => {
 	}
 	
 	const onTouchHandlerInputForMulti = e => {
-		const id = e.target.id.split('-')[0];
-		const position = e.target.id.split('-')[1];
-
-		setForm({...form, [id]: [...form[id].map((el, i) => {
-			if(i.toString() === position) {
-				el.isTouched = true;
-			}
-			return el;
-		})]});
+		const changedForm = touchHandlerInputForMulti(e, form);
+		setForm(changedForm);
 	}
 
 	const onChangeDualInput = e => {
-    const id = e.target.id.split('-')[0];
-    const idEl = e.target.id.split('-')[1];
-		const position = e.target.id.split('-')[2];
-		const value = e.target.value;
-
 		resetFormErrors(setFormHasError, setCourseError, error);
-
-		setForm({...form, [id]: [...form[id].map((el, i) => {
-			if(i.toString() === position) {
-				el[idEl].value = value;
-				el[idEl].isValid = validate(value, id + idEl);
-			}
-			return el;
-		})]});
+		const changedForm = changeDualInput(e, form);
+		setForm(changedForm);
 	}
 
 	const onTouchHandlerDualInput = e => {
-    const id = e.target.id.split('-')[0];
-    const idEl = e.target.id.split('-')[1];
-		const position = e.target.id.split('-')[2];
-
-		setForm({...form, [id]: [...form[id].map((el, i) => {
-			if(i.toString() === position) {
-				el[idEl].isTouched = true;
-			}
-			return el;
-		})]});
+		const changedForm = changeDualInput(e, form);
+		setForm(changedForm);
 	}
 
 	const onClickAddPhrase = () => {
 		if(form.phrases.length >= 8 ) return;
 
-		const id = 'phrases';
-		const base = { value: '', isValid: false, isTouched: false }
-    const value = {origin: { ...base}, translation: {...base}};
-		setForm({...form, [id]: [...form[id], value]});
+		const changedForm = addPhrase(form);
+		setForm(changedForm);
 	}
 
 	const onDeleteDualInput = element => {
-		const id = element.split('-')[0];
-		const position = element.split('-')[2];
-
-		setForm({...form, [id]: [...form[id].filter((el, i) => {
-			return i.toString() !== position;
-		})]});
+		const changedForm = deleteDualInputEl(element, form);
+		setForm(changedForm);
 	}
 
 	const onSubmit = e => {

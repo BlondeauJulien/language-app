@@ -93,7 +93,6 @@ const CourseForm = () => {
 
   const onTouchHandler = e => {
 		setForm({...form, [e.target.id]: {...form[e.target.id], isTouched: true}});
-
   }
 
   const onSubmit = e => {

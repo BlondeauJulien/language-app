@@ -14,7 +14,7 @@ import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunct
 import { createQuizInitialFormState, fillFormWithQuizToEdit } from '../util/formInitialStates';
 import { createQuizFormToSend } from '../util/createFormToSend';
 import { formIsInvalid } from '../util/formError';
-import { changeDualInput, changeIsCorrect, touchHandlerDualInput, DeleteDualInputEl, addAnswer } from '../util/formEvents';
+import { changeDualInput, changeIsCorrect, touchHandlerDualInput, deleteDualInputEl, addAnswer } from '../util/formEvents';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './QuizForm.css';
@@ -102,7 +102,7 @@ const QuizForm = () => {
 	}
 
 	const onDeleteDualInput = element => {
-		const changedForm = DeleteDualInputEl(element, form);
+		const changedForm = deleteDualInputEl(element, form);
 		setForm(changedForm);
 	}
 
