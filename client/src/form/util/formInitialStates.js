@@ -1,38 +1,38 @@
-const inputEl = { value: '', isValid: false, isTouched: false }
+export const defaultInputEl = { value: '', isValid: false, isTouched: false }
 
 export const createCourseInitialFormState = () => {
   return {
-    name: { ...inputEl },
-    language: { ...inputEl },
-    learningFrom: { ...inputEl }
+    name: { ...defaultInputEl },
+    language: { ...defaultInputEl },
+    learningFrom: { ...defaultInputEl }
   }
 }
 
 export const createVocabularyInitialFormState = () => {
   return {
-    word: { ...inputEl },
-    translation: [{ ...inputEl }],
+    word: { ...defaultInputEl },
+    translation: [{ ...defaultInputEl }],
     phrases: [],
-    conjugationLink: { ...inputEl, isValid: true },
-    personalNote: { ...inputEl, isValid: true },
-    difficultyLevel: { ...inputEl },
-    tags: { ...inputEl, isValid: true }
+    conjugationLink: { ...defaultInputEl, isValid: true },
+    personalNote: { ...defaultInputEl, isValid: true },
+    difficultyLevel: { ...defaultInputEl },
+    tags: { ...defaultInputEl, isValid: true }
   }
 }
 
 export const createQuizInitialFormState = () => {
   const createAnswerEl = () => {
     return {
-      answer: { ...inputEl },
-      translation: { ...inputEl },
+      answer: { ...defaultInputEl },
+      translation: { ...defaultInputEl },
       isCorrect: false
     }
   }
   return {
-    image: { ...inputEl },
+    image: { ...defaultInputEl },
     answers: [createAnswerEl(), createAnswerEl()],
-    difficultyLevel: { ...inputEl },
-    tags: { ...inputEl, isValid: true }
+    difficultyLevel: { ...defaultInputEl },
+    tags: { ...defaultInputEl, isValid: true }
   }
 }
 

@@ -14,6 +14,7 @@ import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunct
 import { createQuizInitialFormState, fillFormWithQuizToEdit } from '../util/formInitialStates';
 import { createQuizFormToSend } from '../util/createFormToSend';
 import { formIsInvalid } from '../util/formError';
+import { changeDualInput, changeIsCorrect, touchHandlerDualInput, DeleteDualInputEl, addAnswer } from '../util/formEvents';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './QuizForm.css';
@@ -78,61 +79,31 @@ const QuizForm = () => {
 	}
 
 	const onChangeDualInput = e => {
-    const id = e.target.id.split('-')[0];
-    const idEl = e.target.id.split('-')[1];
-		const position = e.target.id.split('-')[2];
-		const value = e.target.value;
-
 		resetFormErrors(setFormHasError, setCourseError, error);
-
-		setForm({...form, [id]: [...form[id].map((el, i) => {
-			if(i.toString() === position) {
-				el[idEl].value = value;
-				el[idEl].isValid = validate(value, id + idEl);
-			}
-			return el;
-		})]});
+		const changedForm = changeDualInput(e, form);
+		setForm(changedForm);
 	}
 
 	const onChangeIsCorrect = (value, position) => {
-		const id = 'answers';
-		setForm({...form, [id]: [...form[id].map((el, i) => {
-			if(i.toString() === position) {
-				el.isCorrect = value;
-			}
-			return el;
-		})]});
+		const changedForm = changeIsCorrect(value, position, form);
+		setForm(changedForm);
 	}
 
 	const onTouchHandlerDualInput = e => {
-    const id = e.target.id.split('-')[0];
-    const idEl = e.target.id.split('-')[1];
-		const position = e.target.id.split('-')[2];
-
-		setForm({...form, [id]: [...form[id].map((el, i) => {
-			if(i.toString() === position) {
-				el[idEl].isTouched = true;
-			}
-			return el;
-		})]});
+		const changedForm = touchHandlerDualInput(e, form);
+		setForm(changedForm);
 	}
 
 	const onClickAddAnswer = () => {
 		if(form.answers.length >= 8 ) return;
 
-		const id = 'answers';
-		const base = { value: '', isValid: false, isTouched: false }
-    const value = {answer: { ...base}, translation: {...base}, isCorrect: false};
-		setForm({...form, [id]: [...form[id], value]});
+		const changedForm = addAnswer();
+		setForm(changedForm);
 	}
 
 	const onDeleteDualInput = element => {
-		const id = element.split('-')[0];
-		const position = element.split('-')[2];
-
-		setForm({...form, [id]: [...form[id].filter((el, i) => {
-			return i.toString() !== position;
-		})]});
+		const changedForm = DeleteDualInputEl(element, form);
+		setForm(changedForm);
 	}
 
 	const onSubmit = e => {
