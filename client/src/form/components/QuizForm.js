@@ -97,7 +97,7 @@ const QuizForm = () => {
 	const onClickAddAnswer = () => {
 		if(form.answers.length >= 8 ) return;
 
-		const changedForm = addAnswer();
+		const changedForm = addAnswer(form);
 		setForm(changedForm);
 	}
 
