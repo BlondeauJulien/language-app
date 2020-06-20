@@ -3,21 +3,32 @@ import React from 'react';
 import Input from '../../shared/components/FormElements/Input';
 
 const TagsInput = props => {
+  const {
+    id,
+    value,
+    onChange,
+    placeholder,
+    onTouchHandler,
+    isTouched,
+    isValid,
+    inputErrorMessage
+  } = props;
+
   return (
     <div className={props.containerClassName}>
       <Input
-        id={props.id}
-        value={props.value}
-        onChange={props.onChange}
+        id={id}
+        value={value}
+        onChange={onChange}
         element={'input'}
         type={'text'}
         label={'Tags'}
-        placeholder={props.placeholder}
+        placeholder={placeholder}
         size={'input-full'}
-        onTouchHandler={props.onTouchHandler}
-        isTouched={props.isTouched}
-        isValid={props.isValid}
-        inputErrorMessage={props.inputErrorMessage}
+        onTouchHandler={onTouchHandler}
+        isTouched={isTouched}
+        isValid={isValid}
+        inputErrorMessage={inputErrorMessage}
       />
       <span className="tags-info">Maximum of 8 tags, each separated with a comma ","</span>
     </div>
