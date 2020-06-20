@@ -3,29 +3,42 @@ import React from 'react';
 import Input from '../../shared/components/FormElements/Input';
 
 const InputForMulti = props => {
+  const {
+    displayDeleteButton,
+    onDeleteInputForMulti,
+    id,
+    value,
+    onChange,
+    label,
+    placeholder,
+    onTouchHandler,
+    isTouched,
+    isValid,
+    inputErrorMessage
+  } = props;
   return (
     <div>
       {
-        props.displayDeleteButton && (
+        displayDeleteButton && (
           <div className="delete-cross">
-            <i className="fas fa-times" onClick={() => props.onDeleteInputForMulti(props.id)}/>
+            <i className="fas fa-times" onClick={() => onDeleteInputForMulti(id)}/>
           </div>
         )
       }
       
       <Input
-        id={props.id}
-        value={props.value}
-        onChange={props.onChange}
+        id={id}
+        value={value}
+        onChange={onChange}
         element={'input'}
         type={'text'}
-        label={props.label}
-        placeholder={props.placeholder || ''}
+        label={label}
+        placeholder={placeholder || ''}
         size={'input-full'}
-        onTouchHandler={props.onTouchHandler}
-        isTouched={props.isTouched}
-        isValid={props.isValid}
-        inputErrorMessage={props.inputErrorMessage}
+        onTouchHandler={onTouchHandler}
+        isTouched={isTouched}
+        isValid={isValid}
+        inputErrorMessage={inputErrorMessage}
       />
     </div>
   )
