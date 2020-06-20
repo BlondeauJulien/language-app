@@ -16,6 +16,7 @@ const InputForMulti = props => {
     isValid,
     inputErrorMessage
   } = props;
+  
   return (
     <div>
       {
