@@ -11,10 +11,17 @@ import AuthContext from '../../context/auth/authContext';
 import Spinner from '../../shared/SVGImages/Spinner';
 import FormErrorMessage from '../../shared/components/FormElements/FormErrorMessage';
 import { defaultOnChangeWithValidation } from '../../shared/util/sharedFormFunctions';
-import { createVocabularyInitialFormState, fillFormWithWordToEdit, defaultInputEl } from '../util/formInitialStates';
+import { createVocabularyInitialFormState, fillFormWithWordToEdit } from '../util/formInitialStates';
 import { createWordFormToSend } from '../util/createFormToSend';
 import { formIsInvalid } from '../util/formError';
-import { changeDualInput, addPhrase, deleteDualInputEl, changeInputForMulti, deleteInputForMultiEl, addTranslation, touchHandlerInputForMulti } from '../util/formEvents';
+import { 
+	changeDualInput, 
+	addPhrase, 
+	deleteDualInputEl, 
+	changeInputForMulti, 
+	deleteInputForMultiEl, 
+	addTranslation, 
+	touchHandlerInputForMulti } from '../util/formEvents';
 import resetFormErrors from '../../shared/util/resetFormErrors';
 
 import './VocabularyForm.css';
@@ -128,7 +135,6 @@ const VocabularyForm = () => {
 		e.preventDefault();
     if(formIsInvalid(form)) {
 			setFormHasError(true);
-			console.log('here')
       return;
     }
 

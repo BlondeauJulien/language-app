@@ -5,59 +5,82 @@ import Input from '../../shared/components/FormElements/Input';
 import './DualInput.css';
 
 const DualInput = props => {	
+	const { 
+		isAnswerElement,
+		displayDeleteButton,
+		onDeleteDualInput,
+		onChange,
+		onTouchHandler,
+		inputErrorMessage,
+		isCorrect,
+		onChangeIsCorrect,
+		id1,
+		value1,
+		label1,
+		placeholder1,
+		isTouched1,
+		isValid1,
+		id2,
+		value2,
+		label2,
+		placeholder2,
+		isTouched2,
+		isValid2
+	 } = props;
+
 	return (
 		<div className="quiz-answer-input">
-			{props.displayDeleteButton && (
+			{displayDeleteButton && (
 				<div className="delete-cross">
-					<i className="fas fa-times" onClick={() => props.onDeleteDualInput(props.id1)}/>
+					<i className="fas fa-times" onClick={() => onDeleteDualInput(id1)}/>
 				</div>
 			)}
 
 			<div className="quiz-answer-input-element">
 				<Input
-					id={props.id1}
-					value={props.value1}
-					onChange={props.onChange}
+					id={id1}
+					value={value1}
+					onChange={onChange}
 					element={'input'}
 					type={'text'}
-					label={props.label1}
-					placeholder={props.placeholder1}
+					label={label1}
+					placeholder={placeholder1}
 					size={'input-full'}
-					onTouchHandler={props.onTouchHandler}
-					isTouched={props.isTouched1}
-					isValid={props.isValid1}
-					inputErrorMessage={props.inputErrorMessage}
+					onTouchHandler={onTouchHandler}
+					isTouched={isTouched1}
+					isValid={isValid1}
+					inputErrorMessage={inputErrorMessage}
 				/>
 			</div>
 			<div className="quiz-answer-input-element">
 				<Input
-					id={props.id2}
-					value={props.value2}
-					onChange={props.onChange}
+					id={id2}
+					value={value2}
+					onChange={onChange}
 					element={'input'}
 					type={'text'}
-					label={props.label2}
-					placeholder={props.placeholder2}
+					label={label2}
+					placeholder={placeholder2}
 					size={'input-full'}
-					onTouchHandler={props.onTouchHandler}
-					isTouched={props.isTouched2}
-					isValid={props.isValid2}
-					inputErrorMessage={props.inputErrorMessage}
+					onTouchHandler={onTouchHandler}
+					isTouched={isTouched2}
+					isValid={isValid2}
+					inputErrorMessage={inputErrorMessage}
 				/>
 			</div>
 			{
-				props.isAnswerElement && (
+				isAnswerElement && (
 					<div className="quiz-answer-correct-container">
 						<span className="quiz-answer-correct-title">This answer is correct:</span>
 						<div 
-							className={`quiz-answer-correct-pick ${props.isCorrect ? 'quiz-answer-correct-picked' : ''}`}
-							onClick={() => props.onChangeIsCorrect(true, props.id1.split('-')[2])}
+							className={`quiz-answer-correct-pick ${isCorrect ? 'quiz-answer-correct-picked' : ''}`}
+							onClick={() => onChangeIsCorrect(true, id1.split('-')[2])}
 						>
 							Yes
 						</div>
 						<div 
-							className={`quiz-answer-correct-pick ${!props.isCorrect ? 'quiz-answer-correct-picked' : ''}`}
-							onClick={() => props.onChangeIsCorrect(false, props.id1.split('-')[2])}
+							className={`quiz-answer-correct-pick ${!isCorrect ? 'quiz-answer-correct-picked' : ''}`}
+							onClick={() => onChangeIsCorrect(false, id1.split('-')[2])}
 						>
 							No
 						</div>

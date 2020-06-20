@@ -117,12 +117,12 @@ const QuizForm = () => {
 
 		quizToEdit ? 
 		editQuiz( quizToEdit._id ,formToSend, token) : 
-		createQuiz(formToSend, token)
+		createQuiz(formToSend, token);
 	}
 
 	if(!currentCourse) {
 		history.push('/');
-		return null
+		return null;
 	}
 
 	return (
