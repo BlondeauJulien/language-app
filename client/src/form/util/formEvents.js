@@ -1,5 +1,5 @@
 import validate from '../../shared/util/inputValidation';
-import { defaultInputEl } from '../util/formInitialStates'
+import { createDefaultInputEl } from '../util/formInitialStates'
 
 export const changeDualInput = (e, form) => {
   const id = e.target.id.split('-')[0];
@@ -58,7 +58,7 @@ export const deleteDualInputEl = (element, form) => {
 
 export const addAnswer = form => {
   const id = 'answers';
-  const value = {answer: { ...defaultInputEl}, translation: {...defaultInputEl}, isCorrect: false};
+  const value = {answer: createDefaultInputEl(), translation: createDefaultInputEl(), isCorrect: false};
   return {
     ...form, 
     [id]: [...form[id], value]
@@ -67,7 +67,7 @@ export const addAnswer = form => {
 
 export const addPhrase = form => {
   const id = 'phrases';
-  const value = {origin: { ...defaultInputEl}, translation: {...defaultInputEl}};
+  const value = {origin: createDefaultInputEl(), translation: createDefaultInputEl()};
   return {
     ...form, 
     [id]: [...form[id], value]
@@ -76,7 +76,7 @@ export const addPhrase = form => {
 
 export const addTranslation = form => {
   const id = 'translation';
-  return {...form, [id]: [...form[id], defaultInputEl]};
+  return {...form, [id]: [...form[id], createDefaultInputEl()]};
 }
 
 export const changeInputForMulti = (e, form) => {
