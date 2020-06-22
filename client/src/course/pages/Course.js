@@ -72,7 +72,7 @@ const Course = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ contentToDisplay, currentCourse ]);
 
-  const onCLickCreateContent = () => {
+  const onClickCreateContent = () => {
     if(contentToDisplay === 'word') {
       history.push('/form/vocabulary');
     } else {
@@ -109,7 +109,7 @@ const Course = () => {
                   
                   <UserContentActionsButtons 
                     textToDisplayOnCreateBtn={contentToDisplay}
-                    onCLickCreateContent={onCLickCreateContent}
+                    onClickCreateContent={onClickCreateContent}
                     onClickEdit={onClickEdit}
                     onClickDelete={onClickDelete}
                   />                  

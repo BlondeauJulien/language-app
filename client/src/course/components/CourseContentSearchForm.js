@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import './CourseContentSearchForm.css';
 import Button from '../../shared/components/FormElements/Button';
 import QuizSearch from './QuizSearch';
 import VocabularySearch from './VocabularySearch';
 import CourseContext from '../../context/course/courseContext';
+
+import './CourseContentSearchForm.css';
 
 const CourseContentSearchForm = props => {
   const courseContext = useContext(CourseContext);

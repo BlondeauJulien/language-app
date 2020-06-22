@@ -3,12 +3,12 @@ import React from 'react';
 import Button from './Button';
 
 const UserContentActionsButtons = props => {
-  const {textToDisplayOnCreateBtn, onCLickCreateContent, onClickEdit, onClickDelete} = props;
+  const {textToDisplayOnCreateBtn, onClickCreateContent, onClickEdit, onClickDelete} = props;
 	return (
 		<div className="user-course-actions-btn">
       {
         textToDisplayOnCreateBtn && (
-          <Button design={'green'} size={'button-mid'} onClick={onCLickCreateContent}>
+          <Button design={'green'} size={'button-mid'} onClick={onClickCreateContent}>
             <i className="fas fa-plus" /> {textToDisplayOnCreateBtn}
           </Button>
         )

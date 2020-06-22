@@ -184,7 +184,6 @@ const CourseForm = () => {
         )
       }
 
-
       {
         formHasError && (
           <FormErrorMessage 
