@@ -3,11 +3,10 @@ export const filterWordMethod = (word, searchVocabulary) => {
   let translationRegexp = new RegExp(searchVocabulary.translation.trim(), 'i');
   let difficultyLevelRegexp = new RegExp(searchVocabulary.difficultyLevel.trim(), 'i');
   let tagRegexp = new RegExp(searchVocabulary.tags.trim(), 'i');
-  const tagsString = word.tags.join(' ');
   if(
     wordRegexp.test(word.word) &&
     translationRegexp.test(word.translation) &&
-    tagRegexp.test(tagsString) &&
+    tagRegexp.test(word.tags) &&
     difficultyLevelRegexp.test(word.difficultyLevel.toString())
   ) {
     return true;
@@ -18,9 +17,8 @@ export const filterWordMethod = (word, searchVocabulary) => {
 export const filterQuizMethod = (quiz, searchQuiz) => {
   let difficultyLevelRegexp = new RegExp(searchQuiz.difficultyLevel.trim(), 'i');
   let tagRegexp = new RegExp(searchQuiz.tags.trim(), 'i');
-  const tagsString = quiz.tags.join(' ');
   if(
-    tagRegexp.test(tagsString) &&
+    tagRegexp.test(quiz.tags) &&
     difficultyLevelRegexp.test(quiz.difficultyLevel.toString())
   ) {
     return true;
