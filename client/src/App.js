@@ -5,7 +5,7 @@ import MainHeader from './shared/components/Header/MainHeader';
 import Home from './home/pages/Home';
 import Footer from './shared/components/UIElements/Footer';
 import Modal from './shared/components/UIElements/Modal';
-import AuthForm from './Auth/components/AuthForm';
+import AuthForm from './form/auth/AuthForm';
 import UserProfile from './user/pages/UserProfile';
 import Search from './search/pages/Search';
 import Course from './course/pages/Course';
