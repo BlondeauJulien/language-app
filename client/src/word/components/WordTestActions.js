@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import Button from '../../shared/components/FormElements/Button';
+import AlgoInfosBox from './AlgoInfosBox';
 
 import './WordTestActions.css';
-import Button from '../../shared/components/FormElements/Button';
 
 const WordTestActions = props => {
 	const {onClickTestAction } = props;
+	const [ openInfoBox, setOpenInfoBox ] = useState(false);
+
 	return (
 		<div className="word-test-actions">
 			<div className="word-test-actions-title">
 				<h3>How well do you know this word?</h3>
+				{
+					!openInfoBox && (
+						<Button 
+							type="button" 
+							design="plain-text" 
+							size="button-mid"
+							onClick={() => setOpenInfoBox(true)}
+						>
+							how does it work?
+						</Button>
+					)
+				}
 			</div>
+			{
+				openInfoBox && <AlgoInfosBox setOpenInfoBox={setOpenInfoBox}/>
+			}
 			<div className="word-test-actions-buttons">
 				<div className="button-word-test-1">
 					<Button type="button" onClick={() => onClickTestAction('well')}>well</Button>

@@ -175,7 +175,11 @@ const Word = () => {
                 </div>
               )
             }
-            <BackNextContainer onClickNext={onClickNextWord} onClickPrevious={onClickPreviousWord}>
+            <BackNextContainer 
+              onClickNext={onClickNextWord} 
+              onClickPrevious={onClickPreviousWord}
+              childElementName={"word"}
+            >
               <div className="word-main">
                 <WordHeader 
                   word={currentVocabulary.word} 

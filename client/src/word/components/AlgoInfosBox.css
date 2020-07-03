@@ -1,0 +1,13 @@
+.algo-infos-cont {
+  display: block;
+  width: 600px;
+  margin: auto;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(246, 246, 246);
+}
+
+.algo-infos--text {
+  margin-bottom: 12px;
+}

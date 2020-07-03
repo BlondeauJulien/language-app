@@ -142,7 +142,11 @@ const Quiz = () => {
                 </div>
               )
             }
-            <BackNextContainer onClickNext={onClickNextQuiz} onClickPrevious={onClickPrevousQuiz}>
+            <BackNextContainer 
+              onClickNext={onClickNextQuiz} 
+              onClickPrevious={onClickPrevousQuiz}
+              childElementName={"quiz"}
+            >
               <div className="quiz-main">
                 <QuizHeader isUserWord={user && currentCourse.creator._id === user.id}/>
                 <QuizImage 
