@@ -1,10 +1,14 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
 import './QuizImage.css';
 import Button from '../../shared/components/FormElements/Button';
 
 const QuizImage = props => {
   const [userWantToSeeImage, setUserWantToSeeImage ] = useState(false);
+
+  useEffect(() => {
+    setUserWantToSeeImage(false);
+  }, [ props.quiz.image])
 
   return (
     <div className="quiz-image-container">
