@@ -1,0 +1,27 @@
+.about-section,
+.contact-section {
+  text-align: center;
+}
+
+.about__text {
+  line-height: 20px;
+}
+
+.contact-section__links a {
+  font-size: 18px;
+  margin-bottom: 1rem;
+}
+
+.contact-section__links a:hover {
+  color: var(--brand-color)
+}
+
+.contact-section__links {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-warning {
+  text-decoration: underline;
+  color: rgb(255, 102, 0);
+}

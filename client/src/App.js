@@ -12,6 +12,7 @@ import Course from './course/pages/Course';
 import Word from './word/pages/Word';
 import Quiz from './quiz/pages/Quiz';
 import MainForm from './form/pages/MainForm';
+import Info from './infos/pages/Info';
 
 import AuthState from './context/auth/AuthState';
 import CourseState from './context/course/CourseState';
@@ -50,6 +51,7 @@ export const Routes = ({authForm, setAuthForm}) => {
 			<Route exact path="/course" component={Course} />
 			<Route exact path="/word" component={Word} />
 			<Route exact path="/quiz" component={Quiz} />
+			<Route exact path="/info" component={Info} />
 			<Route exact path={`/form/:formType`} component={MainForm} />
 		</Fragment>
 	)

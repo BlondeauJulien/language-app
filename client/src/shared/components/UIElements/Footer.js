@@ -11,7 +11,7 @@ const Footer = () => {
     <footer>
       {
         buttonsText.map((txt, i) => (
-          <Button key={`footer-btn-${i}`} to="dummy" design={"plain-text"}>{txt}</Button>
+          <Button key={`footer-btn-${i}`} to="info" design={"plain-text"}>{txt}</Button>
         ))
       }
     </footer>
