@@ -113,7 +113,7 @@ Properties marked with * are required
 
 ### UPDATE USER -private
 
-> /api/users/:id   --- method PATCH
+> /api/users/:id   --- method PATCH <br/>
 > Headers - Authorization: Bearer {userToken}
 
 ##### RECEIVE IN REQUEST
