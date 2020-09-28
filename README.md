@@ -4,7 +4,7 @@ A full stack application to create your own vocabulary flashcard lists & quizzes
 
 :point_right: **<a href="http://learnyourway.herokuapp.com/">SEE THE LIVE DEMO HERE</a>** (could take a few seconds to load as heroku free tier put the server to sleep after 30 minutes of inactivity) <br />
   
-<img src="/images/learnlanguagevideo.gif">
+<img src="/imgReadMe/learnlanguagevideo.gif">
 
 **Stack:** 
 * Front End with: HTML, CSS, Javascript ES6, React.
