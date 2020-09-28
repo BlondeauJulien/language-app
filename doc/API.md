@@ -17,7 +17,7 @@
 ```
 Properties marked with * are required
 
-##### SEND IN RESPONSE
+##### RESPONSE
 
 *  On success (STATUS 201)
 ```javascript
@@ -66,7 +66,7 @@ Properties marked with * are required
 ```
 Properties marked with * are required
 
-##### SEND IN RESPONSE
+##### RESPONSE
 
 *  On success
 ```javascript
@@ -114,7 +114,7 @@ Properties marked with * are required
 ### UPDATE USER -private
 
 > /api/users/:id   --- method PATCH <br/>
-> Headers - Authorization: Bearer {userToken}
+> Headers - Authorization: "Bearer {userToken}"
 
 ##### RECEIVE IN REQUEST
 
@@ -127,7 +127,7 @@ Properties marked with * are required
 ```
 Properties marked with * are required
 
-##### SEND IN RESPONSE
+##### RESPONSE
 
 *  On success (STATUS 200)
 ```javascript
@@ -165,6 +165,58 @@ Properties marked with * are required
 > Server error (STATUS 500)
 ```javascript
 {
-  message: 'Login failed, please try again.',
+  message: 'Update failed, please try again.',
+}
+```
+
+
+### DELETE USER -private
+
+> /api/users/:id   --- method DELETE <br/>
+> Headers - Authorization: "Bearer {userToken}"
+
+##### RECEIVE IN REQUEST
+
+```javascript
+{
+ // user id will come from the token
+}
+```
+
+##### RESPONSE
+
+*  On success (STATUS 200)
+```javascript
+{
+  userId: "Your account has been deleted successfully."
+}
+```
+*  On error
+
+> User to delete does not exist (STATUS 404)
+```javascript
+{
+  message: 'We did not find you, please try again.',
+}
+```
+
+> User requesting doesn't match user to delete (STATUS 401)
+```javascript
+{
+  message: "You are not authorized to realize this action.",
+}
+```
+
+> Wrong password (STATUS 401)
+```javascript
+{
+  message: "Wrong password passed. We didn't delete your account.",
+}
+```
+
+> Server error (STATUS 500)
+```javascript
+{
+  message: 'An error occured, please try again',
 }
 ```
