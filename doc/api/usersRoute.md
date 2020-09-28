@@ -1,5 +1,3 @@
-# API DOCUMENTATION
-
 ## USERS ROUTES
 
 ### SIGNUP -public
