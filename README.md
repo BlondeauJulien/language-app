@@ -1,4 +1,4 @@
-#Learn language app
+# Learn language app
 
 A full stack application to create your own vocabulary flashcard lists & quizzes or learn from the other users ones. This include a small algorithm that display words you don't remember more often.
 
