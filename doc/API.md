@@ -111,9 +111,10 @@ Properties marked with * are required
 ```
 
 
-### UPDATE -private
+### UPDATE USER -private
 
 > /api/users/:id   --- method PATCH
+> Headers - Authorization: Bearer {userToken}
 
 ##### RECEIVE IN REQUEST
 
