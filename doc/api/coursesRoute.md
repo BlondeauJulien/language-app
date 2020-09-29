@@ -1,6 +1,12 @@
 ## COURSES ROUTES
 
 - [Get courses](#get-courses--public "Goto get courses")
+- [Create course](#create-course--private "Goto create course")
+- [Edit course](#edit-course--private "Goto edit courses")
+- [delete course](#delete-course--private "Goto delete course")
+- [Get vocabulary of a course](#get-vocabulary-of-a-course--public "Goto get vocabulary's course")
+- [Get quizzes of a course](#get-quizzes-of-a-course--public "Goto get quizzes's course") 
+<br/><br/>
 
 ### GET COURSES -public
 
