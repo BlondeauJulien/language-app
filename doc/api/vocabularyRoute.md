@@ -1,5 +1,11 @@
 ## VOCABULARY ROUTES
 
+- [Create word](#create-word--private "Goto create word")
+- [Edit word](#edit-word--private "Goto edit word")
+- [delete word](#delete-word--private "Goto delete word")
+ 
+<br/><br/>
+
 ### CREATE WORD -private
 
 > /api/vocabulary   --- method POST </br>
