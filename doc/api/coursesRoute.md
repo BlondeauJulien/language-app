@@ -28,7 +28,7 @@ If no queries are passed you will get all the courses else you will get back fil
 
 ### CREATE COURSE -private
 
-> /api/courses   --- method POST
+> /api/courses   --- method POST </br>
 > Headers - Authorization: "Bearer {userToken}"
 
 ##### RECEIVE IN REQUEST
@@ -84,7 +84,7 @@ Properties marked with * are required
 
 ### EDIT COURSE -private
 
-> /api/courses/:id   --- method PATCH
+> /api/courses/:id   --- method PATCH </br>
 > Headers - Authorization: "Bearer {userToken}"
 
 ##### RECEIVE IN REQUEST
