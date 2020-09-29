@@ -13,7 +13,7 @@ If no queries are passed you will get all the courses else you will get back fil
 ##### RESPONSE
 
 *  On success (STATUS 200) <br />
- Array of course objects not including their vocubulary and quizzes. <br />
+ Array of course object not including their vocubulary and quizzes. <br />
  
  [See course model here](../../models/course.js)
 
