@@ -56,7 +56,7 @@ Properties marked with * are required
 }
 ```
 
-> requestor is not a user (STATUS 404)
+> requestordoesn't exist (STATUS 404)
 ```javascript
 {
   message: "We did not find a user matching requestor",
