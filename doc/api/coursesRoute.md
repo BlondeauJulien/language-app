@@ -1,52 +1,23 @@
 ## COURSES ROUTES
 
-### CREATE COURSE -private
+### GET COURSES -public
 
-> /api/courses   --- method GET
-> Headers - Authorization: "Bearer {userToken}"
+> /api/courses   --- method GET <br/>
 
 ##### RECEIVE IN REQUEST
 
-```javascript
-{
-  *name: STRING, //length min: 4, max 40
-  *language: STRING, //length min: 2, max 24
-  *learningFrom: STRING, //length min: 2, max 24
-  *countryFlag: STRING //length min: 4, max: 2
-}
-```
-Properties marked with * are required
+> receive via query string: ?{**name**=STRING}&{**language**=STRING}&{**learningFrom**=STRING}&{**username**=STRING} <br/>
+
+If no queries are passed you will get all the courses else you will get back filtered courses from the queries.
 
 ##### RESPONSE
 
-*  On success (STATUS 201)
-```javascript
-    creator: {
-      _id: STRING,
-      username: STRING
-    },
-    _id: STRING,
-    name: STRING,
-    language: STRING,
-    learningFrom: STRING,
-    countryFlag: STRING,
-  }
-```
+*  On success (STATUS 200) <br />
+ Array of course objects not including their vocubulary and quizzes. <br />
+ 
+ [See course model here](../../models/course.js)
+
 *  On error
-
-> received invalid content (STATUS 422)
-```javascript
-{
-  message: custom error message,
-}
-```
-
-> requestor is not a user (STATUS 404)
-```javascript
-{
-  message: "We did not find a user matching requestor",
-}
-```
 
 > Server error (STATUS 500)
 ```javascript
@@ -54,7 +25,6 @@ Properties marked with * are required
   message: 'An error occured, please try again.',
 }
 ```
-
 
 ### CREATE COURSE -private
 
