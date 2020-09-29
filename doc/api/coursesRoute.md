@@ -1,5 +1,7 @@
 ## COURSES ROUTES
 
+- [Get courses](#get-courses--public "Goto get courses")
+
 ### GET COURSES -public
 
 > /api/courses   --- method GET <br/>
