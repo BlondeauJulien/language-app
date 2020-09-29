@@ -28,6 +28,7 @@ Properties marked with * are required
 
 *  On success (STATUS 201)
 ```javascript
+{
     _id: STRING,
     word: STRING,
     translation: ARRAY of STRINGS,
@@ -134,14 +135,14 @@ Properties marked with * are required
 }
 ```
 
-> course doesn't exist (STATUS 404)
+> word doesn't exist (STATUS 404)
 ```javascript
 {
   message: "The word you tried to update was not found.",
 }
 ```
 
-> requiestor doesn't own the course that include this word (STATUS 401)
+> requestor doesn't own the course that include this word (STATUS 401)
 ```javascript
 {
   message: "You are not authorized to realise this action.",
@@ -196,7 +197,7 @@ vocabulary id and requestor id via Authorization token
 }
 ```
 
-> requiestor doesn't own the course that include this word  (STATUS 401)
+> requestor doesn't own the course that include this word  (STATUS 401)
 ```javascript
 {
   message: "You are not authorized to realise this action.",
