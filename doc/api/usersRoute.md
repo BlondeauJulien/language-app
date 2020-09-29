@@ -1,5 +1,11 @@
 ## USERS ROUTES
 
+- [Signup](#signup--public "Goto signup")
+- [login](#login--private "Goto login")
+- [Edit user](#update-user--private "Goto edit user")
+- [delete user](#delete-user--private "Goto delete user")
+<br/><br/>
+
 ### SIGNUP -public
 
 > /api/users/signup   --- method POST
