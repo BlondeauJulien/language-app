@@ -199,3 +199,70 @@ course id and requestor id via Authorization token
   message: 'Update failed, please try again.',
 }
 ```
+
+
+### GET VOCABULARY OF A COURSE -public
+
+> /api/courses/:id/vocabulary   --- method GET <br/>
+
+##### RECEIVE IN REQUEST
+
+> receive via query string: ?{**word**=STRING}&{**translation**=STRING}&{**difficultyLevel**=STRING}&{**tags**=STRING} <br/>
+
+If no queries are passed you will get all the words from the course else you will get back filtered words from the queries.
+
+##### RESPONSE
+
+*  On success (STATUS 200) <br />
+ A course object including its array of words but not including their quizzes. <br />
+ 
+ [See course model here](../../models/course.js)
+
+*  On error
+
+> course doesn't exist (STATUS 404)
+```javascript
+{
+  message: "We did not find a course matching your request.",
+}
+```
+
+> Server error (STATUS 500)
+```javascript
+{
+  message: 'An error occured, please try again.',
+}
+```
+
+### GET QUIZZES OF A COURSE -public
+
+> /api/courses/:id/quizzes   --- method GET <br/>
+
+##### RECEIVE IN REQUEST
+
+> receive via query string: ?{**difficultyLevel**=STRING}&{**tags**=STRING} <br/>
+
+If no queries are passed you will get all the quizzes from the course else you will get back filtered quizzes from the queries.
+
+##### RESPONSE
+
+*  On success (STATUS 200) <br />
+ A course object including its array of quizzes but not including the vocabulary. <br />
+ 
+ [See course model here](../../models/course.js)
+
+*  On error
+
+> course doesn't exist (STATUS 404)
+```javascript
+{
+  message: "We did not find a course matching your request.",
+}
+```
+
+> Server error (STATUS 500)
+```javascript
+{
+  message: 'An error occured, please try again.',
+}
+```
