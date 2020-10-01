@@ -2,7 +2,7 @@
 
 A full stack application to create your own vocabulary flashcard lists & quizzes or learn from the other users ones. This include a small algorithm that display words you don't remember more often.
 
-### [:page_with_curl: CHECK THE DOCUMENTATION](./doc/doc.md) <br/>
+### [:page_with_curl: CHECK OUT THE DOCUMENTATION](./doc/doc.md) <br/>
 
 :point_right: **<a href="http://learnyourway.herokuapp.com/">SEE THE LIVE DEMO HERE</a>** (could take a few seconds to load as heroku free tier put the server to sleep after 30 minutes of inactivity) <br />
   
